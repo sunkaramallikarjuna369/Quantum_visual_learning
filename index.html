@@ -839,6 +839,142 @@
             .nav-links { display: none; }
             .step { flex-direction: column; }
         }
+
+        /* Tooltips */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: rgba(0, 0, 0, 0.95);
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            padding: 10px;
+            position: absolute;
+            z-index: 100;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.85rem;
+            border: 1px solid var(--quantum-blue);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .tooltip .tooltiptext::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -8px;
+            border-width: 8px;
+            border-style: solid;
+            border-color: var(--quantum-blue) transparent transparent transparent;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .tooltip-bottom .tooltiptext {
+            bottom: auto;
+            top: 120%;
+        }
+
+        .tooltip-bottom .tooltiptext::after {
+            top: auto;
+            bottom: 100%;
+            border-color: transparent transparent var(--quantum-blue) transparent;
+        }
+
+        /* How to Use Guide */
+        .how-to-guide {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(168, 85, 247, 0.1));
+            border: 2px solid var(--quantum-blue);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .how-to-guide h3 {
+            font-family: 'Orbitron', monospace;
+            color: var(--quantum-blue);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .guide-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+
+        .guide-step-number {
+            width: 30px;
+            height: 30px;
+            background: var(--quantum-purple);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', monospace;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .guide-step-content h4 {
+            color: var(--quantum-purple);
+            margin-bottom: 0.3rem;
+        }
+
+        .guide-step-content p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        .guide-step-content code {
+            background: rgba(0, 212, 255, 0.2);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Orbitron', monospace;
+            color: var(--quantum-blue);
+        }
+
+        /* Keyboard shortcuts */
+        .shortcuts {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .shortcut {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.3rem 0.6rem;
+            border-radius: 5px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            font-family: 'Orbitron', monospace;
+            font-size: 0.75rem;
+        }
+
+        .shortcut kbd {
+            background: var(--quantum-purple);
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-right: 4px;
+        }
     </style>
 </head>
 <body>
@@ -869,13 +1005,70 @@
             </div>
         </section>
 
+        <!-- How to Use Guide -->
+        <section id="how-to-use">
+            <div class="how-to-guide">
+                <h3>🚀 How to Use This Simulator</h3>
+
+                <div class="guide-step">
+                    <div class="guide-step-number">1</div>
+                    <div class="guide-step-content">
+                        <h4>Build Your Circuit</h4>
+                        <p>Click on gate buttons in the <code>Gate Palette</code> to add gates to the circuit wire. Gates are added to the first available position on qubit 0, then qubit 1, etc.</p>
+                    </div>
+                </div>
+
+                <div class="guide-step">
+                    <div class="guide-step-number">2</div>
+                    <div class="guide-step-content">
+                        <h4>Remove Gates</h4>
+                        <p>Click on any gate placed on the circuit wire to remove it. The circuit updates automatically.</p>
+                    </div>
+                </div>
+
+                <div class="guide-step">
+                    <div class="guide-step-number">3</div>
+                    <div class="guide-step-content">
+                        <h4>Run Simulation</h4>
+                        <p>Click the <code>▶ Run</code> button to simulate your circuit. The Bloch Sphere and probability bars update to show the quantum state.</p>
+                    </div>
+                </div>
+
+                <div class="guide-step">
+                    <div class="guide-step-number">4</div>
+                    <div class="guide-step-content">
+                        <h4>Adjust Qubits</h4>
+                        <p>Use the <code>Qubits</code> dropdown to select 1-4 qubits. Use <code>Shots</code> to set how many times to run the simulation for measurement statistics.</p>
+                    </div>
+                </div>
+
+                <div class="guide-step">
+                    <div class="guide-step-number">5</div>
+                    <div class="guide-step-content">
+                        <h4>Try Examples</h4>
+                        <p>Click the example buttons (Bell State, GHZ, Superposition, Deutsch) to load pre-built circuits and see quantum phenomena in action!</p>
+                    </div>
+                </div>
+
+                <div class="shortcuts">
+                    <div class="shortcut"><kbd>Click</kbd> Gate to add</div>
+                    <div class="shortcut"><kbd>Click</kbd> On-wire gate to remove</div>
+                    <div class="shortcut"><kbd>Scroll</kbd> on Bloch sphere to rotate</div>
+                    <div class="shortcut"><kbd>Sliders</kbd> θ & φ to control state</div>
+                </div>
+            </div>
+        </section>
+
         <!-- Core Concepts -->
         <section id="concepts">
             <h2 class="section-title">Core Quantum Concepts</h2>
 
             <div class="concepts-grid">
                 <div class="concept-card">
-                    <h3>⚛️ Superposition</h3>
+                    <div class="tooltip" style="display: block;">
+                        <h3>⚛️ Superposition</h3>
+                        <span class="tooltiptext">A qubit can be in multiple states at once!<br>The particle shown is in BOTH |0⟩ AND |1⟩<br>Only collapses when measured.</span>
+                    </div>
                     <p>A qubit can exist in both |0⟩ and |1⟩ states simultaneously until measured. This is the fundamental quantum property that enables quantum parallelism.</p>
                     <div class="superposition-demo" id="superposition-demo">
                         <div class="particle-state ground" id="particle"></div>
@@ -884,11 +1077,17 @@
                             <span>|1⟩</span>
                         </div>
                     </div>
-                    <button class="btn btn-secondary" onclick="toggleSuperposition()" style="width: 100%;">Toggle Superposition</button>
+                    <div class="tooltip" style="width: 100%;">
+                        <button class="btn btn-secondary" onclick="toggleSuperposition()" style="width: 100%;">Toggle Superposition</button>
+                        <span class="tooltiptext">Watch the particle enter superposition!<br>Click again to measure - it randomly<br>collapses to |0⟩ or |1⟩</span>
+                    </div>
                 </div>
 
                 <div class="concept-card">
-                    <h3>🔗 Entanglement</h3>
+                    <div class="tooltip" style="display: block;">
+                        <h3>🔗 Entanglement</h3>
+                        <span class="tooltiptext">Two qubits become connected!<br>Measuring one instantly determines<br>the other, no matter the distance!</span>
+                    </div>
                     <p>When qubits become entangled, measuring one instantly affects the other, regardless of distance. Einstein called it "spooky action at a distance".</p>
                     <div class="entanglement-demo">
                         <div class="entanglement-line"></div>
@@ -896,15 +1095,24 @@
                         <div class="correlation" id="correlation">↔</div>
                         <div class="qubit-visual qubit-b" id="qubit-b">0</div>
                     </div>
-                    <button class="btn btn-secondary" onclick="createEntanglement()" style="width: 100%;">Create Entanglement</button>
+                    <div class="tooltip" style="width: 100%;">
+                        <button class="btn btn-secondary" onclick="createEntanglement()" style="width: 100%;">Create Entanglement</button>
+                        <span class="tooltiptext">Click to entangle the two qubits!<br>Both show "?" then collapse together<br>in perfect correlation!</span>
+                    </div>
                 </div>
 
                 <div class="concept-card">
-                    <h3>📐 Measurement</h3>
+                    <div class="tooltip" style="display: block;">
+                        <h3>📐 Measurement</h3>
+                        <span class="tooltiptext">Quantum measurement collapses the state!<br>You always get |0⟩ or |1⟩<br>Probabilities come from amplitudes</span>
+                    </div>
                     <p>Measuring a qubit collapses its superposition. You get either 0 or 1, with probabilities determined by the quantum state's amplitudes.</p>
                     <div class="demo-box" style="text-align: center;">
                         <p>Click to measure:</p>
-                        <button class="btn btn-secondary" onclick="simulateMeasurement()" style="margin: 0.5rem 0;">Measure</button>
+                        <div class="tooltip" style="display: inline-block;">
+                            <button class="btn btn-secondary" onclick="simulateMeasurement()" style="margin: 0.5rem 0;">Measure</button>
+                            <span class="tooltiptext">Each click is one measurement!<br>Watch the random outcomes.<br>Over time, ~50% each!</span>
+                        </div>
                         <div class="measurement-demo" id="measurement-demo"></div>
                         <button class="btn btn-secondary" onclick="resetMeasurement()" style="margin-top: 0.5rem; font-size: 0.8rem;">Reset</button>
                     </div>
@@ -932,34 +1140,56 @@
 
             <div class="simulator-container">
                 <div class="circuit-controls">
-                    <label>Qubits:
-                        <select id="qubit-count" onchange="updateCircuit()">
-                            <option value="1">1</option>
-                            <option value="2" selected>2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                        </select>
-                    </label>
-                    <label>Shots: <input type="number" id="shots-count" value="1000" min="100" max="10000"></label>
-                    <button onclick="runCircuit()">▶ Run</button>
-                    <button onclick="clearCircuit()">Clear</button>
+                    <div class="tooltip">
+                        <label>Qubits:
+                            <select id="qubit-count" onchange="updateCircuit()">
+                                <option value="1">1</option>
+                                <option value="2" selected>2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </label>
+                        <span class="tooltiptext">Select number of qubits<br>More qubits = more complex states<br>2ⁿ possible states!</span>
+                    </div>
+                    <div class="tooltip">
+                        <label>Shots: <input type="number" id="shots-count" value="1000" min="100" max="10000"></label>
+                        <span class="tooltiptext">Number of simulation runs<br>More shots = more accurate probabilities<br>Max: 10,000</span>
+                    </div>
+                    <div class="tooltip">
+                        <button onclick="runCircuit()">▶ Run</button>
+                        <span class="tooltiptext">Execute the quantum circuit!<br>Updates Bloch sphere and probabilities</span>
+                    </div>
+                    <div class="tooltip">
+                        <button onclick="clearCircuit()">Clear</button>
+                        <span class="tooltiptext">Reset circuit to empty state<br>Removes all gates</span>
+                    </div>
                 </div>
 
                 <div class="circuit-workspace">
                     <div class="gate-palette">
                         <h4>Single Qubit</h4>
-                        <button class="gate-btn" onclick="addGate('H')"><span class="gate-symbol">H</span>Hadamard</button>
-                        <button class="gate-btn" onclick="addGate('X')"><span class="gate-symbol">X</span>Pauli-X</button>
-                        <button class="gate-btn" onclick="addGate('Y')"><span class="gate-symbol">Y</span>Pauli-Y</button>
-                        <button class="gate-btn" onclick="addGate('Z')"><span class="gate-symbol">Z</span>Pauli-Z</button>
-                        <button class="gate-btn" onclick="addGate('S')"><span class="gate-symbol">S</span>Phase</button>
-                        <button class="gate-btn" onclick="addGate('T')"><span class="gate-symbol">T</span>T Gate</button>
+                        <div class="tooltip"><button class="gate-btn" onclick="addGate('H')"><span class="gate-symbol">H</span>Hadamard</button>
+                            <span class="tooltiptext">Creates superposition!<br>H|0⟩ = (|0⟩+|1⟩)/√2<br>Click to add to circuit</span></div>
+                        <div class="tooltip"><button class="gate-btn" onclick="addGate('X')"><span class="gate-symbol">X</span>Pauli-X</button>
+                            <span class="tooltiptext">Quantum NOT gate<br>Flips |0⟩ ↔ |1⟩<br>X|0⟩ = |1⟩</span></div>
+                        <div class="tooltip"><button class="gate-btn" onclick="addGate('Y')"><span class="gate-symbol">Y</span>Pauli-Y</button>
+                            <span class="tooltiptext">180° rotation<br>around Y-axis<br>on Bloch sphere</span></div>
+                        <div class="tooltip"><button class="gate-btn" onclick="addGate('Z')"><span class="gate-symbol">Z</span>Pauli-Z</button>
+                            <span class="tooltiptext">Phase flip gate<br>Adds π phase to |1⟩<br>Z|1⟩ = -|1⟩</span></div>
+                        <div class="tooltip"><button class="gate-btn" onclick="addGate('S')"><span class="gate-symbol">S</span>Phase</button>
+                            <span class="tooltiptext">90° phase shift<br>S|1⟩ = i|1⟩<br>S = √Z</span></div>
+                        <div class="tooltip"><button class="gate-btn" onclick="addGate('T')"><span class="gate-symbol">T</span>T Gate</button>
+                            <span class="tooltiptext">45° (π/8) phase<br>T|1⟩ = e^(iπ/4)|1⟩<br>Used in fault-tolerant QC</span></div>
                         <h4>Multi-Qubit</h4>
-                        <button class="gate-btn" onclick="addGate('CNOT')"><span class="gate-symbol">⊕</span>CNOT</button>
-                        <button class="gate-btn" onclick="addGate('CZ')"><span class="gate-symbol">Z̅</span>CZ</button>
-                        <button class="gate-btn" onclick="addGate('SWAP')"><span class="gate-symbol">⇄</span>SWAP</button>
+                        <div class="tooltip"><button class="gate-btn" onclick="addGate('CNOT')"><span class="gate-symbol">⊕</span>CNOT</button>
+                            <span class="tooltiptext">Controlled-NOT<br>Flips target if control=|1⟩<br>Creates entanglement!</span></div>
+                        <div class="tooltip"><button class="gate-btn" onclick="addGate('CZ')"><span class="gate-symbol">Z̅</span>CZ</button>
+                            <span class="tooltiptext">Controlled-Z<br>Applies Z when both=1<br>Symmetric entanglement</span></div>
+                        <div class="tooltip"><button class="gate-btn" onclick="addGate('SWAP')"><span class="gate-symbol">⇄</span>SWAP</button>
+                            <span class="tooltiptext">Swaps two qubits<br>|ab⟩ → |ba⟩<br>Useful for routing</span></div>
                         <h4>Measure</h4>
-                        <button class="gate-btn" onclick="addGate('M')"><span class="gate-symbol">M</span>Measure</button>
+                        <div class="tooltip"><button class="gate-btn" onclick="addGate('M')"><span class="gate-symbol">M</span>Measure</button>
+                            <span class="tooltiptext">Measure qubit<br>Collapses state to |0⟩ or |1⟩<br>Probability = |amplitude|²</span></div>
                     </div>
 
                     <div class="circuit-area">
@@ -969,7 +1199,10 @@
 
                 <div class="visualization-panel">
                     <div class="viz-container">
-                        <h4>Bloch Sphere</h4>
+                        <div class="tooltip" style="display: block; width: 100%;">
+                            <h4>Bloch Sphere</h4>
+                            <span class="tooltiptext">3D representation of qubit state!<br>Arrow shows quantum state direction<br>|0⟩ = north pole, |1⟩ = south pole</span>
+                        </div>
                         <div id="bloch-sphere"></div>
                         <div class="bloch-controls">
                             <div class="bloch-control">
@@ -998,10 +1231,14 @@
                 </div>
 
                 <div class="examples-bar">
-                    <button class="btn btn-secondary" onclick="loadExample('bell')">Bell State</button>
-                    <button class="btn btn-secondary" onclick="loadExample('ghz')">GHZ State</button>
-                    <button class="btn btn-secondary" onclick="loadExample('superposition')">Superposition</button>
-                    <button class="btn btn-secondary" onclick="loadExample(' deutsch')">Deutsch</button>
+                    <div class="tooltip"><button class="btn btn-secondary" onclick="loadExample('bell')">Bell State</button>
+                        <span class="tooltiptext">Creates maximally entangled pair<br>|Φ+⟩ = (|00⟩ + |11⟩)/√2<br>Try measuring!</span></div>
+                    <div class="tooltip"><button class="btn btn-secondary" onclick="loadExample('ghz')">GHZ State</button>
+                        <span class="tooltiptext">3-qubit entanglement<br>|GHZ⟩ = (|000⟩ + |111⟩)/√2<br>All-or-nothing correlation</span></div>
+                    <div class="tooltip"><button class="btn btn-secondary" onclick="loadExample('superposition')">Superposition</button>
+                        <span class="tooltiptext">Hadamard on |0⟩<br>Creates equal superposition<br>50% chance |0⟩ or |1⟩</span></div>
+                    <div class="tooltip"><button class="btn btn-secondary" onclick="loadExample(' deutsch')">Deutsch</button>
+                        <span class="tooltiptext">Deutsch-Jozsa algorithm<br>Detects balanced vs constant<br>in ONE query!</span></div>
                 </div>
             </div>
         </section>
@@ -1012,10 +1249,14 @@
 
             <div class="simulator-container">
                 <div class="algo-tabs">
-                    <button class="algo-tab active" onclick="showAlgorithm('deutsch-jozsa', this)">Deutsch-Jozsa</button>
-                    <button class="algo-tab" onclick="showAlgorithm('grover', this)">Grover's</button>
-                    <button class="algo-tab" onclick="showAlgorithm('qft', this)">QFT</button>
-                    <button class="algo-tab" onclick="showAlgorithm('phase', this)">Phase Est.</button>
+                    <div class="tooltip"><button class="algo-tab active" onclick="showAlgorithm('deutsch-jozsa', this)">Deutsch-Jozsa</button>
+                        <span class="tooltiptext">First quantum algorithm!<br>Solves problem in 1 query vs 2ⁿ classically</span></div>
+                    <div class="tooltip"><button class="algo-tab" onclick="showAlgorithm('grover', this)">Grover's</button>
+                        <span class="tooltiptext">Quantum search<br>Finds items in O(√N) instead of O(N)</span></div>
+                    <div class="tooltip"><button class="algo-tab" onclick="showAlgorithm('qft', this)">QFT</button>
+                        <span class="tooltiptext">Quantum Fourier Transform<br>Key to Shor's factoring algorithm</span></div>
+                    <div class="tooltip"><button class="algo-tab" onclick="showAlgorithm('phase', this)">Phase Est.</button>
+                        <span class="tooltiptext">Estimates eigenvalues<br>Used in quantum chemistry</span></div>
                 </div>
 
                 <div class="algo-description" id="algo-description">
