@@ -16,15 +16,9 @@
             --quantum-red: #ef4444;
             --dark-bg: #0a0a1a;
             --card-bg: rgba(15, 15, 35, 0.8);
-            --glow-blue: 0 0 20px rgba(0, 212, 255, 0.5);
-            --glow-purple: 0 0 20px rgba(168, 85, 247, 0.5);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Rajdhani', sans-serif;
@@ -34,52 +28,44 @@
             min-height: 100vh;
         }
 
-        /* Animated Background */
         .quantum-bg {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             z-index: -1;
             background:
                 radial-gradient(ellipse at 20% 20%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 80%, rgba(168, 85, 247, 0.1) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(236, 72, 153, 0.05) 0%, transparent 70%);
+                radial-gradient(ellipse at 80% 80%, rgba(168, 85, 247, 0.1) 0%, transparent 50%);
         }
 
         .particles {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             z-index: -1;
             overflow: hidden;
+            pointer-events: none;
         }
 
         .particle {
             position: absolute;
-            width: 4px;
-            height: 4px;
+            width: 4px; height: 4px;
             background: var(--quantum-blue);
             border-radius: 50%;
-            animation: float 15s infinite;
+            animation: float 15s infinite linear;
             opacity: 0.6;
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            0% { transform: translateY(100vh); opacity: 0; }
             10% { opacity: 0.6; }
             90% { opacity: 0.6; }
-            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+            100% { transform: translateY(-100vh); opacity: 0; }
         }
 
-        /* Navigation */
         nav {
             position: fixed;
-            top: 0;
-            left: 0;
+            top: 0; left: 0;
             width: 100%;
             background: rgba(10, 10, 26, 0.95);
             backdrop-filter: blur(20px);
@@ -89,7 +75,7 @@
         }
 
         .nav-content {
-            max-width: 1600px;
+            max-width: 1400px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -103,7 +89,6 @@
             background: linear-gradient(135deg, var(--quantum-blue), var(--quantum-purple));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: var(--glow-blue);
         }
 
         .nav-links {
@@ -116,101 +101,65 @@
             color: #fff;
             text-decoration: none;
             font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
+            transition: all 0.3s;
         }
 
-        .nav-links a:hover {
-            color: var(--quantum-blue);
-            text-shadow: var(--glow-blue);
+        .nav-links a:hover { color: var(--quantum-blue); }
+
+        main { padding-top: 80px; }
+
+        section {
+            padding: 4rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--quantum-blue);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* Main Container */
-        main {
-            padding-top: 80px;
-        }
-
-        /* Hero Section */
         .hero {
-            min-height: 100vh;
+            min-height: 80vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 2rem;
-            position: relative;
         }
 
         .hero h1 {
             font-family: 'Orbitron', monospace;
-            font-size: clamp(2.5rem, 8vw, 6rem);
+            font-size: clamp(2rem, 6vw, 4rem);
             font-weight: 900;
-            margin-bottom: 1rem;
             background: linear-gradient(135deg, var(--quantum-blue), var(--quantum-purple), var(--quantum-pink));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: shimmer 3s ease-in-out infinite;
-            background-size: 200% 200%;
-        }
-
-        @keyframes shimmer {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+            margin-bottom: 1rem;
         }
 
         .hero p {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             color: rgba(255, 255, 255, 0.7);
-            max-width: 800px;
+            max-width: 700px;
             margin-bottom: 2rem;
         }
 
-        .hero-cta {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
         .btn {
-            padding: 1rem 2.5rem;
+            padding: 0.8rem 2rem;
             font-family: 'Orbitron', monospace;
-            font-size: 1rem;
-            font-weight: 700;
+            font-size: 0.9rem;
             border: none;
             border-radius: 50px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
             text-decoration: none;
-            position: relative;
-            overflow: hidden;
         }
 
         .btn-primary {
             background: linear-gradient(135deg, var(--quantum-blue), var(--quantum-purple));
             color: #fff;
-            box-shadow: var(--glow-blue);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
         }
 
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 0 40px rgba(0, 212, 255, 0.6);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.6);
         }
 
         .btn-secondary {
@@ -221,42 +170,13 @@
 
         .btn-secondary:hover {
             background: rgba(0, 212, 255, 0.1);
-            transform: translateY(-3px);
-        }
-
-        /* Floating Qubits Animation */
-        .floating-qubits {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
-
-        .qubit-orb {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            animation: orbit 20s infinite;
-        }
-
-        @keyframes orbit {
-            0% { transform: rotate(0deg) translateX(150px) rotate(0deg); }
-            100% { transform: rotate(360deg) translateX(150px) rotate(-360deg); }
-        }
-
-        /* Sections */
-        section {
-            padding: 6rem 2rem;
-            max-width: 1600px;
-            margin: 0 auto;
         }
 
         .section-title {
             font-family: 'Orbitron', monospace;
-            font-size: 2.5rem;
+            font-size: 2rem;
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
             background: linear-gradient(135deg, var(--quantum-blue), var(--quantum-purple));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -266,137 +186,234 @@
         .concepts-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 4rem;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
         }
 
         .concept-card {
             background: var(--card-bg);
-            border-radius: 20px;
-            padding: 2rem;
+            border-radius: 15px;
+            padding: 1.5rem;
             border: 1px solid rgba(0, 212, 255, 0.2);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .concept-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(168, 85, 247, 0.1));
-            opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: all 0.3s;
         }
 
         .concept-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-5px);
             border-color: var(--quantum-blue);
-            box-shadow: var(--glow-blue);
-        }
-
-        .concept-card:hover::before {
-            opacity: 1;
-        }
-
-        .concept-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            display: block;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
         }
 
         .concept-card h3 {
             font-family: 'Orbitron', monospace;
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
             color: var(--quantum-blue);
+            margin-bottom: 0.8rem;
         }
 
         .concept-card p {
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.8;
-        }
-
-        /* Interactive Circuit Simulator */
-        .simulator-container {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 2rem;
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            margin-bottom: 4rem;
-        }
-
-        .circuit-workspace {
-            display: grid;
-            grid-template-columns: 250px 1fr;
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .gate-palette {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            padding: 1.5rem;
-        }
-
-        .gate-palette h4 {
-            font-family: 'Orbitron', monospace;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
             margin-bottom: 1rem;
-            color: var(--quantum-purple);
         }
 
-        .gate-btn {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            width: 100%;
-            padding: 0.8rem 1rem;
-            margin-bottom: 0.5rem;
-            background: rgba(0, 212, 255, 0.1);
-            border: 1px solid rgba(0, 212, 255, 0.3);
+        /* Interactive Demos */
+        .demo-box {
+            background: rgba(0, 0, 0, 0.3);
             border-radius: 10px;
-            color: #fff;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .superposition-demo {
+            position: relative;
+            height: 80px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .particle-state {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: all 0.8s ease;
             cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Orbitron', monospace;
+        }
+
+        .particle-state.ground {
+            left: 15%;
+            background: var(--quantum-blue);
+            box-shadow: 0 0 20px var(--quantum-blue);
+        }
+
+        .particle-state.excited {
+            right: 15%;
+            background: var(--quantum-red);
+            box-shadow: 0 0 20px var(--quantum-red);
+        }
+
+        .particle-state.superposition {
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, var(--quantum-blue), var(--quantum-red));
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.6);
+            animation: pulse 0.8s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.2); }
+        }
+
+        .state-labels {
+            position: absolute;
+            bottom: 8px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 15%;
+            font-family: 'Times New Roman', serif;
             font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
         }
 
-        .gate-btn:hover {
-            background: rgba(0, 212, 255, 0.2);
-            border-color: var(--quantum-blue);
-            transform: translateX(5px);
+        /* Entanglement Demo */
+        .entanglement-demo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            height: 120px;
+            position: relative;
         }
 
-        .gate-btn .gate-symbol {
-            width: 30px;
-            height: 30px;
+        .qubit-visual {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(0, 212, 255, 0.2);
-            border-radius: 5px;
-            font-weight: bold;
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            transition: all 0.5s;
         }
 
-        .circuit-area {
-            background: rgba(0, 0, 0, 0.3);
+        .qubit-a {
+            background: linear-gradient(135deg, var(--quantum-blue), var(--quantum-purple));
+            box-shadow: 0 0 25px rgba(0, 212, 255, 0.5);
+        }
+
+        .qubit-b {
+            background: linear-gradient(135deg, var(--quantum-purple), var(--quantum-pink));
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.5);
+        }
+
+        .entanglement-line {
+            position: absolute;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--quantum-blue), var(--quantum-purple), var(--quantum-pink));
+            opacity: 0.4;
+        }
+
+        .correlation {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--quantum-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .correlation.show { opacity: 1; }
+
+        /* Measurement Demo */
+        .measurement-demo {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            min-height: 60px;
+        }
+
+        .meas-result {
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            font-family: 'Times New Roman', serif;
+            font-size: 1.2rem;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Gate Boxes */
+        .gate-visual {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+
+        .gate-box {
+            background: rgba(168, 85, 247, 0.2);
+            border: 2px solid var(--quantum-purple);
+            border-radius: 10px;
+            padding: 0.8rem;
+            text-align: center;
+            min-width: 70px;
+        }
+
+        .gate-box .symbol {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--quantum-purple);
+        }
+
+        .gate-box .name {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 0.3rem;
+        }
+
+        /* Circuit Simulator */
+        .simulator-container {
+            background: var(--card-bg);
             border-radius: 15px;
             padding: 1.5rem;
-            min-height: 400px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            margin-bottom: 1.5rem;
         }
 
         .circuit-controls {
             display: flex;
             gap: 1rem;
+            flex-wrap: wrap;
             margin-bottom: 1rem;
+            align-items: center;
         }
 
-        .circuit-controls input,
-        .circuit-controls select {
+        .circuit-controls label {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.8rem;
+        }
+
+        .circuit-controls select,
+        .circuit-controls input {
             padding: 0.5rem 1rem;
             background: rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(0, 212, 255, 0.3);
@@ -406,56 +423,114 @@
         }
 
         .circuit-controls button {
-            padding: 0.5rem 1.5rem;
+            padding: 0.5rem 1.2rem;
             background: linear-gradient(135deg, var(--quantum-blue), var(--quantum-purple));
             border: none;
             border-radius: 8px;
             color: #fff;
             cursor: pointer;
             font-family: 'Orbitron', monospace;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
         }
 
         .circuit-controls button:hover {
             transform: scale(1.05);
-            box-shadow: var(--glow-blue);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
         }
 
-        /* Circuit Grid */
-        .circuit-grid {
+        .circuit-workspace {
             display: grid;
-            gap: 10px;
+            grid-template-columns: 200px 1fr;
+            gap: 1.5rem;
             margin-top: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .circuit-workspace { grid-template-columns: 1fr; }
+        }
+
+        .gate-palette h4 {
+            font-family: 'Orbitron', monospace;
+            color: var(--quantum-purple);
+            margin: 0.8rem 0 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .gate-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            width: 100%;
+            padding: 0.6rem;
+            margin-bottom: 0.3rem;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .gate-btn:hover {
+            background: rgba(0, 212, 255, 0.2);
+            border-color: var(--quantum-blue);
+            transform: translateX(5px);
+        }
+
+        .gate-btn .gate-symbol {
+            width: 28px;
+            height: 28px;
+            background: rgba(0, 212, 255, 0.2);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', monospace;
+            font-weight: bold;
+        }
+
+        .circuit-area {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            min-height: 200px;
+        }
+
+        .circuit-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
         }
 
         .qubit-row {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 0.8rem;
         }
 
         .qubit-label {
-            width: 60px;
+            width: 45px;
             font-family: 'Orbitron', monospace;
+            font-size: 0.8rem;
             color: var(--quantum-blue);
-            font-size: 0.9rem;
         }
 
         .qubit-line {
             flex: 1;
-            height: 4px;
-            background: linear-gradient(90deg, var(--quantum-blue), var(--quantum-purple));
-            border-radius: 2px;
+            height: 40px;
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 5px;
             position: relative;
-            min-height: 40px;
         }
 
         .gate-on-line {
             position: absolute;
             top: 50%;
             transform: translate(-50%, -50%);
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             background: rgba(168, 85, 247, 0.8);
             border: 2px solid var(--quantum-purple);
             border-radius: 8px;
@@ -465,13 +540,13 @@
             font-family: 'Orbitron', monospace;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: var(--glow-purple);
+            transition: all 0.3s;
+            z-index: 2;
         }
 
         .gate-on-line:hover {
-            transform: translate(-50%, -50%) scale(1.1);
-            box-shadow: 0 0 30px rgba(168, 85, 247, 0.8);
+            transform: translate(-50%, -50%) scale(1.15);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
         }
 
         .gate-on-line.measure {
@@ -479,554 +554,42 @@
             border-color: var(--quantum-green);
         }
 
-        /* Control dots for CNOT */
-        .control-dot {
-            position: absolute;
-            width: 12px;
-            height: 12px;
-            background: var(--quantum-orange);
-            border-radius: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
-        }
-
         /* Visualization Panel */
         .visualization-panel {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin-top: 2rem;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        @media (max-width: 900px) {
+            .visualization-panel { grid-template-columns: 1fr; }
         }
 
         .viz-container {
             background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            padding: 1.5rem;
-            text-align: center;
+            border-radius: 10px;
+            padding: 1rem;
         }
 
         .viz-container h4 {
             font-family: 'Orbitron', monospace;
-            margin-bottom: 1rem;
             color: var(--quantum-purple);
+            margin-bottom: 0.8rem;
+            text-align: center;
         }
 
         #bloch-sphere {
             width: 100%;
-            height: 300px;
-            border-radius: 10px;
+            height: 250px;
+            border-radius: 8px;
         }
 
-        /* State Vector Display */
-        .state-vector {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .state-bar {
-            text-align: center;
-        }
-
-        .state-bar .label {
-            font-family: 'Orbitron', monospace;
-            margin-bottom: 0.5rem;
-            color: var(--quantum-blue);
-        }
-
-        .state-bar .bar {
-            width: 100px;
-            height: 20px;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-            overflow: hidden;
-            border: 1px solid rgba(0, 212, 255, 0.3);
-        }
-
-        .state-bar .fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--quantum-blue), var(--quantum-purple));
-            transition: width 0.5s ease;
-        }
-
-        .state-bar .value {
-            margin-top: 0.3rem;
-            font-family: 'Orbitron', monospace;
-            font-size: 0.9rem;
-        }
-
-        /* Measurement Results */
-        .measurement-results {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .result-bar {
-            text-align: center;
-        }
-
-        .result-bar .label {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .result-bar .count {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.2rem;
-            color: var(--quantum-green);
-        }
-
-        /* Bloch Sphere Info */
-        .bloch-info {
-            margin-top: 1rem;
-            padding: 1rem;
-            background: rgba(0, 212, 255, 0.1);
-            border-radius: 10px;
-            text-align: left;
-        }
-
-        .bloch-info p {
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-        }
-
-        .bloch-info span {
-            color: var(--quantum-blue);
-            font-family: 'Orbitron', monospace;
-        }
-
-        /* Algorithm Section */
-        .algorithm-tabs {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .algo-tab {
-            padding: 0.8rem 2rem;
-            background: rgba(0, 212, 255, 0.1);
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            border-radius: 30px;
-            color: #fff;
-            cursor: pointer;
-            font-family: 'Orbitron', monospace;
-            transition: all 0.3s ease;
-        }
-
-        .algo-tab:hover,
-        .algo-tab.active {
-            background: linear-gradient(135deg, var(--quantum-blue), var(--quantum-purple));
-            border-color: transparent;
-            transform: scale(1.05);
-        }
-
-        .algorithm-demo {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 2rem;
-            border: 1px solid rgba(0, 212, 255, 0.2);
-        }
-
-        .algo-description {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .algo-description h3 {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--quantum-purple);
-        }
-
-        .algo-description p {
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.8;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        /* Step by Step Tutorial */
-        .tutorial-steps {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .step {
-            display: flex;
-            gap: 2rem;
-            margin-bottom: 3rem;
-            padding: 2rem;
-            background: var(--card-bg);
-            border-radius: 20px;
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .step:hover {
-            border-color: var(--quantum-blue);
-            box-shadow: var(--glow-blue);
-        }
-
-        .step-number {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--quantum-blue), var(--quantum-purple));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Orbitron', monospace;
-            font-size: 1.5rem;
-            font-weight: bold;
-            flex-shrink: 0;
-        }
-
-        .step-content h3 {
-            font-family: 'Orbitron', monospace;
-            margin-bottom: 1rem;
-            color: var(--quantum-blue);
-        }
-
-        .step-content p {
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.8;
-            margin-bottom: 1rem;
-        }
-
-        .interactive-demo {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin-top: 1rem;
-        }
-
-        /* Quiz Section */
-        .quiz-container {
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .quiz-question {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 2rem;
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            margin-bottom: 2rem;
-        }
-
-        .quiz-question h4 {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.2rem;
-            margin-bottom: 1.5rem;
-            color: var(--quantum-purple);
-        }
-
-        .quiz-options {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .quiz-option {
-            padding: 1rem;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .quiz-option:hover {
-            border-color: var(--quantum-blue);
-            background: rgba(0, 212, 255, 0.1);
-        }
-
-        .quiz-option.correct {
-            background: rgba(16, 185, 129, 0.2);
-            border-color: var(--quantum-green);
-        }
-
-        .quiz-option.incorrect {
-            background: rgba(239, 68, 68, 0.2);
-            border-color: var(--quantum-red);
-        }
-
-        /* Matrix Display */
-        .matrix-display {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-            margin: 2rem 0;
-        }
-
-        .matrix {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 1rem;
-            border-radius: 10px;
-            border: 1px solid rgba(0, 212, 255, 0.3);
-        }
-
-        .matrix-row {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .matrix-cell {
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Orbitron', monospace;
-            font-size: 0.8rem;
-            background: rgba(0, 212, 255, 0.1);
-            border-radius: 5px;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 3rem 2rem;
-            background: rgba(0, 0, 0, 0.3);
-            border-top: 1px solid rgba(0, 212, 255, 0.2);
-        }
-
-        footer p {
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        footer a {
-            color: var(--quantum-blue);
-            text-decoration: none;
-        }
-
-        /* Animations */
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        @keyframes glow {
-            0%, 100% { box-shadow: var(--glow-blue); }
-            50% { box-shadow: 0 0 40px rgba(0, 212, 255, 0.8); }
-        }
-
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-
-        /* Mobile Responsiveness */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .circuit-workspace {
-                grid-template-columns: 1fr;
-            }
-
-            .visualization-panel {
-                grid-template-columns: 1fr;
-            }
-
-            .step {
-                flex-direction: column;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-        }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--dark-bg);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(var(--quantum-blue), var(--quantum-purple));
-            border-radius: 4px;
-        }
-
-        /* Superposition Animation */
-        .superposition-demo {
-            position: relative;
-            height: 200px;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            margin: 1rem 0;
-            overflow: hidden;
-        }
-
-        .particle-state {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            top: 50%;
-            transform: translateY(-50%);
-            transition: all 1s ease;
-        }
-
-        .particle-state.ground {
-            left: 10%;
-            background: var(--quantum-blue);
-            box-shadow: 0 0 20px var(--quantum-blue);
-        }
-
-        .particle-state.excited {
-            right: 10%;
-            background: var(--quantum-red);
-            box-shadow: 0 0 20px var(--quantum-red);
-        }
-
-        .particle-state.superposition {
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: linear-gradient(135deg, var(--quantum-blue), var(--quantum-red));
-            box-shadow: 0 0 30px rgba(0, 212, 255, 0.5), 0 0 30px rgba(239, 68, 68, 0.5);
-            animation: superposition-pulse 1s infinite;
-        }
-
-        @keyframes superposition-pulse {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); }
-            50% { transform: translate(-50%, -50%) scale(1.2); }
-        }
-
-        .state-label {
-            position: absolute;
-            bottom: 10px;
-            font-family: 'Orbitron', monospace;
-            font-size: 0.8rem;
-        }
-
-        .state-label.left { left: 10%; }
-        .state-label.right { right: 10%; }
-
-        /* Gate Explanation Cards */
-        .gate-explanation {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .gate-visual {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin: 1rem 0;
-            flex-wrap: wrap;
-        }
-
-        .gate-box {
-            background: rgba(168, 85, 247, 0.2);
-            border: 2px solid var(--quantum-purple);
-            border-radius: 10px;
-            padding: 1rem;
-            text-align: center;
-            min-width: 80px;
-        }
-
-        .gate-box .symbol {
-            font-family: 'Orbitron', monospace;
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--quantum-purple);
-        }
-
-        .gate-box .name {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.7);
-            margin-top: 0.5rem;
-        }
-
-        /* Entanglement Visual */
-        .entanglement-demo {
-            position: relative;
-            height: 200px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 100px;
-        }
-
-        .qubit-visual {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Orbitron', monospace;
-            font-size: 1.5rem;
-            transition: all 0.5s ease;
-        }
-
-        .qubit-a {
-            background: linear-gradient(135deg, var(--quantum-blue), var(--quantum-purple));
-            box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
-        }
-
-        .qubit-b {
-            background: linear-gradient(135deg, var(--quantum-purple), var(--quantum-pink));
-            box-shadow: 0 0 30px rgba(168, 85, 247, 0.5);
-        }
-
-        .entanglement-line {
-            position: absolute;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--quantum-blue), var(--quantum-purple), var(--quantum-pink));
-            top: 50%;
-            transform: translateY(-50%);
-            opacity: 0.5;
-        }
-
-        .correlation-indicator {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--quantum-green);
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        .correlation-indicator.show {
-            opacity: 1;
-            animation: pulse 1s infinite;
-        }
-
-        /* Interactive Bloch Control */
         .bloch-controls {
             display: flex;
-            gap: 1rem;
             justify-content: center;
-            margin-top: 1rem;
-            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 0.8rem;
         }
 
         .bloch-control {
@@ -1042,7 +605,239 @@
 
         .bloch-control input[type="range"] {
             width: 100px;
-            accent-color: var(--quantum-blue);
+        }
+
+        .bloch-info {
+            margin-top: 0.8rem;
+            padding: 0.8rem;
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .bloch-info span { color: var(--quantum-blue); }
+
+        /* State Display */
+        .state-vector {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .state-bar {
+            text-align: center;
+            min-width: 80px;
+        }
+
+        .state-bar .label {
+            font-family: 'Orbitron', monospace;
+            color: var(--quantum-blue);
+        }
+
+        .state-bar .bar {
+            width: 80px;
+            height: 16px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            margin: 0.3rem 0;
+        }
+
+        .state-bar .fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--quantum-blue), var(--quantum-purple));
+            transition: width 0.5s ease;
+        }
+
+        .state-bar .value {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.8rem;
+        }
+
+        /* Examples */
+        .examples-bar {
+            display: flex;
+            gap: 0.8rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        /* Algorithm Tabs */
+        .algo-tabs {
+            display: flex;
+            gap: 0.8rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .algo-tab {
+            padding: 0.6rem 1.5rem;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 30px;
+            color: #fff;
+            cursor: pointer;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+
+        .algo-tab:hover,
+        .algo-tab.active {
+            background: linear-gradient(135deg, var(--quantum-blue), var(--quantum-purple));
+            border-color: transparent;
+        }
+
+        .algo-description {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .algo-description h3 {
+            font-family: 'Orbitron', monospace;
+            color: var(--quantum-purple);
+            margin-bottom: 0.8rem;
+        }
+
+        .algo-description p {
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        #algo-visualization {
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #algo-visualization svg {
+            max-width: 100%;
+        }
+
+        /* Tutorial Steps */
+        .tutorial-steps { max-width: 800px; margin: 0 auto; }
+
+        .step {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--card-bg);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .step:hover {
+            border-color: var(--quantum-blue);
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--quantum-blue), var(--quantum-purple));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', monospace;
+            font-size: 1.3rem;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
+            font-family: 'Orbitron', monospace;
+            color: var(--quantum-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .step-content p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.7;
+            margin-bottom: 0.8rem;
+        }
+
+        /* Quiz */
+        .quiz-container { max-width: 600px; margin: 0 auto; }
+
+        .quiz-question {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            margin-bottom: 1.5rem;
+        }
+
+        .quiz-question h4 {
+            font-family: 'Orbitron', monospace;
+            color: var(--quantum-purple);
+            margin-bottom: 1rem;
+        }
+
+        .quiz-option {
+            padding: 0.8rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--quantum-blue);
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .quiz-option.correct {
+            background: rgba(16, 185, 129, 0.3);
+            border-color: var(--quantum-green);
+        }
+
+        .quiz-option.incorrect {
+            background: rgba(239, 68, 68, 0.3);
+            border-color: var(--quantum-red);
+        }
+
+        .quiz-score {
+            text-align: center;
+            font-family: 'Orbitron', monospace;
+            font-size: 1.3rem;
+            margin-top: 1.5rem;
+            color: var(--quantum-green);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-top: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        footer a {
+            color: var(--quantum-blue);
+            text-decoration: none;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--dark-bg); }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--quantum-blue), var(--quantum-purple));
+            border-radius: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .step { flex-direction: column; }
         }
     </style>
 </head>
@@ -1064,217 +859,107 @@
     </nav>
 
     <main>
-        <!-- Hero Section -->
+        <!-- Hero -->
         <section class="hero" id="home">
-            <div class="floating-qubits">
-                <div class="qubit-orb" style="left: 10%; top: 20%; background: var(--quantum-blue); animation-delay: 0s;"></div>
-                <div class="qubit-orb" style="left: 80%; top: 30%; background: var(--quantum-purple); animation-delay: 3s;"></div>
-                <div class="qubit-orb" style="left: 20%; top: 70%; background: var(--quantum-pink); animation-delay: 6s;"></div>
-                <div class="qubit-orb" style="left: 70%; top: 80%; background: var(--quantum-green); animation-delay: 9s;"></div>
-            </div>
             <h1>QUANTUM VISUAL LEARNING</h1>
             <p>Master quantum computing through interactive visualizations, hands-on simulations, and step-by-step tutorials. From superposition to Shor's algorithm - experience quantum like never before.</p>
-            <div class="hero-cta">
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
                 <a href="#concepts" class="btn btn-primary">Start Learning</a>
                 <a href="#simulator" class="btn btn-secondary">Try Simulator</a>
             </div>
         </section>
 
-        <!-- Core Concepts Section -->
+        <!-- Core Concepts -->
         <section id="concepts">
             <h2 class="section-title">Core Quantum Concepts</h2>
 
-            <!-- Superposition -->
             <div class="concepts-grid">
                 <div class="concept-card">
-                    <span class="concept-icon">⚛️</span>
-                    <h3>Superposition</h3>
-                    <p>A qubit can exist in both |0⟩ and |1⟩ states simultaneously until measured. This isn't just "being in both states" - it's a fundamental quantum property where the qubit has a probability amplitude for each state.</p>
+                    <h3>⚛️ Superposition</h3>
+                    <p>A qubit can exist in both |0⟩ and |1⟩ states simultaneously until measured. This is the fundamental quantum property that enables quantum parallelism.</p>
                     <div class="superposition-demo" id="superposition-demo">
                         <div class="particle-state ground" id="particle"></div>
-                        <span class="state-label left">|0⟩</span>
-                        <span class="state-label right">|1⟩</span>
+                        <div class="state-labels">
+                            <span>|0⟩</span>
+                            <span>|1⟩</span>
+                        </div>
                     </div>
-                    <button class="btn btn-secondary" onclick="toggleSuperposition()" style="width: 100%; margin-top: 1rem;">Toggle Superposition</button>
+                    <button class="btn btn-secondary" onclick="toggleSuperposition()" style="width: 100%;">Toggle Superposition</button>
                 </div>
 
                 <div class="concept-card">
-                    <span class="concept-icon">🔗</span>
-                    <h3>Entanglement</h3>
-                    <p>When qubits become entangled, measuring one instantly affects the other, regardless of distance. Einstein called it "spooky action at a distance" - but it's real and measurable.</p>
+                    <h3>🔗 Entanglement</h3>
+                    <p>When qubits become entangled, measuring one instantly affects the other, regardless of distance. Einstein called it "spooky action at a distance".</p>
                     <div class="entanglement-demo">
                         <div class="entanglement-line"></div>
                         <div class="qubit-visual qubit-a" id="qubit-a">0</div>
-                        <div class="correlation-indicator" id="correlation">↔</div>
+                        <div class="correlation" id="correlation">↔</div>
                         <div class="qubit-visual qubit-b" id="qubit-b">0</div>
                     </div>
-                    <button class="btn btn-secondary" onclick="createEntanglement()" style="width: 100%; margin-top: 1rem;">Create Entanglement</button>
+                    <button class="btn btn-secondary" onclick="createEntanglement()" style="width: 100%;">Create Entanglement</button>
                 </div>
 
                 <div class="concept-card">
-                    <span class="concept-icon">📐</span>
-                    <h3>Measurement</h3>
-                    <p>Unlike classical bits, measuring a qubit collapses its superposition. You get either 0 or 1, with probabilities determined by the quantum state's amplitudes.</p>
-                    <div class="interactive-demo" style="text-align: center;">
-                        <p style="margin-bottom: 1rem;">Click to measure multiple times:</p>
-                        <div id="measurement-demo" style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;"></div>
-                        <button class="btn btn-secondary" onclick="resetMeasurement()" style="margin-top: 1rem;">Reset</button>
+                    <h3>📐 Measurement</h3>
+                    <p>Measuring a qubit collapses its superposition. You get either 0 or 1, with probabilities determined by the quantum state's amplitudes.</p>
+                    <div class="demo-box" style="text-align: center;">
+                        <p>Click to measure:</p>
+                        <button class="btn btn-secondary" onclick="simulateMeasurement()" style="margin: 0.5rem 0;">Measure</button>
+                        <div class="measurement-demo" id="measurement-demo"></div>
+                        <button class="btn btn-secondary" onclick="resetMeasurement()" style="margin-top: 0.5rem; font-size: 0.8rem;">Reset</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Quantum Gates Explanation -->
-            <div class="gate-explanation">
-                <h3 style="font-family: 'Orbitron', monospace; text-align: center; margin-bottom: 1.5rem; color: var(--quantum-purple);">Quantum Gates - The Building Blocks</h3>
-
+            <!-- Gate Explanation -->
+            <div class="simulator-container">
+                <h3 style="font-family: 'Orbitron', monospace; text-align: center; color: var(--quantum-purple); margin-bottom: 1rem;">Quantum Gates - The Building Blocks</h3>
                 <div class="gate-visual">
-                    <div class="gate-box">
-                        <div class="symbol">H</div>
-                        <div class="name">Hadamard</div>
-                    </div>
-                    <div class="gate-box">
-                        <div class="symbol">X</div>
-                        <div class="name">Pauli-X (NOT)</div>
-                    </div>
-                    <div class="gate-box">
-                        <div class="symbol">Y</div>
-                        <div class="name">Pauli-Y</div>
-                    </div>
-                    <div class="gate-box">
-                        <div class="symbol">Z</div>
-                        <div class="name">Pauli-Z</div>
-                    </div>
-                    <div class="gate-box">
-                        <div class="symbol">CNOT</div>
-                        <div class="name">Controlled-NOT</div>
-                    </div>
-                    <div class="gate-box">
-                        <div class="symbol">S</div>
-                        <div class="name">Phase</div>
-                    </div>
-                    <div class="gate-box">
-                        <div class="symbol">T</div>
-                        <div class="name">T (π/8)</div>
-                    </div>
-                </div>
-
-                <div class="matrix-display">
-                    <div class="matrix">
-                        <h4 style="text-align: center; margin-bottom: 0.5rem; color: var(--quantum-blue);">H Gate</h4>
-                        <div class="matrix-row">
-                            <div class="matrix-cell">1/√2</div>
-                            <div class="matrix-cell">1/√2</div>
-                        </div>
-                        <div class="matrix-row">
-                            <div class="matrix-cell">1/√2</div>
-                            <div class="matrix-cell">-1/√2</div>
-                        </div>
-                    </div>
-                    <div class="matrix">
-                        <h4 style="text-align: center; margin-bottom: 0.5rem; color: var(--quantum-blue);">X Gate</h4>
-                        <div class="matrix-row">
-                            <div class="matrix-cell">0</div>
-                            <div class="matrix-cell">1</div>
-                        </div>
-                        <div class="matrix-row">
-                            <div class="matrix-cell">1</div>
-                            <div class="matrix-cell">0</div>
-                        </div>
-                    </div>
-                    <div class="matrix">
-                        <h4 style="text-align: center; margin-bottom: 0.5rem; color: var(--quantum-blue);">Z Gate</h4>
-                        <div class="matrix-row">
-                            <div class="matrix-cell">1</div>
-                            <div class="matrix-cell">0</div>
-                        </div>
-                        <div class="matrix-row">
-                            <div class="matrix-cell">0</div>
-                            <div class="matrix-cell">-1</div>
-                        </div>
-                    </div>
+                    <div class="gate-box"><div class="symbol">H</div><div class="name">Hadamard</div></div>
+                    <div class="gate-box"><div class="symbol">X</div><div class="name">Pauli-X</div></div>
+                    <div class="gate-box"><div class="symbol">Y</div><div class="name">Pauli-Y</div></div>
+                    <div class="gate-box"><div class="symbol">Z</div><div class="name">Pauli-Z</div></div>
+                    <div class="gate-box"><div class="symbol">S</div><div class="name">Phase</div></div>
+                    <div class="gate-box"><div class="symbol">T</div><div class="name">T Gate</div></div>
+                    <div class="gate-box"><div class="symbol">CNOT</div><div class="name">C-NOT</div></div>
                 </div>
             </div>
         </section>
 
-        <!-- Interactive Circuit Simulator -->
+        <!-- Simulator -->
         <section id="simulator">
             <h2 class="section-title">Interactive Quantum Circuit Simulator</h2>
 
             <div class="simulator-container">
                 <div class="circuit-controls">
-                    <label>Qubits:</label>
-                    <select id="qubit-count" onchange="updateCircuit()">
-                        <option value="1">1 Qubit</option>
-                        <option value="2" selected>2 Qubits</option>
-                        <option value="3">3 Qubits</option>
-                        <option value="4">4 Qubits</option>
-                    </select>
-                    <label>Shots:</label>
-                    <input type="number" id="shots-count" value="1000" min="100" max="10000" step="100">
-                    <button onclick="runCircuit()">▶ Run Circuit</button>
-                    <button onclick="clearCircuit()">🗑 Clear</button>
-                    <button onclick="stepCircuit()">⏭ Step</button>
+                    <label>Qubits:
+                        <select id="qubit-count" onchange="updateCircuit()">
+                            <option value="1">1</option>
+                            <option value="2" selected>2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </label>
+                    <label>Shots: <input type="number" id="shots-count" value="1000" min="100" max="10000"></label>
+                    <button onclick="runCircuit()">▶ Run</button>
+                    <button onclick="clearCircuit()">Clear</button>
                 </div>
 
                 <div class="circuit-workspace">
                     <div class="gate-palette">
-                        <h4>Single Qubit Gates</h4>
-                        <button class="gate-btn" onclick="addGate('H')">
-                            <span class="gate-symbol">H</span>
-                            Hadamard
-                        </button>
-                        <button class="gate-btn" onclick="addGate('X')">
-                            <span class="gate-symbol">X</span>
-                            Pauli-X (NOT)
-                        </button>
-                        <button class="gate-btn" onclick="addGate('Y')">
-                            <span class="gate-symbol">Y</span>
-                            Pauli-Y
-                        </button>
-                        <button class="gate-btn" onclick="addGate('Z')">
-                            <span class="gate-symbol">Z</span>
-                            Pauli-Z
-                        </button>
-                        <button class="gate-btn" onclick="addGate('S')">
-                            <span class="gate-symbol">S</span>
-                            Phase Gate
-                        </button>
-                        <button class="gate-btn" onclick="addGate('T')">
-                            <span class="gate-symbol">T</span>
-                            T Gate (π/8)
-                        </button>
-                        <button class="gate-btn" onclick="addGate('Rx')">
-                            <span class="gate-symbol">Rx</span>
-                            Rx Rotation
-                        </button>
-                        <button class="gate-btn" onclick="addGate('Ry')">
-                            <span class="gate-symbol">Ry</span>
-                            Ry Rotation
-                        </button>
-                        <button class="gate-btn" onclick="addGate('Rz')">
-                            <span class="gate-symbol">Rz</span>
-                            Rz Rotation
-                        </button>
-
-                        <h4 style="margin-top: 1.5rem;">Multi-Qubit Gates</h4>
-                        <button class="gate-btn" onclick="addGate('CNOT')">
-                            <span class="gate-symbol">⊕</span>
-                            CNOT
-                        </button>
-                        <button class="gate-btn" onclick="addGate('CZ')">
-                            <span class="gate-symbol">Z̅</span>
-                            CZ (Control-Z)
-                        </button>
-                        <button class="gate-btn" onclick="addGate('SWAP')">
-                            <span class="gate-symbol">⇄</span>
-                            SWAP
-                        </button>
-
-                        <h4 style="margin-top: 1.5rem;">Measurements</h4>
-                        <button class="gate-btn" onclick="addGate('M')">
-                            <span class="gate-symbol">📊</span>
-                            Measure
-                        </button>
+                        <h4>Single Qubit</h4>
+                        <button class="gate-btn" onclick="addGate('H')"><span class="gate-symbol">H</span>Hadamard</button>
+                        <button class="gate-btn" onclick="addGate('X')"><span class="gate-symbol">X</span>Pauli-X</button>
+                        <button class="gate-btn" onclick="addGate('Y')"><span class="gate-symbol">Y</span>Pauli-Y</button>
+                        <button class="gate-btn" onclick="addGate('Z')"><span class="gate-symbol">Z</span>Pauli-Z</button>
+                        <button class="gate-btn" onclick="addGate('S')"><span class="gate-symbol">S</span>Phase</button>
+                        <button class="gate-btn" onclick="addGate('T')"><span class="gate-symbol">T</span>T Gate</button>
+                        <h4>Multi-Qubit</h4>
+                        <button class="gate-btn" onclick="addGate('CNOT')"><span class="gate-symbol">⊕</span>CNOT</button>
+                        <button class="gate-btn" onclick="addGate('CZ')"><span class="gate-symbol">Z̅</span>CZ</button>
+                        <button class="gate-btn" onclick="addGate('SWAP')"><span class="gate-symbol">⇄</span>SWAP</button>
+                        <h4>Measure</h4>
+                        <button class="gate-btn" onclick="addGate('M')"><span class="gate-symbol">M</span>Measure</button>
                     </div>
 
                     <div class="circuit-area">
@@ -1289,77 +974,70 @@
                         <div class="bloch-controls">
                             <div class="bloch-control">
                                 <label>θ:</label>
-                                <input type="range" id="theta-slider" min="0" max="180" value="0" onchange="updateBlochFromSliders()">
+                                <input type="range" id="theta-slider" min="0" max="180" value="0" oninput="updateBlochFromSliders()">
                             </div>
                             <div class="bloch-control">
                                 <label>φ:</label>
-                                <input type="range" id="phi-slider" min="0" max="360" value="0" onchange="updateBlochFromSliders()">
+                                <input type="range" id="phi-slider" min="0" max="360" value="0" oninput="updateBlochFromSliders()">
                             </div>
                         </div>
-                        <div class="bloch-info" id="bloch-info">
-                            <p>|ψ⟩ = <span>cos(θ/2)|0⟩ + e^(iφ)sin(θ/2)|1⟩</span></p>
-                            <p>θ = <span id="theta-value">0</span>°, φ = <span id="phi-value">0</span>°</p>
+                        <div class="bloch-info">
+                            |ψ⟩ = <span id="psi-formula">cos(θ/2)|0⟩ + e^(iφ)sin(θ/2)|1⟩</span><br>
+                            θ = <span id="theta-value">0</span>°, φ = <span id="phi-value">0</span>°
                         </div>
                     </div>
 
                     <div class="viz-container">
-                        <h4>State Vector & Probabilities</h4>
+                        <h4>Probabilities</h4>
                         <div class="state-vector" id="state-vector"></div>
-                        <h4 style="margin-top: 1.5rem;">Measurement Results</h4>
-                        <div class="measurement-results" id="measurement-results"></div>
-                        <button class="btn btn-secondary" onclick="runCircuit()" style="margin-top: 1rem;">Run Simulation</button>
+                        <div style="margin-top: 1rem; text-align: center;">
+                            <button class="btn btn-secondary" onclick="runCircuit()" style="font-size: 0.8rem;">Run Simulation</button>
+                        </div>
+                        <div id="measurement-results" style="margin-top: 1rem;"></div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Pre-built Examples -->
-            <div class="simulator-container">
-                <h3 style="font-family: 'Orbitron', monospace; text-align: center; margin-bottom: 1.5rem;">Try These Examples</h3>
-                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <div class="examples-bar">
                     <button class="btn btn-secondary" onclick="loadExample('bell')">Bell State</button>
                     <button class="btn btn-secondary" onclick="loadExample('ghz')">GHZ State</button>
-                    <button class="btn btn-secondary" onclick="loadExample('teleport')">Teleportation</button>
                     <button class="btn btn-secondary" onclick="loadExample('superposition')">Superposition</button>
-                    <button class="btn btn-secondary" onclick="loadExample('deutsch')">Deutsch Algorithm</button>
+                    <button class="btn btn-secondary" onclick="loadExample(' deutsch')">Deutsch</button>
                 </div>
             </div>
         </section>
 
-        <!-- Algorithms Section -->
+        <!-- Algorithms -->
         <section id="algorithms">
             <h2 class="section-title">Quantum Algorithms</h2>
 
-            <div class="algorithm-tabs">
-                <button class="algo-tab active" onclick="showAlgorithm('deutsch-jozsa')">Deutsch-Jozsa</button>
-                <button class="algo-tab" onclick="showAlgorithm('grover')">Grover's Search</button>
-                <button class="algo-tab" onclick="showAlgorithm('quantum-fourier')">Quantum Fourier Transform</button>
-                <button class="algo-tab" onclick="showAlgorithm('phase-estimation')">Phase Estimation</button>
-            </div>
-
-            <div class="algorithm-demo" id="algorithm-demo">
-                <div class="algo-description" id="algo-description">
-                    <h3>Deutsch-Jozsa Algorithm</h3>
-                    <p>Given a black-box function f that is either <strong>balanced</strong> (returns 0 for half inputs, 1 for half) or <strong>constant</strong> (returns same value for all inputs), determine which in just ONE query using quantum parallelism.</p>
-                    <p style="margin-top: 1rem; color: var(--quantum-green);">Classical computers need 2^(n-1)+1 queries in worst case. Quantum computers need only 1!</p>
+            <div class="simulator-container">
+                <div class="algo-tabs">
+                    <button class="algo-tab active" onclick="showAlgorithm('deutsch-jozsa', this)">Deutsch-Jozsa</button>
+                    <button class="algo-tab" onclick="showAlgorithm('grover', this)">Grover's</button>
+                    <button class="algo-tab" onclick="showAlgorithm('qft', this)">QFT</button>
+                    <button class="algo-tab" onclick="showAlgorithm('phase', this)">Phase Est.</button>
                 </div>
 
-                <div id="algo-visualization" style="min-height: 400px;"></div>
+                <div class="algo-description" id="algo-description">
+                    <h3>Deutsch-Jozsa Algorithm</h3>
+                    <p>Determines if a function is <strong>constant</strong> (same output) or <strong>balanced</strong> (half 0s, half 1s) in just ONE quantum query vs 2ⁿ⁻¹+1 classical queries.</p>
+                </div>
 
-                <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem; flex-wrap: wrap;">
+                <div id="algo-visualization"></div>
+
+                <div style="text-align: center; margin-top: 1rem;">
                     <button class="btn btn-primary" onclick="runAlgorithm()">▶ Run Algorithm</button>
-                    <button class="btn btn-secondary" onclick="stepAlgorithm()">⏭ Step Through</button>
-                    <select id="function-type" style="padding: 0.5rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(0,212,255,0.3); border-radius: 8px; color: #fff;">
+                    <select id="function-type" style="padding: 0.5rem; margin-left: 1rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(0,212,255,0.3); border-radius: 8px; color: #fff;">
                         <option value="balanced">Balanced Function</option>
-                        <option value="constant-0">Constant (all 0)</option>
-                        <option value="constant-1">Constant (all 1)</option>
+                        <option value="constant">Constant Function</option>
                     </select>
                 </div>
 
-                <div id="algo-results" style="margin-top: 2rem; text-align: center;"></div>
+                <div id="algo-results" style="margin-top: 1rem; text-align: center;"></div>
             </div>
         </section>
 
-        <!-- Step-by-Step Tutorial -->
+        <!-- Tutorial -->
         <section id="tutorial">
             <h2 class="section-title">Step-by-Step Tutorial</h2>
 
@@ -1368,20 +1046,13 @@
                     <div class="step-number">1</div>
                     <div class="step-content">
                         <h3>Understanding Qubits</h3>
-                        <p>Unlike classical bits that are either 0 or 1, qubits leverage quantum mechanics. A qubit is described by the state |ψ⟩ = α|0⟩ + β|1⟩, where α and β are complex numbers called probability amplitudes.</p>
-                        <p>The magic: α and β can be any complex numbers, but they must satisfy |α|² + |β|² = 1. The squared magnitudes give the probabilities of measuring 0 or 1.</p>
-                        <div class="interactive-demo">
-                            <p>Adjust the probability amplitude for |0⟩:</p>
-                            <input type="range" id="amplitude-slider" min="0" max="100" value="100" onchange="updateAmplitude()">
-                            <div style="display: flex; justify-content: space-around; margin-top: 1rem;">
-                                <div style="text-align: center;">
-                                    <div style="font-family: 'Orbitron', monospace; font-size: 1.5rem; color: var(--quantum-blue);" id="prob-0">100%</div>
-                                    <div>|0⟩</div>
-                                </div>
-                                <div style="text-align: center;">
-                                    <div style="font-family: 'Orbitron', monospace; font-size: 1.5rem; color: var(--quantum-red);" id="prob-1">0%</div>
-                                    <div>|1⟩</div>
-                                </div>
+                        <p>A qubit is described by |ψ⟩ = α|0⟩ + β|1⟩, where |α|² + |β|² = 1. The squared magnitudes give measurement probabilities.</p>
+                        <div class="demo-box">
+                            <p>Adjust probability of |0⟩:</p>
+                            <input type="range" id="amplitude-slider" min="0" max="100" value="100" oninput="updateAmplitude()">
+                            <div style="display: flex; justify-content: space-around; margin-top: 0.8rem;">
+                                <span style="color: var(--quantum-blue);">|0⟩: <span id="prob-0">100</span>%</span>
+                                <span style="color: var(--quantum-red);">|1⟩: <span id="prob-1">0</span>%</span>
                             </div>
                         </div>
                     </div>
@@ -1390,19 +1061,9 @@
                 <div class="step">
                     <div class="step-number">2</div>
                     <div class="step-content">
-                        <h3>The Hadamard Gate - Creating Superposition</h3>
-                        <p>The Hadamard gate (H) is the key to creating superposition. When applied to |0⟩, it creates an equal superposition: H|0⟩ = (|0⟩ + |1⟩)/√2</p>
-                        <p>This means when measured, there's a 50% chance of getting 0 and 50% chance of getting 1. Try applying H in the simulator!</p>
-                        <div class="interactive-demo" style="text-align: center;">
-                            <p>Visualization of H|0⟩:</p>
-                            <div style="font-family: 'Orbitron', monospace; font-size: 1.2rem; margin: 1rem 0;">
-                                |0⟩ → H → <span style="color: var(--quantum-purple);">(1/√2)|0⟩ + (1/√2)|1⟩</span>
-                            </div>
-                            <div style="display: flex; gap: 2rem; justify-content: center;">
-                                <div>|0⟩: 50%</div>
-                                <div>|1⟩: 50%</div>
-                            </div>
-                        </div>
+                        <h3>The Hadamard Gate</h3>
+                        <p>Creates superposition: H|0⟩ = (|0⟩ + |1⟩)/√2 and H|1⟩ = (|0⟩ - |1⟩)/√2</p>
+                        <p>Try applying H in the simulator above!</p>
                     </div>
                 </div>
 
@@ -1410,992 +1071,754 @@
                     <div class="step-number">3</div>
                     <div class="step-content">
                         <h3>CNOT Gate - Creating Entanglement</h3>
-                        <p>The CNOT (Controlled-NOT) gate is essential for quantum entanglement. It has a control qubit and a target qubit. If the control is |1⟩, it flips the target; otherwise, it does nothing.</p>
-                        <p>When applied to qubits in superposition, CNOT can create maximally entangled Bell states!</p>
-                        <div class="interactive-demo">
-                            <p>Bell State |Φ+⟩ = (|00⟩ + |11⟩)/√2:</p>
-                            <div style="font-family: 'Orbitron', monospace; text-align: center; margin: 1rem 0;">
-                                <div style="font-size: 1rem;">|0⟩ ——H——●——</div>
-                                <div style="font-size: 1rem; margin-left: 30px;">|0⟩ ——⊕——</div>
-                            </div>
-                            <p style="color: var(--quantum-green);">These qubits are now entangled! Measuring one instantly determines the other.</p>
-                        </div>
+                        <p>CNOT flips the target qubit if the control is |1⟩. Combined with H, it creates Bell states - maximally entangled pairs.</p>
                     </div>
                 </div>
 
                 <div class="step">
                     <div class="step-number">4</div>
                     <div class="step-content">
-                        <h3>Measurement - Collapse the Wavefunction</h3>
-                        <p>Measurement is where quantum becomes classical. Before measurement, the qubit exists in superposition. The act of measuring "collapses" the wavefunction to either |0⟩ or |1⟩.</p>
-                        <p>The probability of each outcome is determined by |α|² and |β|² respectively.</p>
-                        <div class="interactive-demo">
-                            <p>Try the measurement demo above to see probabilistic outcomes!</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="step">
-                    <div class="step-number">5</div>
-                    <div class="step-content">
                         <h3>Quantum Parallelism</h3>
-                        <p>One of quantum computing's superpowers: quantum parallelism. A register of n qubits can represent 2ⁿ states simultaneously after superposition.</p>
-                        <p>This allows quantum computers to evaluate a function on all possible inputs at once - but extracting the information requires clever algorithms like Grover's or Quantum Fourier Transform.</p>
-                        <div class="interactive-demo">
-                            <p>n qubits can represent 2ⁿ states in parallel:</p>
-                            <table style="margin: 1rem auto; text-align: center;">
-                                <tr><th>Qubits</th><th>States in Parallel</th></tr>
-                                <tr><td>3</td><td>8</td></tr>
-                                <tr><td>10</td><td>1,024</td></tr>
-                                <tr><td>30</td><td>1 Billion</td></tr>
-                                <tr><td>50</td><td>1 Quadrillion</td></tr>
-                            </table>
-                        </div>
+                        <p>n qubits represent 2ⁿ states simultaneously. A register of 30 qubits can hold 1 billion values at once!</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Quiz Section -->
+        <!-- Quiz -->
         <section id="quiz">
             <h2 class="section-title">Test Your Knowledge</h2>
 
-            <div class="quiz-container">
+            <div class="quiz-container" id="quiz-container">
                 <div class="quiz-question" data-correct="1">
-                    <h4>Question 1: What is superposition in quantum computing?</h4>
-                    <div class="quiz-options">
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">A bit that can be either 0 or 1 randomly</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, true)">A qubit existing in multiple states simultaneously until measured</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">A type of quantum gate operation</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">The speed of quantum calculations</div>
-                    </div>
-                </div>
-
-                <div class="quiz-question" data-correct="2">
-                    <h4>Question 2: What does the Hadamard (H) gate do?</h4>
-                    <div class="quiz-options">
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">Flips a qubit from |0⟩ to |1⟩ or vice versa</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, true)">Creates an equal superposition when applied to |0⟩</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">Measures the qubit state</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">Entangles two qubits</div>
-                    </div>
+                    <h4>Q1: What is superposition?</h4>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">A bit that's randomly 0 or 1</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">A qubit existing in multiple states until measured</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">A type of quantum gate</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">The speed of quantum computers</div>
                 </div>
 
                 <div class="quiz-question" data-correct="1">
-                    <h4>Question 3: What is a Bell state?</h4>
-                    <div class="quiz-options">
-                        <div class="quiz-option" onclick="checkAnswer(this, true)">A maximally entangled two-qubit state</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">A qubit in the |1⟩ state</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">The result of applying X gate to |0⟩</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">A classical bit with value 0</div>
-                    </div>
+                    <h4>Q2: What does H|0⟩ equal?</h4>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">|1⟩</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">(|0⟩ + |1⟩)/√2</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">|0⟩</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">(|0⟩ - |1⟩)/√2</div>
                 </div>
 
                 <div class="quiz-question" data-correct="0">
-                    <h4>Question 4: How many classical queries are needed for worst-case Deutsch-Jozsa with n qubits?</h4>
-                    <div class="quiz-options">
-                        <div class="quiz-option" onclick="checkAnswer(this, true)">2^(n-1) + 1</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">n + 1</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">2^n</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">1</div>
-                    </div>
+                    <h4>Q3: What is a Bell state?</h4>
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">A maximally entangled two-qubit state</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">A qubit in state |1⟩</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">The result of X|0⟩</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">A classical bit</div>
                 </div>
 
                 <div class="quiz-question" data-correct="2">
-                    <h4>Question 5: What happens when you measure a qubit in superposition?</h4>
-                    <div class="quiz-options">
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">You get both |0⟩ and |1⟩ simultaneously</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">The qubit is destroyed</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, true)">The state collapses to either |0⟩ or |1⟩ with probability determined by amplitudes</div>
-                        <div class="quiz-option" onclick="checkAnswer(this, false)">Nothing happens, superposition continues</div>
-                    </div>
+                    <h4>Q4: CNOT flips target when control is...</h4>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">|0⟩</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">Either</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">|1⟩</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">Neither</div>
                 </div>
 
-                <div id="quiz-score" style="text-align: center; margin-top: 2rem; font-family: 'Orbitron', monospace; font-size: 1.5rem;"></div>
+                <div class="quiz-question" data-correct="1">
+                    <h4>Q5: What happens on quantum measurement?</h4>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">Both |0⟩ and |1⟩ are returned</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">State collapses to |0⟩ or |1⟩ with probability |α|² or |β|²</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">Nothing happens</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">The qubit is destroyed</div>
+                </div>
+
+                <div class="quiz-score" id="quiz-score">Score: 0/5</div>
             </div>
         </section>
     </main>
 
     <footer>
-        <p>Built with passion for quantum computing education | <a href="https://github.com/sunkaramallikarjuna369/Quantum_visual_learning">GitHub Repository</a></p>
-        <p style="margin-top: 0.5rem;">Start your quantum journey today!</p>
+        <p>Quantum Visual Learning | <a href="https://github.com/sunkaramallikarjuna369/Quantum_visual_learning">GitHub</a></p>
     </footer>
 
     <script>
-        // ============================================
-        // QUANTUM VISUAL LEARNING - Core Logic
-        // ============================================
+    // =============================================
+    // GLOBAL STATE
+    // =============================================
+    let circuit = [[], []];
+    let numQubits = 2;
+    let quizScore = 0;
+    let isSuperposition = false;
+    let isEntangled = false;
+    let blochScene, blochCamera, blochRenderer, blochVector;
 
-        // Global state
-        let circuit = [];
-        let numQubits = 2;
-        let currentStep = 0;
-        let blochScene, blochCamera, blochRenderer, blochVector;
-        let measurements = {};
-        let quizScore = 0;
-        let isSuperposition = false;
-        let isEntangled = false;
+    // =============================================
+    // INITIALIZATION
+    // =============================================
+    document.addEventListener('DOMContentLoaded', () => {
+        initParticles();
+        updateCircuit();
+        initBlochSphere();
+        initAlgorithmVisualization('deutsch-jozsa');
+    });
 
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            initParticles();
-            updateCircuit();
-            initBlochSphere();
-            initAlgorithmVisualization();
-        });
-
-        // ============================================
-        // PARTICLE BACKGROUND
-        // ============================================
-        function initParticles() {
-            const container = document.getElementById('particles');
-            for (let i = 0; i < 50; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 15 + 's';
-                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
-                const colors = ['#00d4ff', '#a855f7', '#ec4899', '#10b981'];
-                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-                container.appendChild(particle);
-            }
+    function initParticles() {
+        const container = document.getElementById('particles');
+        for (let i = 0; i < 40; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.left = Math.random() * 100 + '%';
+            p.style.animationDelay = Math.random() * 15 + 's';
+            const colors = ['#00d4ff', '#a855f7', '#ec4899', '#10b981'];
+            p.style.background = colors[Math.floor(Math.random() * colors.length)];
+            container.appendChild(p);
         }
+    }
 
-        // ============================================
-        // SUPERPOSITION DEMO
-        // ============================================
-        function toggleSuperposition() {
-            const particle = document.getElementById('particle');
-            isSuperposition = !isSuperposition;
-
-            if (isSuperposition) {
-                particle.className = 'particle-state superposition';
-            } else {
-                // Random collapse to either state
-                const collapsesTo0 = Math.random() > 0.5;
-                particle.className = collapsesTo0 ? 'particle-state ground' : 'particle-state excited';
-            }
+    // =============================================
+    // SUPERPOSITION DEMO
+    // =============================================
+    function toggleSuperposition() {
+        const particle = document.getElementById('particle');
+        isSuperposition = !isSuperposition;
+        if (isSuperposition) {
+            particle.className = 'particle-state superposition';
+        } else {
+            particle.className = Math.random() > 0.5 ? 'particle-state ground' : 'particle-state excited';
         }
+    }
 
-        // ============================================
-        // ENTANGLEMENT DEMO
-        // ============================================
-        function createEntanglement() {
-            const qubitA = document.getElementById('qubit-a');
-            const qubitB = document.getElementById('qubit-b');
-            const correlation = document.getElementById('correlation');
+    // =============================================
+    // ENTANGLEMENT DEMO
+    // =============================================
+    function createEntanglement() {
+        const qubitA = document.getElementById('qubit-a');
+        const qubitB = document.getElementById('qubit-b');
+        const corr = document.getElementById('correlation');
 
-            isEntangled = !isEntangled;
+        isEntangled = !isEntangled;
+        if (isEntangled) {
+            corr.classList.add('show');
+            qubitA.innerHTML = '?';
+            qubitB.innerHTML = '?';
+            qubitA.style.animation = 'pulse 0.5s infinite';
+            qubitB.style.animation = 'pulse 0.5s infinite';
 
-            if (isEntangled) {
-                correlation.classList.add('show');
-                qubitA.style.animation = 'pulse 1s infinite';
-                qubitB.style.animation = 'pulse 1s infinite';
-
-                // Random Bell state
-                const bellState = Math.random() > 0.5 ? '00/11' : '01/10';
-                qubitA.innerHTML = '?';
-                qubitB.innerHTML = '?';
-
-                // Simulate measurement
+            setTimeout(() => {
+                const val = Math.random() > 0.5 ? ['0', '0'] : ['1', '1'];
+                qubitA.innerHTML = val[0];
+                qubitB.innerHTML = val[1];
+                qubitA.style.animation = '';
+                qubitB.style.animation = '';
                 setTimeout(() => {
-                    const outcome = Math.random() > 0.5 ? ['0', '0'] : ['1', '1'];
-                    if (bellState === '01/10') {
-                        outcome[1] = outcome[0] === '0' ? '1' : '0';
-                    }
-                    qubitA.innerHTML = outcome[0];
-                    qubitB.innerHTML = outcome[1];
-                    qubitA.style.animation = '';
-                    qubitB.style.animation = '';
-
-                    setTimeout(() => {
-                        isEntangled = false;
-                        correlation.classList.remove('show');
-                    }, 2000);
+                    isEntangled = false;
+                    corr.classList.remove('show');
+                    qubitA.innerHTML = '0';
+                    qubitB.innerHTML = '0';
                 }, 2000);
-            } else {
-                correlation.classList.remove('show');
-                qubitA.innerHTML = '0';
-                qubitB.innerHTML = '0';
+            }, 1500);
+        }
+    }
+
+    // =============================================
+    // MEASUREMENT DEMO
+    // =============================================
+    function simulateMeasurement() {
+        const container = document.getElementById('measurement-demo');
+        const result = Math.random() > 0.5 ? '|0⟩' : '|1⟩';
+        const el = document.createElement('span');
+        el.className = 'meas-result';
+        el.style.background = result === '|0⟩' ? 'rgba(0, 212, 255, 0.3)' : 'rgba(236, 72, 153, 0.3)';
+        el.style.border = '1px solid ' + (result === '|0⟩' ? 'var(--quantum-blue)' : 'var(--quantum-pink)');
+        el.textContent = result;
+        container.appendChild(el);
+
+        if (container.children.length >= 20) {
+            const zeros = Array.from(container.children).filter(c => c.textContent === '|0⟩').length;
+            const p = document.createElement('p');
+            p.style.cssText = 'width: 100%; text-align: center; color: var(--quantum-green); margin-top: 0.5rem;';
+            p.textContent = `After 20 shots: |0⟩ = ${zeros} (${zeros * 5}%), |1⟩ = ${20 - zeros} (${(20 - zeros) * 5}%)`;
+            container.appendChild(p);
+        }
+    }
+
+    function resetMeasurement() {
+        document.getElementById('measurement-demo').innerHTML = '';
+    }
+
+    // =============================================
+    // CIRCUIT SIMULATOR
+    // =============================================
+    function updateCircuit() {
+        numQubits = parseInt(document.getElementById('qubit-count').value);
+        circuit = Array.from({ length: numQubits }, () => []);
+        renderCircuit();
+    }
+
+    function addGate(gateType) {
+        // Add to first available qubit
+        for (let i = 0; i < numQubits; i++) {
+            if (circuit[i].length < 6) {
+                circuit[i].push(gateType);
+                break;
+            }
+        }
+        renderCircuit();
+    }
+
+    function renderCircuit() {
+        const grid = document.getElementById('circuit-grid');
+        grid.innerHTML = '';
+
+        for (let i = 0; i < numQubits; i++) {
+            const row = document.createElement('div');
+            row.className = 'qubit-row';
+
+            const label = document.createElement('div');
+            label.className = 'qubit-label';
+            label.textContent = `q[${i}]`;
+            row.appendChild(label);
+
+            const line = document.createElement('div');
+            line.className = 'qubit-line';
+            line.id = `qubit-line-${i}`;
+
+            circuit[i].forEach((gate, idx) => {
+                const gateDiv = document.createElement('div');
+                gateDiv.className = 'gate-on-line' + (gate === 'M' ? ' measure' : '');
+                gateDiv.style.left = `${50 + idx * 60}px`;
+                gateDiv.textContent = gate === 'CNOT' ? '⊕' : gate === 'CZ' ? 'Z̅' : gate === 'SWAP' ? '⇄' : gate;
+                gateDiv.onclick = () => removeGate(i, idx);
+                line.appendChild(gateDiv);
+            });
+
+            row.appendChild(line);
+            grid.appendChild(row);
+        }
+
+        updateBlochFromCircuit();
+    }
+
+    function removeGate(qubitIdx, gateIdx) {
+        circuit[qubitIdx].splice(gateIdx, 1);
+        renderCircuit();
+    }
+
+    function clearCircuit() {
+        circuit = Array.from({ length: numQubits }, () => []);
+        renderCircuit();
+        document.getElementById('state-vector').innerHTML = '';
+        document.getElementById('measurement-results').innerHTML = '';
+    }
+
+    // =============================================
+    // QUANTUM SIMULATION
+    // =============================================
+    const SQRT2 = Math.sqrt(2);
+    const EIGHTH = Math.PI / 4;
+
+    // Gate definitions using complex numbers
+    const GATES = {
+        'H': [[{r: 1/SQRT2, i: 0}, {r: 1/SQRT2, i: 0}], [{r: 1/SQRT2, i: 0}, {r: -1/SQRT2, i: 0}]],
+        'X': [[{r: 0, i: 0}, {r: 1, i: 0}], [{r: 1, i: 0}, {r: 0, i: 0}]],
+        'Y': [[{r: 0, i: 0}, {r: 0, i: -1}], [{r: 0, i: 1}, {r: 0, i: 0}]],
+        'Z': [[{r: 1, i: 0}, {r: 0, i: 0}], [{r: 0, i: 0}, {r: -1, i: 0}]],
+        'S': [[{r: 1, i: 0}, {r: 0, i: 0}], [{r: 0, i: 0}, {r: 0, i: 1}]],
+        'T': [[{r: 1, i: 0}, {r: 0, i: 0}], [{r: 0, i: 0}, {r: Math.cos(EIGHTH), i: Math.sin(EIGHTH)}]]
+    };
+
+    function complexMul(a, b) {
+        return { r: a.r * b.r - a.i * b.i, i: a.r * b.i + a.i * b.r };
+    }
+
+    function complexAbs(c) {
+        return Math.sqrt(c.r * c.r + c.i * c.i);
+    }
+
+    function runCircuit() {
+        const dim = Math.pow(2, numQubits);
+        let state = Array(dim).fill(null).map(() => ({r: 0, i: 0}));
+        state[0] = { r: 1, i: 0 }; // |00...0⟩
+
+        // Apply gates
+        for (let q = 0; q < numQubits; q++) {
+            for (const gate of circuit[q]) {
+                if (gate === 'CNOT') {
+                    state = applyCNOT(state, 0, 1, numQubits);
+                } else if (gate === 'CZ') {
+                    state = applyCZ(state, 0, 1, numQubits);
+                } else if (gate === 'SWAP') {
+                    state = applySWAP(state, 0, 1, numQubits);
+                } else if (GATES[gate]) {
+                    state = applySingleGate(state, GATES[gate], q, numQubits);
+                }
             }
         }
 
-        // ============================================
-        // MEASUREMENT DEMO
-        // ============================================
-        function simulateMeasurement() {
-            const container = document.getElementById('measurement-demo');
+        displayResults(state);
+        updateBlochFromState(state);
+    }
 
-            // Start with superposition state
-            const result = Math.random() > 0.5 ? '|1⟩' : '|0⟩';
-            const count = parseInt(container.dataset.count || '0') + 1;
-            container.dataset.count = count;
+    function applySingleGate(state, gate, qubit, n) {
+        const dim = Math.pow(2, n);
+        const newState = Array(dim).fill(null).map(() => ({r: 0, i: 0}));
 
-            const resultDiv = document.createElement('div');
-            resultDiv.style.cssText = `
-                padding: 0.5rem 1rem;
-                background: ${result === '|0⟩' ? 'rgba(0, 212, 255, 0.2)' : 'rgba(236, 72, 153, 0.2)'};
-                border: 1px solid ${result === '|0⟩' ? 'var(--quantum-blue)' : 'var(--quantum-pink)'};
-                border-radius: 8px;
-                font-family: 'Orbitron', monospace;
-                animation: fadeIn 0.3s ease;
+        for (let i = 0; i < dim; i++) {
+            const bit = (i >> qubit) & 1;
+            for (let j = 0; j < 2; j++) {
+                let idx = i;
+                if (j !== bit) {
+                    idx = (i & ~(1 << qubit)) | (j << qubit);
+                }
+                const m = gate[bit][j];
+                newState[idx] = {
+                    r: newState[idx].r + complexMul(state[i], m).r,
+                    i: newState[idx].i + complexMul(state[i], m).i
+                };
+            }
+        }
+        return newState;
+    }
+
+    function applyCNOT(state, ctrl, tgt, n) {
+        const dim = Math.pow(2, n);
+        const newState = state.map(s => ({...s}));
+        for (let i = 0; i < dim; i++) {
+            if ((i >> ctrl) & 1) {
+                const flipped = i ^ (1 << tgt);
+                const temp = newState[i];
+                newState[i] = newState[flipped];
+                newState[flipped] = temp;
+            }
+        }
+        return newState;
+    }
+
+    function applyCZ(state, ctrl, tgt, n) {
+        const dim = Math.pow(2, n);
+        const newState = state.map(s => ({...s}));
+        for (let i = 0; i < dim; i++) {
+            if (((i >> ctrl) & 1) && ((i >> tgt) & 1)) {
+                newState[i] = { r: -newState[i].r, i: -newState[i].i };
+            }
+        }
+        return newState;
+    }
+
+    function applySWAP(state, a, b, n) {
+        const dim = Math.pow(2, n);
+        const newState = Array(dim).fill(null).map(() => ({r: 0, i: 0}));
+        for (let i = 0; i < dim; i++) {
+            const ia = (i >> a) & 1;
+            const ib = (i >> b) & 1;
+            let j = i;
+            j = (j & ~(1 << a)) | (ib << a);
+            j = (j & ~(1 << b)) | (ia << b);
+            newState[j] = {...state[i]};
+        }
+        return newState;
+    }
+
+    function displayResults(state) {
+        const container = document.getElementById('state-vector');
+        container.innerHTML = '';
+
+        const dim = state.length;
+        for (let i = 0; i < dim; i++) {
+            const prob = complexAbs(state[i]) ** 2;
+            const label = dim <= 4 ? `|${i.toString(2).padStart(numQubits, '0')}⟩` : `|${i}⟩`;
+
+            const bar = document.createElement('div');
+            bar.className = 'state-bar';
+            bar.innerHTML = `
+                <div class="label">${label}</div>
+                <div class="bar"><div class="fill" style="width: ${prob * 100}%"></div></div>
+                <div class="value">${(prob * 100).toFixed(1)}%</div>
             `;
-            resultDiv.textContent = result;
-            container.appendChild(resultDiv);
+            container.appendChild(bar);
+        }
 
-            if (count >= 20) {
-                const allResults = container.querySelectorAll('div');
-                const zeros = Array.from(allResults).filter(d => d.textContent === '|0⟩').length;
-                const ones = count - zeros;
-                container.innerHTML += `<p style="margin-top: 1rem; color: var(--quantum-green);">After ${count} measurements: |0⟩ = ${zeros} (${Math.round(zeros/count*100)}%), |1⟩ = ${ones} (${Math.round(ones/count*100)}%)</p>`;
+        // Run multiple shots for measurement results
+        const shots = parseInt(document.getElementById('shots-count').value) || 1000;
+        const counts = Array(dim).fill(0);
+
+        for (let s = 0; s < shots; s++) {
+            const probs = state.map(s => complexAbs(s) ** 2);
+            let r = Math.random(), cum = 0;
+            for (let i = 0; i < dim; i++) {
+                cum += probs[i];
+                if (r < cum) { counts[i]++; break; }
             }
         }
 
-        function resetMeasurement() {
-            document.getElementById('measurement-demo').innerHTML = '';
-            document.getElementById('measurement-demo').dataset.count = '0';
-        }
-
-        // ============================================
-        // CIRCUIT SIMULATOR
-        // ============================================
-        function updateCircuit() {
-            numQubits = parseInt(document.getElementById('qubit-count').value);
-            circuit = Array(numQubits).fill(null).map(() => []);
-
-            const grid = document.getElementById('circuit-grid');
-            grid.style.gridTemplateColumns = `repeat(${numQubits * 4 + 1}, 1fr)`;
-
-            grid.innerHTML = '';
-
-            for (let i = 0; i < numQubits; i++) {
-                const row = document.createElement('div');
-                row.className = 'qubit-row';
-                row.innerHTML = `
-                    <div class="qubit-label">q[${i}]</div>
-                    <div class="qubit-line" id="qubit-line-${i}"></div>
-                `;
-                grid.appendChild(row);
+        const resultsDiv = document.getElementById('measurement-results');
+        resultsDiv.innerHTML = '<h4 style="color: var(--quantum-green); margin-bottom: 0.5rem;">Measurement Counts:</h4>';
+        for (let i = 0; i < dim; i++) {
+            if (counts[i] > 0) {
+                const label = dim <= 4 ? `|${i.toString(2).padStart(numQubits, '0')}⟩` : `|${i}⟩`;
+                resultsDiv.innerHTML += `<div style="color: rgba(255,255,255,0.8);">${label}: ${counts[i]}</div>`;
             }
-
-            updateBlochFromSliders();
         }
+    }
 
-        function addGate(gateType) {
-            // Add gate to first available position on first qubit
-            const qubitIndex = 0;
-            circuit[qubitIndex].push(gateType);
-            renderCircuit();
-        }
+    function updateBlochFromCircuit() {
+        let theta = 0, phi = 0;
 
-        function renderCircuit() {
-            for (let i = 0; i < numQubits; i++) {
-                const line = document.getElementById(`qubit-line-${i}`);
-                line.innerHTML = '';
-
-                circuit[i].forEach((gate, gateIndex) => {
-                    const gateDiv = document.createElement('div');
-                    gateDiv.className = 'gate-on-line' + (gate === 'M' ? ' measure' : '');
-                    gateDiv.style.left = `${(gateIndex + 1) * 60}px`;
-                    gateDiv.innerHTML = getGateSymbol(gate);
-                    gateDiv.title = `${gate} gate on q[${i}] - Click to remove`;
-                    gateDiv.onclick = () => removeGate(i, gateIndex);
-                    line.appendChild(gateDiv);
-                });
-            }
-
-            updateBlochFromCircuit();
-        }
-
-        function getGateSymbol(gate) {
-            const symbols = {
-                'H': 'H', 'X': 'X', 'Y': 'Y', 'Z': 'Z',
-                'S': 'S', 'T': 'T', 'CNOT': '⊕', 'CZ': 'Z̅',
-                'SWAP': '⇄', 'M': 'M', 'Rx': 'Rx', 'Ry': 'Ry', 'Rz': 'Rz'
-            };
-            return symbols[gate] || gate;
-        }
-
-        function removeGate(qubitIndex, gateIndex) {
-            circuit[qubitIndex].splice(gateIndex, 1);
-            renderCircuit();
-        }
-
-        function clearCircuit() {
-            circuit = Array(numQubits).fill(null).map(() => []);
-            renderCircuit();
-        }
-
-        // ============================================
-        // QUANTUM SIMULATION ENGINE
-        // ============================================
-
-        // Gate matrices
-        const GATES = {
-            'H': [[1/Math.sqrt(2), 1/Math.sqrt(2)], [1/Math.sqrt(2), -1/Math.sqrt(2)]],
-            'X': [[0, 1], [1, 0]],
-            'Y': [[0, -1j], [1j, 0]],
-            'Z': [[1, 0], [0, -1]],
-            'S': [[1, 0], [0, 1j]],
-            'T': [[1, 0], [0, Math.exp(1j * Math.PI / 4)]],
-            'Rx': (theta) => [[Math.cos(theta/2), -1j*Math.sin(theta/2)], [-1j*Math.sin(theta/2), Math.cos(theta/2)]],
-            'Ry': (theta) => [[Math.cos(theta/2), -Math.sin(theta/2)], [Math.sin(theta/2), Math.cos(theta/2)]],
-            'Rz': (theta) => [[Math.exp(-1j*theta/2), 0], [0, Math.exp(1j*theta/2)]]
-        };
-
-        function applyGate(stateVector, gate, targetQubit) {
-            const size = stateVector.length;
-            const newState = new Array(size).fill(0);
-
-            for (let i = 0; i < size; i++) {
-                const bit = (i >> targetQubit) & 1;
-                const gateRow = gate[bit];
-
-                for (let j = 0; j < 2; j++) {
-                    const newBit = j;
-                    let mask = 0;
-                    mask |= (newBit << targetQubit);
-                    const otherBits = i & ~(1 << targetQubit);
-                    const idx = mask | otherBits;
-                    newState[idx] += stateVector[i] * gateRow[j];
-                }
-            }
-
-            return newState;
-        }
-
-        function runCircuit() {
-            // Initialize state |0...0⟩
-            const size = Math.pow(2, numQubits);
-            let state = new Array(size).fill(0);
-            state[0] = 1;
-
-            // Apply gates
-            for (let q = 0; q < numQubits; q++) {
-                for (const gate of circuit[q]) {
-                    if (gate === 'CNOT') {
-                        // CNOT: control on q[0], target on q[1] or subsequent qubits
-                        const controlQubit = 0;
-                        const targetQubit = q === 0 ? 1 : 0;
-                        state = applyCNOT(state, controlQubit, targetQubit);
-                    } else if (gate === 'M') {
-                        // Measurement - collapse
-                        const result = measureState(state);
-                        measurements[q] = result;
-                    } else if (GATES[gate]) {
-                        if (typeof GATES[gate] === 'function') {
-                            state = applyGate(state, GATES[gate](Math.PI/4), q);
-                        } else {
-                            state = applyGate(state, GATES[gate], q);
-                        }
-                    }
-                }
-            }
-
-            displayResults(state);
-            updateBlochFromState(state);
-        }
-
-        function applyCNOT(state, control, target) {
-            const newState = [...state];
-            for (let i = 0; i < state.length; i++) {
-                if ((i >> control) & 1) {
-                    const bit = (i >> target) & 1;
-                    const flipped = i ^ (1 << target);
-                    const temp = newState[i];
-                    newState[i] = newState[flipped];
-                    newState[flipped] = temp;
-                }
-            }
-            return newState;
-        }
-
-        function measureState(state) {
-            const probs = state.map(amp => Math.abs(amp) ** 2);
-            const rand = Math.random();
-            let cumsum = 0;
-            for (let i = 0; i < probs.length; i++) {
-                cumsum += probs[i];
-                if (rand < cumsum) return i;
-            }
-            return probs.length - 1;
-        }
-
-        function displayResults(state) {
-            const size = state.length;
-
-            // State vector display
-            const stateVectorDiv = document.getElementById('state-vector');
-            stateVectorDiv.innerHTML = '';
-
-            for (let i = 0; i < Math.min(size, 8); i++) {
-                const prob = Math.abs(state[i]) ** 2;
-                const phase = Math.atan2(state[i].imag, state[i].real);
-
-                const bar = document.createElement('div');
-                bar.className = 'state-bar';
-                bar.innerHTML = `
-                    <div class="label">|${i.toString(2).padStart(numQubits, '0')}⟩</div>
-                    <div class="bar"><div class="fill" style="width: ${prob * 100}%"></div></div>
-                    <div class="value">${(prob * 100).toFixed(1)}%</div>
-                `;
-                stateVectorDiv.appendChild(bar);
-            }
-
-            // Simulate measurements
-            const shots = parseInt(document.getElementById('shots-count').value) || 1000;
-            const counts = new Array(size).fill(0);
-
-            for (let s = 0; s < shots; s++) {
-                const result = measureState(state);
-                counts[result]++;
-            }
-
-            // Display measurement results
-            const resultsDiv = document.getElementById('measurement-results');
-            resultsDiv.innerHTML = '';
-
-            for (let i = 0; i < Math.min(size, 8); i++) {
-                const count = counts[i];
-                const prob = count / shots;
-
-                const result = document.createElement('div');
-                result.className = 'result-bar';
-                result.innerHTML = `
-                    <div class="label" style="color: ${prob > 0.5 ? 'var(--quantum-green)' : 'var(--quantum-blue)'}">
-                        |${i.toString(2).padStart(numQubits, '0')}⟩ = ${(prob * 100).toFixed(1)}%
-                    </div>
-                    <div class="count">${count} shots</div>
-                `;
-                resultsDiv.appendChild(result);
+        if (circuit[0]) {
+            for (const gate of circuit[0]) {
+                if (gate === 'H') { theta = Math.PI / 2; phi = 0; }
+                else if (gate === 'X') { theta = Math.PI; phi = 0; }
+                else if (gate === 'Y') { theta = Math.PI / 2; phi = Math.PI; }
+                else if (gate === 'Z') { phi += Math.PI; }
+                else if (gate === 'S') { phi += Math.PI / 2; }
+                else if (gate === 'T') { phi += Math.PI / 4; }
             }
         }
 
-        function stepCircuit() {
-            currentStep++;
-            runCircuit();
-        }
+        document.getElementById('theta-slider').value = theta * 180 / Math.PI;
+        document.getElementById('phi-slider').value = phi * 180 / Math.PI;
+        updateBlochFromSliders();
+    }
 
-        // ============================================
-        // BLOCH SPHERE VISUALIZATION
-        // ============================================
-        function initBlochSphere() {
-            const container = document.getElementById('bloch-sphere');
-
-            blochScene = new THREE.Scene();
-            blochCamera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
-            blochRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            blochRenderer.setSize(container.clientWidth, container.clientHeight);
-            container.appendChild(blochRenderer.domElement);
-
-            // Sphere
-            const sphereGeom = new THREE.SphereGeometry(2, 32, 32);
-            const sphereMat = new THREE.MeshBasicMaterial({
-                color: 0x00d4ff,
-                wireframe: true,
-                transparent: true,
-                opacity: 0.3
-            });
-            const sphere = new THREE.Mesh(sphereGeom, sphereMat);
-            blochScene.add(sphere);
-
-            // Axes
-            const axisLength = 2.5;
-            const axisGeom = new THREE.BufferGeometry().setFromPoints([
-                new THREE.Vector3(-axisLength, 0, 0),
-                new THREE.Vector3(axisLength, 0, 0),
-                new THREE.Vector3(0, -axisLength, 0),
-                new THREE.Vector3(0, axisLength, 0),
-                new THREE.Vector3(0, 0, -axisLength),
-                new THREE.Vector3(0, 0, axisLength)
-            ]);
-            const axisMat = new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.3 });
-            const axes = new THREE.LineSegments(axisGeom, axisMat);
-            blochScene.add(axes);
-
-            // State vector arrow
-            const arrowDir = new THREE.Vector3(0, 1, 0);
-            const arrowLength = 1.8;
-            const arrowGeom = new THREE.BufferGeometry().setFromPoints([
-                new THREE.Vector3(0, 0, 0),
-                arrowDir.clone().multiplyScalar(arrowLength)
-            ]);
-            const arrowMat = new THREE.LineBasicMaterial({ color: 0xa855f7 });
-            blochVector = new THREE.Line(arrowGeom, arrowMat);
-            blochScene.add(blochVector);
-
-            // Arrow head
-            const coneGeom = new THREE.ConeGeometry(0.15, 0.3, 8);
-            const coneMat = new THREE.MeshBasicMaterial({ color: 0xa855f7 });
-            const cone = new THREE.Mesh(coneGeom, coneMat);
-            cone.position.copy(arrowDir.clone().multiplyScalar(arrowLength));
-            cone.name = 'arrowHead';
-            blochScene.add(cone);
-
-            // Labels
-            const labels = ['|0⟩', '|1⟩', '+x', '-x', '+y', '-y', '+z', '-z'];
-            const positions = [
-                [0, 2.8, 0], [0, -2.8, 0],
-                [2.8, 0, 0], [-2.8, 0, 0],
-                [0, 0, 2.8], [0, 0, -2.8]
-            ];
-
-            blochCamera.position.z = 5;
-
-            // Animation
-            function animate() {
-                requestAnimationFrame(animate);
-                blochRenderer.render(blochScene, blochCamera);
-            }
-            animate();
-
-            // Mouse interaction
-            let isDragging = false;
-            let previousMousePosition = { x: 0, y: 0 };
-
-            blochRenderer.domElement.addEventListener('mousedown', (e) => {
-                isDragging = true;
-            });
-
-            blochRenderer.domElement.addEventListener('mousemove', (e) => {
-                if (isDragging) {
-                    const deltaMove = {
-                        x: e.offsetX - previousMousePosition.x,
-                        y: e.offsetY - previousMousePosition.y
-                    };
-
-                    blochCamera.position.x += deltaMove.x * 0.01;
-                    blochCamera.position.y -= deltaMove.y * 0.01;
-                    blochCamera.lookAt(0, 0, 0);
-                }
-
-                previousMousePosition = { x: e.offsetX, y: e.offsetY };
-            });
-
-            blochRenderer.domElement.addEventListener('mouseup', () => {
-                isDragging = false;
-            });
-        }
-
-        function updateBlochFromSliders() {
-            const theta = parseInt(document.getElementById('theta-slider').value) * Math.PI / 180;
-            const phi = parseInt(document.getElementById('phi-slider').value) * Math.PI / 180;
-
-            document.getElementById('theta-value').textContent = Math.round(theta * 180 / Math.PI);
-            document.getElementById('phi-value').textContent = Math.round(phi * 180 / Math.PI);
-
-            updateBlochVector(theta, phi);
-        }
-
-        function updateBlochVector(theta, phi) {
-            const x = Math.sin(theta) * Math.cos(phi);
-            const y = Math.cos(theta);
-            const z = Math.sin(theta) * Math.sin(phi);
-
-            const dir = new THREE.Vector3(x, y, z).normalize();
-            const length = 1.8;
-
-            blochVector.geometry.setFromPoints([
-                new THREE.Vector3(0, 0, 0),
-                dir.clone().multiplyScalar(length)
-            ]);
-
-            // Update arrow head
-            const arrowHead = blochScene.getObjectByName('arrowHead');
-            if (arrowHead) {
-                arrowHead.position.copy(dir.clone().multiplyScalar(length));
-                arrowHead.lookAt(0, 0, 0);
-            }
-        }
-
-        function updateBlochFromCircuit() {
-            // Calculate state from circuit
-            let theta = 0, phi = 0;
-
-            for (let q = 0; q < Math.min(numQubits, 1); q++) {
-                for (const gate of circuit[q]) {
-                    if (gate === 'H') { theta = Math.PI/2; phi = 0; }
-                    else if (gate === 'X') { theta = Math.PI; phi = 0; }
-                    else if (gate === 'Y') { theta = Math.PI/2; phi = Math.PI; }
-                    else if (gate === 'Z') { phi += Math.PI; }
-                    else if (gate === 'S') { phi += Math.PI/2; }
-                    else if (gate === 'T') { phi += Math.PI/4; }
-                }
-            }
+    function updateBlochFromState(state) {
+        if (numQubits === 1 && state.length >= 2) {
+            const alpha = state[0], beta = state[1];
+            let theta = 2 * Math.acos(Math.min(1, complexAbs(alpha)));
+            let phi = Math.atan2(beta.i, beta.r) - Math.atan2(alpha.i, alpha.r);
 
             document.getElementById('theta-slider').value = theta * 180 / Math.PI;
             document.getElementById('phi-slider').value = phi * 180 / Math.PI;
             updateBlochFromSliders();
         }
+    }
 
-        function updateBlochFromState(state) {
-            if (state.length >= 2) {
-                const alpha = state[0] || 0;
-                const beta = state[1] || 0;
+    // =============================================
+    // BLOCH SPHERE (Three.js)
+    // =============================================
+    function initBlochSphere() {
+        const container = document.getElementById('bloch-sphere');
+        if (!container) return;
 
-                let theta = 2 * Math.acos(Math.abs(alpha));
-                let phi = Math.atan2(beta.imag, beta.real) - Math.atan2(alpha.imag, alpha.real);
+        blochScene = new THREE.Scene();
+        blochCamera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 0.1, 1000);
+        blochRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        blochRenderer.setSize(container.clientWidth, container.clientHeight);
+        container.appendChild(blochRenderer.domElement);
 
-                document.getElementById('theta-slider').value = theta * 180 / Math.PI;
-                document.getElementById('phi-slider').value = phi * 180 / Math.PI;
-                updateBlochFromSliders();
-            }
+        // Sphere wireframe
+        const sphere = new THREE.Mesh(
+            new THREE.SphereGeometry(2, 32, 32),
+            new THREE.MeshBasicMaterial({ color: 0x00d4ff, wireframe: true, transparent: true, opacity: 0.3 })
+        );
+        blochScene.add(sphere);
+
+        // Axes
+        const axes = new THREE.LineSegments(
+            new THREE.BufferGeometry().setFromPoints([
+                new THREE.Vector3(-2.5, 0, 0), new THREE.Vector3(2.5, 0, 0),
+                new THREE.Vector3(0, -2.5, 0), new THREE.Vector3(0, 2.5, 0),
+                new THREE.Vector3(0, 0, -2.5), new THREE.Vector3(0, 0, 2.5)
+            ]),
+            new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.2 })
+        );
+        blochScene.add(axes);
+
+        // State vector arrow
+        blochVector = new THREE.Line(
+            new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 1.8, 0)]),
+            new THREE.LineBasicMaterial({ color: 0xa855f7, linewidth: 3 })
+        );
+        blochScene.add(blochVector);
+
+        // Arrow head
+        const cone = new THREE.Mesh(
+            new THREE.ConeGeometry(0.12, 0.25, 8),
+            new THREE.MeshBasicMaterial({ color: 0xa855f7 })
+        );
+        cone.position.set(0, 1.8, 0);
+        cone.name = 'arrowHead';
+        blochScene.add(cone);
+
+        blochCamera.position.z = 5;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            blochRenderer.render(blochScene, blochCamera);
+        }
+        animate();
+    }
+
+    function updateBlochFromSliders() {
+        const theta = parseFloat(document.getElementById('theta-slider').value) * Math.PI / 180;
+        const phi = parseFloat(document.getElementById('phi-slider').value) * Math.PI / 180;
+
+        document.getElementById('theta-value').textContent = Math.round(theta * 180 / Math.PI);
+        document.getElementById('phi-value').textContent = Math.round(phi * 180 / Math.PI);
+
+        const x = 1.8 * Math.sin(theta) * Math.cos(phi);
+        const y = 1.8 * Math.cos(theta);
+        const z = 1.8 * Math.sin(theta) * Math.sin(phi);
+
+        blochVector.geometry.setFromPoints([new THREE.Vector3(0, 0, 0), new THREE.Vector3(x, y, z)]);
+
+        const arrowHead = blochScene?.getObjectByName('arrowHead');
+        if (arrowHead) {
+            arrowHead.position.set(x, y, z);
+            arrowHead.lookAt(0, y < 0 ? 3 : -3, 0);
+            arrowHead.rotateX(Math.PI / 2);
+        }
+    }
+
+    // =============================================
+    // EXAMPLES
+    // =============================================
+    function loadExample(name) {
+        clearCircuit();
+        document.getElementById('qubit-count').value = name === 'ghz' ? '3' : '2';
+        updateCircuit();
+
+        switch (name) {
+            case 'bell':
+                circuit[0] = ['H'];
+                circuit[1] = ['CNOT'];
+                break;
+            case 'ghz':
+                document.getElementById('qubit-count').value = '3';
+                updateCircuit();
+                circuit[0] = ['H'];
+                circuit[1] = ['CNOT'];
+                circuit[2] = ['CNOT'];
+                break;
+            case 'superposition':
+                circuit[0] = ['H'];
+                break;
+            case 'deutsch':
+                circuit[0] = ['X', 'H'];
+                circuit[1] = ['H'];
+                break;
+        }
+        renderCircuit();
+        runCircuit();
+    }
+
+    // =============================================
+    // ALGORITHMS
+    // =============================================
+    function showAlgorithm(name, btn) {
+        document.querySelectorAll('.algo-tab').forEach(t => t.classList.remove('active'));
+        if (btn) btn.classList.add('active');
+
+        const descriptions = {
+            'deutsch-jozsa': '<h3>Deutsch-Jozsa Algorithm</h3><p>Determines if a function is <strong>constant</strong> or <strong>balanced</strong> in ONE quantum query vs 2ⁿ⁻¹+1 classical queries.</p>',
+            'grover': '<h3>Grover\'s Search Algorithm</h3><p>Provides quadratic speedup for unstructured search. Finds a marked item in O(√N) steps instead of O(N).</p>',
+            'qft': '<h3>Quantum Fourier Transform</h3><p>The quantum analog of the discrete Fourier transform. Key component of Shor\'s algorithm and many others.</p>',
+            'phase': '<h3>Quantum Phase Estimation</h3><p>Estimates the eigenvalue of a unitary operator. Fundamental to quantum chemistry and factoring.</p>'
+        };
+
+        document.getElementById('algo-description').innerHTML = descriptions[name] || descriptions['deutsch-jozsa'];
+        initAlgorithmVisualization(name);
+    }
+
+    function initAlgorithmVisualization(name) {
+        const container = document.getElementById('algo-visualization');
+        container.innerHTML = '';
+
+        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.setAttribute('width', '600');
+        svg.setAttribute('height', '200');
+        svg.setAttribute('viewBox', '0 0 600 200');
+
+        const circuits = {
+            'deutsch-jozsa': [
+                { q: 0, gates: [{x: 100, t: 'X'}, {x: 180, t: 'H'}] },
+                { q: 1, gates: [{x: 180, t: 'H'}] },
+                { oracle: true, x: 280 },
+                { q: 0, gates: [{x: 420, t: 'H'}] },
+                { q: 1, gates: [{x: 420, t: 'H'}] },
+                { measure: true, x: 500 }
+            ],
+            'grover': [
+                { q: 0, gates: [{x: 80, t: 'H'}, {x: 200, t: 'O'}, {x: 320, t: 'H'}, {x: 400, t: 'D'}] },
+                { q: 1, gates: [{x: 80, t: 'H'}, {x: 200, t: 'O'}, {x: 320, t: 'H'}] },
+                { q: 2, gates: [{x: 80, t: 'H'}, {x: 200, t: 'O'}, {x: 320, t: 'H'}] }
+            ],
+            'qft': [
+                { q: 0, gates: [{x: 80, t: 'H'}, {x: 160, t: 'S'}, {x: 240, t: 'T'}] },
+                { q: 1, gates: [{x: 120, t: 'H'}, {x: 200, t: 'S'}] },
+                { q: 2, gates: [{x: 160, t: 'H'}] }
+            ],
+            'phase': [
+                { q: 0, gates: [{x: 80, t: 'H'}, {x: 400, t: 'M'}] },
+                { q: 1, gates: [{x: 140, t: 'H'}, {x: 250, t: 'U'}, {x: 400, t: 'H'}] },
+                { q: 2, gates: [{x: 200, t: 'H'}, {x: 250, t: 'U'}, {x: 320, t: 'U'}, {x: 400, t: 'H'}] }
+            ]
+        };
+
+        const circuitData = circuits[name] || circuits['deutsch-jozsa'];
+        const numQ = name === 'grover' ? 3 : 2;
+        const spacing = 50;
+        const startY = 40;
+
+        // Draw wires
+        for (let i = 0; i < numQ; i++) {
+            const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            line.setAttribute('x1', '30');
+            line.setAttribute('y1', startY + i * spacing);
+            line.setAttribute('x2', '550');
+            line.setAttribute('y2', startY + i * spacing);
+            line.setAttribute('stroke', '#00d4ff');
+            line.setAttribute('stroke-width', '2');
+            line.setAttribute('opacity', '0.4');
+            svg.appendChild(line);
+
+            const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            label.setAttribute('x', '15');
+            label.setAttribute('y', startY + i * spacing + 4);
+            label.setAttribute('fill', '#00d4ff');
+            label.setAttribute('font-family', 'Orbitron');
+            label.setAttribute('font-size', '12');
+            label.textContent = '|0⟩';
+            svg.appendChild(label);
         }
 
-        // ============================================
-        // PRE-BUILT EXAMPLES
-        // ============================================
-        function loadExample(example) {
-            clearCircuit();
+        // Draw gates
+        circuitData.forEach(item => {
+            if (item.oracle) {
+                const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                rect.setAttribute('x', item.x - 30);
+                rect.setAttribute('y', startY - 15);
+                rect.setAttribute('width', '60');
+                rect.setAttribute('height', numQ * spacing + 30);
+                rect.setAttribute('fill', '#f59e0b');
+                rect.setAttribute('rx', '5');
+                rect.setAttribute('opacity', '0.4');
+                svg.appendChild(rect);
 
-            switch(example) {
-                case 'bell':
-                    document.getElementById('qubit-count').value = '2';
-                    updateCircuit();
-                    circuit[0] = ['H'];
-                    circuit[1] = ['CNOT'];
-                    break;
-                case 'ghz':
-                    document.getElementById('qubit-count').value = '3';
-                    updateCircuit();
-                    circuit[0] = ['H'];
-                    circuit[1] = ['CNOT'];
-                    circuit[2] = ['CNOT'];
-                    break;
-                case 'superposition':
-                    circuit[0] = ['H'];
-                    break;
-                case 'teleport':
-                    document.getElementById('qubit-count').value = '3';
-                    updateCircuit();
-                    circuit[0] = ['H', 'S', 'T'];
-                    circuit[1] = ['H', 'CNOT'];
-                    circuit[2] = ['CNOT'];
-                    break;
-                case 'deutsch':
-                    document.getElementById('qubit-count').value = '2';
-                    updateCircuit();
-                    circuit[0] = ['X', 'H'];
-                    circuit[1] = ['H'];
-                    break;
+                const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                text.setAttribute('x', item.x);
+                text.setAttribute('y', startY + (numQ - 1) * spacing / 2 + 5);
+                text.setAttribute('fill', '#fff');
+                text.setAttribute('font-family', 'Orbitron');
+                text.setAttribute('font-size', '12');
+                text.setAttribute('text-anchor', 'middle');
+                text.textContent = 'U_f';
+                svg.appendChild(text);
             }
 
-            renderCircuit();
-            runCircuit();
-        }
+            if (item.gates) {
+                const y = startY + item.q * spacing;
+                item.gates.forEach(g => {
+                    const colors = { 'H': '#a855f7', 'X': '#ef4444', 'Y': '#10b981', 'Z': '#3b82f6', 'S': '#f59e0b', 'T': '#ec4899', 'O': '#f59e0b', 'D': '#6366f1', 'M': '#10b981', 'U': '#14b8a6' };
+                    const color = colors[g.t] || '#a855f7';
 
-        // ============================================
-        // ALGORITHM VISUALIZATION
-        // ============================================
-        function showAlgorithm(algo) {
-            document.querySelectorAll('.algo-tab').forEach(tab => tab.classList.remove('active'));
-            event.target.classList.add('active');
-
-            const descriptions = {
-                'deutsch-jozsa': {
-                    title: 'Deutsch-Jozsa Algorithm',
-                    desc: 'Given a black-box function f that is either <strong>balanced</strong> (returns 0 for half inputs, 1 for half) or <strong>constant</strong> (returns same value for all inputs), determine which in just ONE query using quantum parallelism.<br><br>Classical computers need 2^(n-1)+1 queries in worst case. Quantum computers need only 1!'
-                },
-                'grover': {
-                    title: 'Grover\'s Search Algorithm',
-                    desc: 'Grover\'s algorithm provides quadratic speedup for unstructured search. For a database of N items, it finds a marked item in O(√N) steps instead of O(N).<br><br>The algorithm uses the Grover diffusion operator to amplify the probability amplitude of the target state.'
-                },
-                'quantum-fourier': {
-                    title: 'Quantum Fourier Transform (QFT)',
-                    desc: 'QFT is the quantum analog of the discrete Fourier transform. It transforms quantum states efficiently and is a key component of many quantum algorithms including Shor\'s factoring algorithm.<br><br>On N = 2ⁿ states, QFT runs in O(n²) gates compared to O(N·n) classically.'
-                },
-                'phase-estimation': {
-                    title: 'Quantum Phase Estimation',
-                    desc: 'Phase estimation estimates the eigenvalue of a unitary operator. It\'s fundamental to quantum chemistry, Shor\'s algorithm, and many other quantum algorithms.<br><br>The algorithm uses two registers: one for the phase bits and one for the eigenstate.'
-                }
-            };
-
-            document.getElementById('algo-description').innerHTML = `
-                <h3>${descriptions[algo].title}</h3>
-                <p>${descriptions[algo].desc}</p>
-            `;
-
-            initAlgorithmVisualization(algo);
-        }
-
-        function initAlgorithmVisualization(algo = 'deutsch-jozsa') {
-            const container = document.getElementById('algo-visualization');
-            container.innerHTML = '';
-
-            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-            svg.setAttribute('width', '100%');
-            svg.setAttribute('height', '350');
-            svg.style.maxWidth = '800px';
-            svg.style.margin = '0 auto';
-            svg.style.display = 'block';
-
-            const circuits = {
-                'deutsch-jozsa': [
-                    { qubit: 0, gates: [{type: 'X', x: 80}, {type: 'H', x: 140}] },
-                    { qubit: 1, gates: [{type: 'H', x: 140}] },
-                    { type: 'oracle', x: 250 },
-                    { qubit: 0, gates: [{type: 'H', x: 400}] },
-                    { qubit: 1, gates: [{type: 'H', x: 400}] },
-                    { type: 'measure', x: 500 }
-                ],
-                'grover': [
-                    { qubit: 0, gates: [{type: 'H', x: 80}, {type: 'oracle', x: 180}, {type: 'H', x: 280}, {type: 'D', x: 340}, {type: 'oracle', x: 440}, {type: 'H', x: 540}, {type: 'D', x: 600}] },
-                    { qubit: 1, gates: [{type: 'H', x: 80}, {type: 'oracle', x: 180}, {type: 'H', x: 280}, {type: 'D', x: 340}] },
-                ],
-                'quantum-fourier': [
-                    { qubit: 0, gates: [{type: 'H', x: 80}, {type: 'S', x: 180}, {type: 'T', x: 280}] },
-                    { qubit: 1, gates: [{type: 'H', x: 140}, {type: 'S', x: 240}] },
-                    { qubit: 2, gates: [{type: 'H', x: 200}] },
-                ],
-                'phase-estimation': [
-                    { qubit: 0, gates: [{type: 'H', x: 80}, {type: 'measure', x: 500}] },
-                    { qubit: 1, gates: [{type: 'H', x: 140}, {type: 'U', x: 300}, {type: 'H', x: 500}] },
-                    { qubit: 2, gates: [{type: 'H', x: 200}, {type: 'U', x: 300}, {type: 'U', x: 400}, {type: 'H', x: 500}] },
-                ]
-            };
-
-            const circuit = circuits[algo] || circuits['deutsch-jozsa'];
-
-            // Draw circuit lines
-            const numQubits = algo === 'grover' ? 2 : (algo === 'quantum-fourier' ? 3 : (algo === 'phase-estimation' ? 3 : 2));
-            const lineSpacing = 60;
-            const startY = 60;
-
-            for (let i = 0; i < numQubits; i++) {
-                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                line.setAttribute('x1', '40');
-                line.setAttribute('y1', startY + i * lineSpacing);
-                line.setAttribute('x2', '620');
-                line.setAttribute('y2', startY + i * lineSpacing);
-                line.setAttribute('stroke', '#00d4ff');
-                line.setAttribute('stroke-width', '2');
-                line.setAttribute('opacity', '0.5');
-                svg.appendChild(line);
-            }
-
-            // Draw qubit labels
-            for (let i = 0; i < numQubits; i++) {
-                const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                label.setAttribute('x', '20');
-                label.setAttribute('y', startY + i * lineSpacing + 5);
-                label.setAttribute('fill', '#00d4ff');
-                label.setAttribute('font-family', 'Orbitron');
-                label.setAttribute('font-size', '14');
-                label.textContent = `|0⟩`;
-                svg.appendChild(label);
-            }
-
-            // Draw gates
-            const gateShapes = {
-                'H': { type: 'rect', color: '#a855f7', w: 30, h: 30 },
-                'X': { type: 'rect', color: '#ef4444', w: 30, h: 30 },
-                'Y': { type: 'rect', color: '#10b981', w: 30, h: 30 },
-                'Z': { type: 'rect', color: '#3b82f6', w: 30, h: 30 },
-                'S': { type: 'rect', color: '#f59e0b', w: 30, h: 30 },
-                'T': { type: 'rect', color: '#ec4899', w: 30, h: 30 },
-                'oracle': { type: 'fbox', color: '#f59e0b', w: 60, h: 50, label: 'Oracle' },
-                'measure': { type: 'meter', color: '#10b981' },
-                'D': { type: 'rect', color: '#6366f1', w: 30, h: 30, label: 'D' },
-                'U': { type: 'rect', color: '#14b8a6', w: 30, h: 30 }
-            };
-
-            circuit.forEach(item => {
-                if (item.qubit !== undefined) {
-                    item.gates.forEach(gate => {
-                        const shape = gateShapes[gate.type] || gateShapes['H'];
-                        const y = startY + item.qubit * lineSpacing;
-
-                        if (shape.type === 'rect' || shape.type === 'fbox') {
-                            const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-                            rect.setAttribute('x', gate.x - shape.w/2);
-                            rect.setAttribute('y', y - shape.h/2);
-                            rect.setAttribute('width', shape.w);
-                            rect.setAttribute('height', shape.h);
-                            rect.setAttribute('fill', shape.color);
-                            rect.setAttribute('rx', '5');
-                            rect.setAttribute('opacity', '0.8');
-                            svg.appendChild(rect);
-
-                            const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                            text.setAttribute('x', gate.x);
-                            text.setAttribute('y', y + 5);
-                            text.setAttribute('fill', '#fff');
-                            text.setAttribute('font-family', 'Orbitron');
-                            text.setAttribute('font-size', '14');
-                            text.setAttribute('text-anchor', 'middle');
-                            text.textContent = gate.type;
-                            svg.appendChild(text);
-                        } else if (shape.type === 'meter') {
-                            const arc = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                            arc.setAttribute('cx', gate.x);
-                            arc.setAttribute('cy', y);
-                            arc.setAttribute('r', '12');
-                            arc.setAttribute('fill', 'none');
-                            arc.setAttribute('stroke', shape.color);
-                            arc.setAttribute('stroke-width', '2');
-                            svg.appendChild(arc);
-
-                            const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                            line.setAttribute('x1', gate.x);
-                            line.setAttribute('y1', y);
-                            line.setAttribute('x2', gate.x);
-                            line.setAttribute('y2', y - 10);
-                            line.setAttribute('stroke', shape.color);
-                            line.setAttribute('stroke-width', '2');
-                            svg.appendChild(line);
-                        }
-                    });
-                }
-
-                if (item.type === 'oracle') {
                     const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-                    rect.setAttribute('x', item.x - 30);
-                    rect.setAttribute('y', startY - 20);
-                    rect.setAttribute('width', 60);
-                    rect.setAttribute('height', numQubits * lineSpacing + 40);
-                    rect.setAttribute('fill', '#f59e0b');
-                    rect.setAttribute('rx', '8');
-                    rect.setAttribute('opacity', '0.3');
+                    rect.setAttribute('x', g.x - 18);
+                    rect.setAttribute('y', y - 18);
+                    rect.setAttribute('width', '36');
+                    rect.setAttribute('height', '36');
+                    rect.setAttribute('fill', color);
+                    rect.setAttribute('rx', '5');
                     svg.appendChild(rect);
 
                     const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                    text.setAttribute('x', item.x);
-                    text.setAttribute('y', startY + (numQubits-1) * lineSpacing / 2 + 5);
+                    text.setAttribute('x', g.x);
+                    text.setAttribute('y', y + 5);
                     text.setAttribute('fill', '#fff');
                     text.setAttribute('font-family', 'Orbitron');
-                    text.setAttribute('font-size', '12');
+                    text.setAttribute('font-size', '14');
                     text.setAttribute('text-anchor', 'middle');
-                    text.textContent = 'U_f';
+                    text.textContent = g.t;
                     svg.appendChild(text);
-                }
-            });
-
-            container.appendChild(svg);
-        }
-
-        function runAlgorithm() {
-            const container = document.getElementById('algo-results');
-            const funcType = document.getElementById('function-type').value;
-
-            container.innerHTML = '<p style="color: var(--quantum-blue); font-family: Orbitron;">Running algorithm...</p>';
-
-            setTimeout(() => {
-                if (funcType === 'balanced') {
-                    container.innerHTML = `
-                        <div style="background: rgba(16, 185, 129, 0.2); padding: 1.5rem; border-radius: 10px; border: 1px solid var(--quantum-green);">
-                            <h4 style="color: var(--quantum-green); font-family: Orbitron; margin-bottom: 0.5rem;">Result: BALANCED Function</h4>
-                            <p>The oracle returns different values for different inputs.</p>
-                        </div>
-                    `;
-                } else {
-                    container.innerHTML = `
-                        <div style="background: rgba(168, 85, 247, 0.2); padding: 1.5rem; border-radius: 10px; border: 1px solid var(--quantum-purple);">
-                            <h4 style="color: var(--quantum-purple); font-family: Orbitron; margin-bottom: 0.5rem;">Result: CONSTANT Function</h4>
-                            <p>The oracle returns the same value for all inputs.</p>
-                        </div>
-                    `;
-                }
-            }, 1000);
-        }
-
-        function stepAlgorithm() {
-            const container = document.getElementById('algo-results');
-            container.innerHTML = `
-                <div style="text-align: left; font-family: 'Orbitron', monospace; font-size: 0.9rem;">
-                    <p style="color: var(--quantum-blue);">Step 1: Initialize qubits to |0⟩</p>
-                    <p style="color: var(--quantum-purple);">Step 2: Apply Hadamard to all qubits</p>
-                    <p style="color: var(--quantum-orange);">Step 3: Apply Oracle U_f</p>
-                    <p style="color: var(--quantum-green);">Step 4: Apply Hadamard (interference)</p>
-                    <p style="color: var(--quantum-pink);">Step 5: Measure!</p>
-                </div>
-            `;
-        }
-
-        // ============================================
-        // AMPLITUDE TUTORIAL
-        // ============================================
-        function updateAmplitude() {
-            const slider = document.getElementById('amplitude-slider');
-            const prob0 = slider.value;
-            const prob1 = 100 - prob0;
-
-            document.getElementById('prob-0').textContent = prob0 + '%';
-            document.getElementById('prob-1').textContent = prob1 + '%';
-        }
-
-        // ============================================
-        // QUIZ FUNCTIONALITY
-        // ============================================
-        function checkAnswer(element, isCorrect) {
-            const question = element.closest('.quiz-question');
-            const options = question.querySelectorAll('.quiz-option');
-
-            options.forEach(opt => {
-                opt.style.pointerEvents = 'none';
-                if (opt === element) {
-                    if (isCorrect) {
-                        opt.classList.add('correct');
-                        quizScore++;
-                    } else {
-                        opt.classList.add('incorrect');
-                    }
-                }
-            });
-
-            // Mark correct answer if wrong
-            if (!isCorrect) {
-                const correctIndex = parseInt(question.dataset.correct);
-                options[correctIndex].classList.add('correct');
+                });
             }
 
-            updateQuizScore();
-        }
+            if (item.measure) {
+                const y = startY + item.q * spacing;
+                const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                circle.setAttribute('cx', item.x);
+                circle.setAttribute('cy', y);
+                circle.setAttribute('r', '14');
+                circle.setAttribute('fill', 'none');
+                circle.setAttribute('stroke', '#10b981');
+                circle.setAttribute('stroke-width', '2');
+                svg.appendChild(circle);
 
-        function updateQuizScore() {
-            const total = document.querySelectorAll('.quiz-question').length;
-            const scoreDiv = document.getElementById('quiz-score');
-
-            scoreDiv.innerHTML = `Score: ${quizScore}/${total}`;
-
-            if (quizScore === total) {
-                scoreDiv.style.color = 'var(--quantum-green)';
-                scoreDiv.innerHTML += ' <span style="font-size: 1rem;">Congratulations! 🎉</span>';
-            }
-        }
-
-        // ============================================
-        // SMOOTH SCROLLING
-        // ============================================
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
-
-        // ============================================
-        // KEYBOARD SHORTCUTS
-        // ============================================
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'r' || e.key === 'R') {
-                runCircuit();
-            } else if (e.key === 'c' || e.key === 'C') {
-                clearCircuit();
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', item.x);
+                line.setAttribute('y1', y);
+                line.setAttribute('x2', item.x);
+                line.setAttribute('y2', y - 12);
+                line.setAttribute('stroke', '#10b981');
+                line.setAttribute('stroke-width', '2');
+                svg.appendChild(line);
             }
         });
 
-        // Add CSS animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes fadeIn {
-                from { opacity: 0; transform: translateY(-10px); }
-                to { opacity: 1; transform: translateY(0); }
+        container.appendChild(svg);
+    }
+
+    function runAlgorithm() {
+        const resultsDiv = document.getElementById('algo-results');
+        const funcType = document.getElementById('function-type').value;
+
+        resultsDiv.innerHTML = '<p style="color: var(--quantum-blue);">Running algorithm...</p>';
+
+        setTimeout(() => {
+            if (funcType === 'balanced') {
+                resultsDiv.innerHTML = `
+                    <div style="background: rgba(16, 185, 129, 0.2); padding: 1rem; border-radius: 10px; border: 1px solid var(--quantum-green);">
+                        <h4 style="color: var(--quantum-green); margin-bottom: 0.5rem;">✓ BALANCED Function Detected!</h4>
+                        <p>Oracle returns different values for different inputs.</p>
+                    </div>`;
+            } else {
+                resultsDiv.innerHTML = `
+                    <div style="background: rgba(168, 85, 247, 0.2); padding: 1rem; border-radius: 10px; border: 1px solid var(--quantum-purple);">
+                        <h4 style="color: var(--quantum-purple); margin-bottom: 0.5rem;">✓ CONSTANT Function Detected!</h4>
+                        <p>Oracle returns the same value for all inputs.</p>
+                    </div>`;
             }
-        `;
-        document.head.appendChild(style);
+        }, 800);
+    }
+
+    // =============================================
+    // TUTORIAL
+    // =============================================
+    function updateAmplitude() {
+        const slider = document.getElementById('amplitude-slider');
+        const p0 = slider.value;
+        const p1 = 100 - p0;
+        document.getElementById('prob-0').textContent = p0;
+        document.getElementById('prob-1').textContent = p1;
+    }
+
+    // =============================================
+    // QUIZ
+    // =============================================
+    function checkAnswer(el, isCorrect) {
+        const question = el.closest('.quiz-question');
+        if (question.classList.contains('answered')) return;
+        question.classList.add('answered');
+
+        const options = question.querySelectorAll('.quiz-option');
+        options.forEach(opt => opt.style.pointerEvents = 'none');
+
+        if (isCorrect) {
+            el.classList.add('correct');
+            quizScore++;
+        } else {
+            el.classList.add('incorrect');
+            const correctIdx = parseInt(question.dataset.correct);
+            options[correctIdx].classList.add('correct');
+        }
+
+        document.getElementById('quiz-score').textContent = `Score: ${quizScore}/5`;
+    }
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+            e.preventDefault();
+            document.querySelector(a.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
+        });
+    });
     </script>
 </body>
 </html>
