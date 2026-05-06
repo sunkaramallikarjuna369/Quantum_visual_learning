@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quantum Circuit Simulator</title>
+    <title>Learn Quantum Gates First!</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -13,6 +13,7 @@
             background: #0a0a1a;
             color: #fff;
             min-height: 100vh;
+            line-height: 1.7;
         }
         header {
             background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(168, 85, 247, 0.2));
@@ -27,32 +28,51 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+        header p { color: rgba(255,255,255,0.8); margin-top: 0.5rem; }
         nav {
             background: rgba(0, 0, 0, 0.5);
-            padding: 1rem;
+            padding: 0.8rem;
             display: flex;
             justify-content: center;
             gap: 1rem;
+            flex-wrap: wrap;
         }
         nav a {
             color: #00d4ff;
             text-decoration: none;
             font-family: 'Orbitron', monospace;
-            font-size: 0.85rem;
-            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            padding: 0.4rem 0.8rem;
             border: 1px solid #00d4ff;
             border-radius: 5px;
         }
         nav a:hover { background: #00d4ff; color: #0a0a1a; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
-        section {
+        .container { max-width: 1100px; margin: 0 auto; padding: 1.5rem; }
+
+        .welcome {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(168, 85, 247, 0.15));
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            margin-bottom: 2rem;
+        }
+        .welcome h2 {
+            font-family: 'Orbitron', monospace;
+            color: #00d4ff;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .welcome p { font-size: 1.1rem; max-width: 700px; margin: 0 auto; }
+
+        .section {
             background: rgba(15, 15, 35, 0.9);
             border-radius: 20px;
             border: 1px solid rgba(0, 212, 255, 0.3);
             padding: 1.5rem;
             margin-bottom: 2rem;
         }
-        section h2 {
+        .section h2 {
             font-family: 'Orbitron', monospace;
             color: #00d4ff;
             font-size: 1.3rem;
@@ -60,42 +80,223 @@
             border-bottom: 2px solid #a855f7;
             padding-bottom: 0.5rem;
         }
-        .steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
+
+        /* What is a Qubit */
+        .qubit-explain {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            padding: 1.5rem;
             margin-bottom: 1rem;
         }
-        .step {
-            background: rgba(0, 0, 0, 0.4);
-            padding: 1rem;
-            border-radius: 10px;
-            border-left: 4px solid #00d4ff;
-        }
-        .step-num {
-            display: inline-block;
-            width: 25px;
-            height: 25px;
-            background: #a855f7;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 25px;
+        .qubit-explain h3 {
             font-family: 'Orbitron', monospace;
-            margin-right: 0.5rem;
-            font-size: 0.8rem;
+            color: #a855f7;
+            margin-bottom: 1rem;
         }
-        .step h4 { display: inline; color: #00d4ff; font-family: 'Orbitron', monospace; }
-        .step p { font-size: 0.85rem; margin-top: 0.5rem; color: rgba(255,255,255,0.8); }
-        .tips {
-            background: rgba(245, 158, 11, 0.1);
-            border-left: 4px solid #f59e0b;
+        .state-visual {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .state-box {
+            background: rgba(0, 212, 255, 0.1);
+            border: 2px solid #00d4ff;
+            border-radius: 10px;
+            padding: 1rem 1.5rem;
+            text-align: center;
+        }
+        .state-box .label {
+            font-family: 'Times New Roman', serif;
+            font-size: 2rem;
+            color: #00d4ff;
+        }
+        .state-box .desc {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+            margin-top: 0.3rem;
+        }
+        .arrow { font-size: 2rem; color: #10b981; }
+
+        /* Gate Cards */
+        .gate-card {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 5px solid #00d4ff;
+        }
+        .gate-card.cnot { border-left-color: #f59e0b; }
+        .gate-card h3 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            color: #00d4ff;
+            margin-bottom: 0.5rem;
+        }
+        .gate-card.cnot h3 { color: #f59e0b; }
+
+        .gate-symbol {
+            display: inline-block;
+            background: rgba(0, 212, 255, 0.2);
+            border: 2px solid #00d4ff;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            margin-right: 1rem;
+        }
+        .gate-card.cnot .gate-symbol {
+            background: rgba(245, 158, 11, 0.2);
+            border-color: #f59e0b;
+            color: #f59e0b;
+        }
+
+        .gate-meaning {
+            color: rgba(255,255,255,0.9);
+            font-size: 1rem;
+            margin: 1rem 0;
+        }
+
+        /* Before/After Demo */
+        .demo-box {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
             padding: 1rem;
-            border-radius: 0 10px 10px 0;
+            margin-top: 1rem;
         }
-        .tips h4 { color: #f59e0b; font-family: 'Orbitron', monospace; margin-bottom: 0.5rem; }
-        .tips ul { margin-left: 1.2rem; font-size: 0.85rem; }
-        .tips li { margin: 0.3rem 0; }
-        .controls {
+        .demo-box h4 {
+            font-family: 'Orbitron', monospace;
+            color: #a855f7;
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+        }
+        .demo-flow {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .demo-state {
+            background: rgba(0, 212, 255, 0.15);
+            border: 2px solid #00d4ff;
+            border-radius: 8px;
+            padding: 0.8rem 1.2rem;
+            text-align: center;
+            min-width: 100px;
+        }
+        .demo-state.result {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: #10b981;
+        }
+        .demo-state .notation {
+            font-family: 'Times New Roman', serif;
+            font-size: 1.3rem;
+            color: #fff;
+        }
+        .demo-state .explanation {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.6);
+            margin-top: 0.2rem;
+        }
+        .demo-arrow { font-size: 1.5rem; color: #10b981; }
+        .demo-gate {
+            background: #a855f7;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+        }
+
+        /* Interactive Gate Demo */
+        .interactive-demo {
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+        .interactive-demo h4 {
+            font-family: 'Orbitron', monospace;
+            color: #10b981;
+            margin-bottom: 1rem;
+        }
+        .demo-btn {
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(135deg, #00d4ff, #a855f7);
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            margin: 0.3rem;
+            transition: transform 0.2s;
+        }
+        .demo-btn:hover { transform: scale(1.05); }
+
+        .prob-display {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        .prob-item {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 8px;
+            padding: 0.8rem 1.2rem;
+            text-align: center;
+            min-width: 90px;
+        }
+        .prob-item .state-label {
+            font-family: 'Times New Roman', serif;
+            font-size: 1.2rem;
+            color: #00d4ff;
+        }
+        .prob-item .bar {
+            width: 80px;
+            height: 8px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 0.4rem 0;
+        }
+        .prob-item .fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00d4ff, #a855f7);
+        }
+        .prob-item .percent {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.85rem;
+            color: #10b981;
+        }
+
+        /* Circuit Section */
+        .circuit-basics {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            padding: 1.5rem;
+        }
+        .circuit-basics h3 {
+            font-family: 'Orbitron', monospace;
+            color: #00d4ff;
+            margin-bottom: 1rem;
+        }
+        .circuit-visual {
+            background: rgba(0, 212, 255, 0.05);
+            border: 2px dashed rgba(0, 212, 255, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            font-family: 'Times New Roman', serif;
+            font-size: 1rem;
+            color: #a855f7;
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        /* Simulator */
+        .sim-controls {
             display: flex;
             gap: 1rem;
             flex-wrap: wrap;
@@ -105,7 +306,7 @@
             border-radius: 10px;
             align-items: center;
         }
-        .controls label {
+        .sim-controls label {
             font-family: 'Orbitron', monospace;
             color: #00d4ff;
             font-size: 0.85rem;
@@ -113,134 +314,94 @@
             align-items: center;
             gap: 0.5rem;
         }
-        .controls select {
+        .sim-controls select {
             padding: 0.5rem;
             background: rgba(0, 0, 0, 0.5);
             border: 1px solid #00d4ff;
             border-radius: 5px;
             color: #fff;
-            font-family: 'Rajdhani', sans-serif;
         }
-        .controls button {
+        .sim-controls button {
             padding: 0.6rem 1.2rem;
-            background: linear-gradient(135deg, #00d4ff, #a855f7);
+            background: linear-gradient(135deg, #10b981, #00d4ff);
             border: none;
             border-radius: 8px;
             color: #fff;
             cursor: pointer;
             font-family: 'Orbitron', monospace;
-            font-size: 0.9rem;
+            font-size: 1rem;
         }
-        .controls button:hover { transform: scale(1.05); box-shadow: 0 0 15px rgba(0, 212, 255, 0.5); }
-        .run-btn {
-            background: linear-gradient(135deg, #10b981, #00d4ff) !important;
-            font-size: 1rem !important;
-        }
-        .workspace {
-            display: grid;
-            grid-template-columns: 180px 1fr;
-            gap: 1rem;
-        }
-        @media (max-width: 700px) { .workspace { grid-template-columns: 1fr; } }
-        .gate-list {
-            background: rgba(0, 0, 0, 0.4);
-            padding: 1rem;
-            border-radius: 10px;
-        }
-        .gate-list h4 {
-            font-family: 'Orbitron', monospace;
-            color: #a855f7;
-            margin: 0.8rem 0 0.5rem;
-            font-size: 0.8rem;
-        }
-        .gate-list h4:first-child { margin-top: 0; }
-        .gate-btn {
+        .sim-controls button:hover { transform: scale(1.05); }
+        .gate-palette {
             display: flex;
-            align-items: center;
+            flex-wrap: wrap;
             gap: 0.5rem;
-            width: 100%;
-            padding: 0.5rem;
-            margin-bottom: 0.3rem;
+            margin-bottom: 1rem;
+        }
+        .gate-palette button {
+            padding: 0.5rem 1rem;
             background: rgba(0, 212, 255, 0.15);
             border: 1px solid rgba(0, 212, 255, 0.4);
             border-radius: 6px;
             color: #fff;
             cursor: pointer;
             font-family: 'Rajdhani', sans-serif;
-            font-size: 0.85rem;
         }
-        .gate-btn:hover { background: rgba(0, 212, 255, 0.3); }
-        .gate-btn span {
-            width: 28px;
-            height: 28px;
-            background: rgba(0, 212, 255, 0.3);
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Orbitron', monospace;
-            font-weight: bold;
-        }
-        .circuit-area {
+        .gate-palette button:hover { background: rgba(0, 212, 255, 0.3); }
+        .circuit-view {
             background: rgba(0, 0, 0, 0.5);
             border-radius: 10px;
             padding: 1rem;
-            min-height: 200px;
-            overflow-x: auto;
+            min-height: 150px;
+            margin-bottom: 1rem;
         }
         .circuit-row {
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.5rem;
         }
-        .qubit-label {
+        .circuit-row .label {
             width: 40px;
             font-family: 'Orbitron', monospace;
             font-size: 0.75rem;
             color: #00d4ff;
         }
-        .qubit-line {
+        .circuit-row .line {
             flex: 1;
-            height: 40px;
+            height: 35px;
             background: rgba(0, 212, 255, 0.05);
             border: 1px dashed rgba(0, 212, 255, 0.3);
-            border-radius: 6px;
+            border-radius: 5px;
             position: relative;
-            min-width: 250px;
         }
-        .gate-on-circuit {
+        .gate-in-circuit {
             position: absolute;
             top: 50%;
-            left: 40px;
+            left: 30px;
             transform: translate(-50%, -50%);
-            width: 34px;
-            height: 34px;
-            background: rgba(168, 85, 247, 0.9);
-            border: 2px solid #a855f7;
-            border-radius: 6px;
+            width: 30px;
+            height: 30px;
+            background: #a855f7;
+            border-radius: 5px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-family: 'Orbitron', monospace;
-            font-weight: bold;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             cursor: pointer;
-            z-index: 2;
         }
-        .gate-on-circuit:hover { transform: translate(-50%, -50%) scale(1.2); }
-        .gate-on-circuit.measure { background: rgba(16, 185, 129, 0.9); border-color: #10b981; }
-        .results {
+        .gate-in-circuit:hover { transform: translate(-50%, -50%) scale(1.2); }
+        .results-area {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 1rem;
-            margin-top: 1rem;
         }
-        @media (max-width: 700px) { .results { grid-template-columns: 1fr; } }
+        @media (max-width: 700px) { .results-area { grid-template-columns: 1fr; } }
         .result-box {
             background: rgba(0, 0, 0, 0.4);
-            padding: 1rem;
             border-radius: 10px;
+            padding: 1rem;
             text-align: center;
         }
         .result-box h4 {
@@ -248,54 +409,28 @@
             color: #a855f7;
             margin-bottom: 0.8rem;
         }
-        #bloch-sphere { width: 100%; height: 200px; border-radius: 8px; background: rgba(0, 0, 0, 0.3); }
-        .prob-grid { display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; }
-        .prob-bar {
-            text-align: center;
-            min-width: 80px;
+        #blochSphere { width: 100%; height: 180px; background: rgba(0,0,0,0.3); border-radius: 8px; }
+        .prob-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+        .prob-box {
             background: rgba(0, 0, 0, 0.3);
-            padding: 0.6rem;
-            border-radius: 8px;
+            border-radius: 6px;
+            padding: 0.5rem;
+            text-align: center;
+            min-width: 70px;
         }
-        .prob-bar .state { font-family: 'Times New Roman', serif; font-size: 1.1rem; color: #00d4ff; }
-        .prob-bar .bar {
-            width: 60px;
-            height: 10px;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 5px;
-            overflow: hidden;
-            margin: 0.4rem auto;
-            border: 1px solid rgba(0, 212, 255, 0.3);
-        }
-        .prob-bar .fill { height: 100%; background: linear-gradient(90deg, #00d4ff, #a855f7); transition: width 0.5s; }
-        .prob-bar .value { font-family: 'Orbitron', monospace; font-size: 0.8rem; color: #10b981; }
-        .status {
+        .prob-box .state { font-family: 'Times New Roman', serif; color: #00d4ff; }
+        .prob-box .val { font-family: 'Orbitron', monospace; font-size: 0.8rem; color: #10b981; }
+        .status-bar {
             padding: 0.8rem;
             background: rgba(0, 0, 0, 0.4);
             border-radius: 8px;
-            margin-top: 1rem;
             text-align: center;
             font-family: 'Orbitron', monospace;
             font-size: 0.85rem;
         }
-        .status.success { background: rgba(16, 185, 129, 0.2); border: 1px solid #10b981; color: #10b981; }
-        .status.info { background: rgba(0, 212, 255, 0.2); border: 1px solid #00d4ff; color: #00d4ff; }
-        .examples {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 1rem;
-        }
-        .example {
-            background: rgba(0, 0, 0, 0.4);
-            padding: 1rem;
-            border-radius: 10px;
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .example:hover { border-color: #a855f7; transform: translateY(-3px); }
-        .example h4 { font-family: 'Orbitron', monospace; color: #00d4ff; font-size: 0.9rem; }
-        .example p { font-size: 0.8rem; color: rgba(255,255,255,0.7); margin-top: 0.3rem; }
+        .status-bar.success { background: rgba(16, 185, 129, 0.2); color: #10b981; }
+        .status-bar.info { background: rgba(0, 212, 255, 0.2); color: #00d4ff; }
+
         footer {
             text-align: center;
             padding: 1.5rem;
@@ -307,72 +442,254 @@
 </head>
 <body>
     <header>
-        <h1>⚛️ Quantum Circuit Simulator</h1>
+        <h1>⚛️ Learn Quantum Gates Step by Step</h1>
+        <p>Master each gate before building circuits!</p>
     </header>
     <nav>
         <a href="index.html">Main Tutorial</a>
-        <a href="#instructions">How to Use</a>
+        <a href="#gates">Learn Gates</a>
+        <a href="#circuits">Build Circuits</a>
     </nav>
+
     <div class="container">
-        <section id="instructions">
-            <h2>🚀 How to Use</h2>
-            <div class="steps">
-                <div class="step">
-                    <span class="step-num">1</span><h4>Pick Qubits</h4>
-                    <p>Choose 1-4 qubits using dropdown</p>
+        <!-- Welcome -->
+        <div class="welcome">
+            <h2>Welcome! Let's Learn Quantum Computing</h2>
+            <p>First, you'll learn what each quantum gate does with simple examples. Then you'll build your own circuits!</p>
+        </div>
+
+        <!-- Qubit Basics -->
+        <section class="section" id="qubit-basics">
+            <h2>📌 What is a Qubit?</h2>
+            <div class="qubit-explain">
+                <h3>Think of a light switch that can be both OFF and ON at the same time!</h3>
+                <div class="state-visual">
+                    <div class="state-box">
+                        <div class="label">|0⟩</div>
+                        <div class="desc">OFF (like 0)</div>
+                    </div>
+                    <div class="arrow">can become</div>
+                    <div class="state-box">
+                        <div class="label">|1⟩</div>
+                        <div class="desc">ON (like 1)</div>
+                    </div>
                 </div>
-                <div class="step">
-                    <span class="step-num">2</span><h4>Select Qubit</h4>
-                    <p>Pick which qubit: q[0], q[1], q[2], q[3]</p>
-                </div>
-                <div class="step">
-                    <span class="step-num">3</span><h4>Add Gates</h4>
-                    <p>Click gate button - adds to that qubit</p>
-                </div>
-                <div class="step">
-                    <span class="step-num">4</span><h4>Run Circuit</h4>
-                    <p>Click green RUN button!</p>
-                </div>
-            </div>
-            <div class="tips">
-                <h4>💡 Building Circuits</h4>
-                <ul>
-                    <li>Set target qubit with "Add to:" dropdown</li>
-                    <li>Each gate click = adds 1 gate</li>
-                    <li>Click gate on circuit to remove it</li>
-                    <li>Click "Clear" to reset</li>
-                </ul>
+                <p style="margin-top: 1rem; color: rgba(255,255,255,0.8);">
+                    A qubit starts at |0⟩. Gates change it to |1⟩ or create <strong>superposition</strong> (both at once!).
+                </p>
             </div>
         </section>
-        <section>
-            <h2>🧪 Simulator</h2>
-            <div class="controls">
-                <label>Qubits: <select id="qubitCount"><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option><option value="4">4</option></select></label>
-                <label>Add to: <select id="targetQubit"><option value="0">q[0]</option><option value="1">q[1]</option><option value="2">q[2]</option><option value="3">q[3]</option></select></label>
-                <button onclick="runSim()" class="run-btn">▶ RUN CIRCUIT</button>
-                <button onclick="clearAll()">Clear</button>
-            </div>
-            <div class="workspace">
-                <div class="gate-list">
-                    <h4>Single Qubit</h4>
-                    <button class="gate-btn" onclick="addGate('H')"><span>H</span> Hadamard</button>
-                    <button class="gate-btn" onclick="addGate('X')"><span>X</span> NOT</button>
-                    <button class="gate-btn" onclick="addGate('Y')"><span>Y</span> Pauli-Y</button>
-                    <button class="gate-btn" onclick="addGate('Z')"><span>Z</span> Pauli-Z</button>
-                    <button class="gate-btn" onclick="addGate('S')"><span>S</span> Phase</button>
-                    <button class="gate-btn" onclick="addGate('T')"><span>T</span> T Gate</button>
-                    <h4>Multi-Qubit</h4>
-                    <button class="gate-btn" onclick="addGate('CNOT')"><span>⊕</span> CNOT</button>
-                    <button class="gate-btn" onclick="addGate('CZ')"><span>Z</span> CZ</button>
-                    <button class="gate-btn" onclick="addGate('SWAP')"><span>⇄</span> SWAP</button>
-                    <h4>Measurement</h4>
-                    <button class="gate-btn" onclick="addGate('M')"><span>M</span> Measure</button>
+
+        <!-- Hadamard Gate -->
+        <section class="section" id="h-gate">
+            <div class="gate-card">
+                <h3>1️⃣ Hadamard Gate (H)</h3>
+                <span class="gate-symbol">H</span>
+                <strong style="color: #10b981;">Creates Superposition!</strong>
+
+                <div class="gate-meaning">
+                    Takes a qubit from a definite state (|0⟩ or |1⟩) and makes it <em>both at the same time</em>!
+                    This is called <strong>superposition</strong>.
                 </div>
-                <div class="circuit-area">
-                    <div id="circuitDisplay"></div>
+
+                <div class="demo-box">
+                    <h4>What H does:</h4>
+                    <div class="demo-flow">
+                        <div class="demo-state">
+                            <div class="notation">|0⟩</div>
+                            <div class="explanation">always OFF</div>
+                        </div>
+                        <div class="demo-arrow">──[H]──</div>
+                        <div class="demo-state result">
+                            <div class="notation">( |0⟩ + |1⟩ ) / √2</div>
+                            <div class="explanation">50% OFF, 50% ON!</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="interactive-demo">
+                    <h4>🧪 Try It: Click H to see what happens!</h4>
+                    <button class="demo-btn" onclick="demoGate('H')">Apply H Gate</button>
+                    <button class="demo-btn" onclick="demoReset()" style="background: rgba(100,100,100,0.5);">Reset</button>
+                    <div class="prob-display" id="demoProb">
+                        <div class="prob-item">
+                            <div class="state-label">|0⟩</div>
+                            <div class="bar"><div class="fill" style="width:100%"></div></div>
+                            <div class="percent">100%</div>
+                        </div>
+                    </div>
+                    <p id="demoExplanation" style="margin-top:1rem; color:#10b981; font-size:0.9rem;">
+                        Qubit starts at |0⟩ (100% chance of measuring 0)
+                    </p>
                 </div>
             </div>
-            <div class="results">
+        </section>
+
+        <!-- Pauli-X Gate -->
+        <section class="section" id="x-gate">
+            <div class="gate-card">
+                <h3>2️⃣ Pauli-X Gate (X)</h3>
+                <span class="gate-symbol">X</span>
+                <strong style="color: #10b981;">Flips the Qubit!</strong>
+
+                <div class="gate-meaning">
+                    Just like a NOT gate in classical computing! Changes |0⟩ to |1⟩ and |1⟩ to |0⟩.
+                </div>
+
+                <div class="demo-box">
+                    <h4>What X does:</h4>
+                    <div class="demo-flow">
+                        <div class="demo-state">
+                            <div class="notation">|0⟩</div>
+                            <div class="explanation">OFF</div>
+                        </div>
+                        <div class="demo-arrow">──[X]──</div>
+                        <div class="demo-state result">
+                            <div class="notation">|1⟩</div>
+                            <div class="explanation">ON (flipped!)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="interactive-demo">
+                    <h4>🧪 Try It: Click X to flip!</h4>
+                    <button class="demo-btn" onclick="demoGate('X')">Apply X Gate</button>
+                    <button class="demo-btn" onclick="demoReset()" style="background: rgba(100,100,100,0.5);">Reset</button>
+                    <div class="prob-display" id="demoProbX">
+                        <div class="prob-item">
+                            <div class="state-label">|0⟩</div>
+                            <div class="bar"><div class="fill" style="width:100%"></div></div>
+                            <div class="percent">100%</div>
+                        </div>
+                    </div>
+                    <p id="demoExplanationX" style="margin-top:1rem; color:#10b981; font-size:0.9rem;">
+                        Start: 100% |0⟩
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CNOT Gate -->
+        <section class="section" id="cnot-gate">
+            <div class="gate-card cnot">
+                <h3>3️⃣ CNOT Gate (Controlled-NOT)</h3>
+                <span class="gate-symbol">⊕</span>
+                <strong style="color: #10b981;">Creates Entanglement!</strong>
+
+                <div class="gate-meaning">
+                    This is a 2-qubit gate! If the <strong style="color:#f59e0b;">first qubit is |1⟩</strong>, it flips the second qubit.
+                    If the first is |0⟩, nothing happens. This creates <strong>quantum entanglement</strong>!
+                </div>
+
+                <div class="demo-box">
+                    <h4>What CNOT does:</h4>
+                    <div class="demo-flow">
+                        <div class="demo-state">
+                            <div class="notation">|00⟩</div>
+                            <div class="explanation">q[0]=0, q[1]=0</div>
+                        </div>
+                        <div class="demo-arrow">──[CNOT]──</div>
+                        <div class="demo-state result">
+                            <div class="notation">|00⟩</div>
+                            <div class="explanation">q[0]=0, no flip</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="demo-box">
+                    <h4>But if first qubit is 1:</h4>
+                    <div class="demo-flow">
+                        <div class="demo-state">
+                            <div class="notation">|10⟩</div>
+                            <div class="explanation">q[0]=1, q[1]=0</div>
+                        </div>
+                        <div class="demo-arrow">──[CNOT]──</div>
+                        <div class="demo-state result">
+                            <div class="notation">|11⟩</div>
+                            <div class="explanation">q[1] flipped!</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Other Gates Summary -->
+        <section class="section" id="other-gates">
+            <h2>📚 Other Common Gates</h2>
+
+            <div class="gate-card">
+                <h3>Pauli-Y (Y)</h3>
+                <span class="gate-symbol">Y</span>
+                <div class="gate-meaning">Rotates the qubit around the Y-axis. Changes both the state and the phase!</div>
+            </div>
+
+            <div class="gate-card">
+                <h3>Pauli-Z (Z)</h3>
+                <span class="gate-symbol">Z</span>
+                <div class="gate-meaning">Only affects the |1⟩ part - adds a minus sign! Called a "phase flip". |0⟩ stays the same.</div>
+                <div class="demo-flow" style="margin-top: 1rem;">
+                    <div class="demo-state"><div class="notation">|1⟩</div></div>
+                    <div class="demo-arrow">──[Z]──</div>
+                    <div class="demo-state result"><div class="notation">-|1⟩</div><div class="explanation">phase flipped!</div></div>
+                </div>
+            </div>
+
+            <div class="gate-card">
+                <h3>Phase Gate (S)</h3>
+                <span class="gate-symbol">S</span>
+                <div class="gate-meaning">Adds 90° of phase. |1⟩ becomes i|1⟩ (i is the imaginary number).</div>
+            </div>
+
+            <div class="gate-card">
+                <h3>T Gate (T)</h3>
+                <span class="gate-symbol">T</span>
+                <div class="gate-meaning">Adds 45° of phase. Used in more advanced quantum algorithms.</div>
+            </div>
+        </section>
+
+        <!-- Circuits Section -->
+        <section class="section" id="circuits">
+            <h2>🔗 Now Let's Build Circuits!</h2>
+
+            <div class="circuit-basics">
+                <h3>How Circuits Work</h3>
+                <p style="color: rgba(255,255,255,0.8);">
+                    A circuit is a series of gates applied to qubits from <strong>left to right</strong>.
+                    Each horizontal line is one qubit.
+                </p>
+                <div class="circuit-visual">
+                    <strong>Circuit Diagram:</strong><br><br>
+                    q[0]: ──[H]──────────<br>
+                    q[1]: ──────[CNOT]──<br>
+                    <br>
+                    This means: Apply H to q[0], then CNOT to q[0] and q[1]
+                </div>
+            </div>
+        </section>
+
+        <!-- Simple Simulator -->
+        <section class="section" id="simulator">
+            <h2>🧪 Build Your Circuit</h2>
+
+            <div class="sim-controls">
+                <label>Qubits: <select id="qubitSelect"><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option></select></label>
+                <label>Add to: <select id="targetSelect"><option value="0">q[0]</option><option value="1">q[1]</option><option value="2">q[2]</option></select></label>
+                <button onclick="runCircuit()">▶ RUN</button>
+                <button onclick="clearCircuit()">Clear</button>
+            </div>
+
+            <div class="gate-palette">
+                <button onclick="addGate('H')">H</button>
+                <button onclick="addGate('X')">X</button>
+                <button onclick="addGate('Y')">Y</button>
+                <button onclick="addGate('Z')">Z</button>
+                <button onclick="addGate('S')">S</button>
+                <button onclick="addGate('T')">T</button>
+                <button onclick="addGate('CNOT')" style="border-color:#f59e0b;color:#f59e0b;">CNOT</button>
+            </div>
+
+            <div class="circuit-view" id="circuitView"></div>
+
+            <div class="results-area">
                 <div class="result-box">
                     <h4>🔮 Bloch Sphere</h4>
                     <div id="blochSphere"></div>
@@ -382,121 +699,149 @@
                     <div class="prob-grid" id="probGrid"></div>
                 </div>
             </div>
-            <div id="statusBar" class="status info">Click a gate button to start!</div>
+
+            <div id="statusBar" class="status-bar info">Click gates above, then click RUN!</div>
         </section>
-        <section>
-            <h2>🔬 Examples (Click to Load)</h2>
-            <div class="examples">
-                <div class="example" onclick="loadEx('superposition')">
-                    <h4>Superposition</h4>
-                    <p>H on q[0] → 50%|0⟩, 50%|1⟩</p>
+
+        <!-- Example Circuits -->
+        <section class="section" id="examples">
+            <h2>🔬 Try These Example Circuits</h2>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                <div class="example" onclick="loadExample('superposition')" style="cursor:pointer; background:rgba(0,0,0,0.4); padding:1rem; border-radius:10px; border:1px solid rgba(0,212,255,0.3);">
+                    <h4 style="color:#00d4ff;font-family:Orbitron;">Superposition</h4>
+                    <p style="font-size:0.9rem;color:rgba(255,255,255,0.7);">Add H to q[0]<br>Result: 50%|0⟩, 50%|1⟩</p>
                 </div>
-                <div class="example" onclick="loadEx('not')">
-                    <h4>NOT Gate</h4>
-                    <p>X on q[0] → 100%|1⟩</p>
+                <div class="example" onclick="loadExample('not')" style="cursor:pointer; background:rgba(0,0,0,0.4); padding:1rem; border-radius:10px; border:1px solid rgba(0,212,255,0.3);">
+                    <h4 style="color:#00d4ff;font-family:Orbitron;">NOT Gate</h4>
+                    <p style="font-size:0.9rem;color:rgba(255,255,255,0.7);">Add X to q[0]<br>Result: 100%|1⟩</p>
                 </div>
-                <div class="example" onclick="loadEx('bell')">
-                    <h4>Bell State</h4>
-                    <p>H on q[0], CNOT on q[1] → entanglement</p>
-                </div>
-                <div class="example" onclick="loadEx('ghz')">
-                    <h4>GHZ State</h4>
-                    <p>3 qubits → 50%|000⟩, 50%|111⟩</p>
+                <div class="example" onclick="loadExample('bell')" style="cursor:pointer; background:rgba(0,0,0,0.4); padding:1rem; border-radius:10px; border:1px solid #f59e0b;">
+                    <h4 style="color:#f59e0b;font-family:Orbitron;">Bell State</h4>
+                    <p style="font-size:0.9rem;color:rgba(255,255,255,0.7);">H to q[0], CNOT to q[1]<br>Result: entangled!</p>
                 </div>
             </div>
         </section>
     </div>
+
     <footer>
         <p>Quantum Visual Learning | <a href="https://github.com/sunkaramallikarjuna369/Quantum_visual_learning">GitHub</a></p>
     </footer>
 
     <script>
     // =============================================
-    // STATE
+    // DEMO STATE
     // =============================================
-    let nQubits = 2;
-    let gates = []; // Each gate: {type: 'H', qubit: 0, step: 0}
-    let blochScene = null;
-    let blochRenderer = null;
-    let blochArrow = null;
-    let blochHead = null;
+    let demoState = [{r:1, i:0}, {r:0, i:0}]; // |0⟩
+
+    function demoReset() {
+        demoState = [{r:1, i:0}, {r:0, i:0}];
+        updateDemoDisplay();
+        document.getElementById('demoExplanation').textContent = 'Reset to |0⟩';
+    }
+
+    function demoGate(type) {
+        const mat = getGateMatrix(type);
+        demoState = applyGate(demoState, mat, 0);
+        updateDemoDisplay();
+        document.getElementById('demoExplanation').textContent = 'Applied ' + type + ' gate!';
+    }
+
+    function updateDemoDisplay() {
+        const p0 = cabs(demoState[0]) ** 2;
+        const p1 = cabs(demoState[1]) ** 2;
+        document.getElementById('demoProb').innerHTML = `
+            <div class="prob-item">
+                <div class="state-label">|0⟩</div>
+                <div class="bar"><div class="fill" style="width:${p0*100}%"></div></div>
+                <div class="percent">${(p0*100).toFixed(0)}%</div>
+            </div>
+            <div class="prob-item">
+                <div class="state-label">|1⟩</div>
+                <div class="bar"><div class="fill" style="width:${p1*100}%"></div></div>
+                <div class="percent">${(p1*100).toFixed(0)}%</div>
+            </div>
+        `;
+    }
 
     // =============================================
-    // INIT
+    // CIRCUIT SIMULATOR STATE
     // =============================================
+    let circuitGates = [];
+    let circuitQubits = 2;
+    let blochScene = null, blochRenderer = null, blochArrow = null, blochHead = null;
+
     window.onload = function() {
-        document.getElementById('qubitCount').addEventListener('change', resetCircuit);
-        showStatus('Click a gate button!', 'info');
+        document.getElementById('qubitSelect').addEventListener('change', updateQubits);
         drawCircuit();
         initBloch();
     };
 
     function showStatus(msg, type) {
-        document.getElementById('statusBar').textContent = msg;
-        document.getElementById('statusBar').className = 'status ' + type;
+        const el = document.getElementById('statusBar');
+        el.textContent = msg;
+        el.className = 'status-bar ' + type;
     }
 
-    function resetCircuit() {
-        nQubits = parseInt(document.getElementById('qubitCount').value);
-        gates = [];
-        document.getElementById('probGrid').innerHTML = '';
+    function updateQubits() {
+        circuitQubits = parseInt(document.getElementById('qubitSelect').value);
+        circuitGates = [];
         drawCircuit();
-        showStatus('Circuit cleared. Add gates!', 'info');
+        showStatus('Circuit cleared!', 'info');
     }
 
     // =============================================
-    // GATES
+    // GATE ADDING
     // =============================================
     function addGate(type) {
-        const qubit = parseInt(document.getElementById('targetQubit').value);
-        const step = gates.filter(g => g.step === gates.length).length;
-        gates.push({ type: type, qubit: qubit, step: gates.length });
+        const qubit = parseInt(document.getElementById('targetSelect').value);
+        circuitGates.push({type: type, qubit: qubit});
         drawCircuit();
         showStatus('Added ' + type + ' to q[' + qubit + ']! Click RUN.', 'info');
     }
 
     function drawCircuit() {
-        const display = document.getElementById('circuitDisplay');
-        display.innerHTML = '';
-        for (let q = 0; q < nQubits; q++) {
+        const view = document.getElementById('circuitView');
+        view.innerHTML = '';
+
+        for (let q = 0; q < circuitQubits; q++) {
             const row = document.createElement('div');
             row.className = 'circuit-row';
+
             const label = document.createElement('div');
-            label.className = 'qubit-label';
+            label.className = 'label';
             label.textContent = 'q[' + q + ']';
             row.appendChild(label);
+
             const line = document.createElement('div');
-            line.className = 'qubit-line';
-            // Find gates for this qubit
-            const myGates = gates.filter(g => g.qubit === q);
+            line.className = 'line';
+
+            const myGates = circuitGates.filter(g => g.qubit === q);
             myGates.forEach((g, i) => {
                 const div = document.createElement('div');
-                div.className = 'gate-on-circuit';
-                if (g.type === 'M') div.classList.add('measure');
-                div.style.left = (50 + i * 60) + 'px';
-                div.textContent = g.type === 'CNOT' ? '⊕' : g.type;
-                div.onclick = (function(idx) { return function() { removeGate(idx); }; })(gates.indexOf(g));
+                div.className = 'gate-in-circuit';
+                div.textContent = g.type;
+                div.style.left = (30 + i * 50) + 'px';
                 div.title = 'Click to remove';
+                div.onclick = (function(idx) {
+                    return function() {
+                        circuitGates.splice(idx, 1);
+                        drawCircuit();
+                    };
+                })(circuitGates.indexOf(g));
                 line.appendChild(div);
             });
+
             row.appendChild(line);
-            display.appendChild(row);
+            view.appendChild(row);
         }
     }
 
-    function removeGate(idx) {
-        gates.splice(idx, 1);
-        // Re-index
-        gates.forEach((g, i) => g.step = i);
-        drawCircuit();
-        showStatus('Gate removed!', 'info');
-    }
-
-    function clearAll() {
-        gates = [];
+    function clearCircuit() {
+        circuitGates = [];
         document.getElementById('probGrid').innerHTML = '';
         drawCircuit();
-        showStatus('Cleared! Add gates.', 'info');
+        showStatus('Circuit cleared!', 'info');
     }
 
     // =============================================
@@ -505,55 +850,52 @@
     const SQRT2 = Math.sqrt(2);
     const E = Math.PI / 4;
 
-    const MAT = {
-        H: [[{r:1/SQRT2,i:0},{r:1/SQRT2,i:0}],[{r:1/SQRT2,i:0},{r:-1/SQRT2,i:0}]],
-        X: [[{r:0,i:0},{r:1,i:0}],[{r:1,i:0},{r:0,i:0}]],
-        Y: [[{r:0,i:0},{r:0,i:-1}],[{r:0,i:1},{r:0,i:0}]],
-        Z: [[{r:1,i:0},{r:0,i:0}],[{r:0,i:0},{r:-1,i:0}]],
-        S: [[{r:1,i:0},{r:0,i:0}],[{r:0,i:0},{r:0,i:1}]],
-        T: [[{r:1,i:0},{r:0,i:0}],[{r:0,i:0},{r:Math.cos(E),i:Math.sin(E)}]]
-    };
+    function getGateMatrix(type) {
+        const matrices = {
+            H: [[{r:1/SQRT2,i:0},{r:1/SQRT2,i:0}],[{r:1/SQRT2,i:0},{r:-1/SQRT2,i:0}]],
+            X: [[{r:0,i:0},{r:1,i:0}],[{r:1,i:0},{r:0,i:0}]],
+            Y: [[{r:0,i:0},{r:0,i:-1}],[{r:0,i:1},{r:0,i:0}]],
+            Z: [[{r:1,i:0},{r:0,i:0}],[{r:0,i:0},{r:-1,i:0}]],
+            S: [[{r:1,i:0},{r:0,i:0}],[{r:0,i:0},{r:0,i:1}]],
+            T: [[{r:1,i:0},{r:0,i:0}],[{r:0,i:0},{r:Math.cos(E),i:Math.sin(E)}]]
+        };
+        return matrices[type];
+    }
 
     function cmul(a, b) { return { r: a.r*b.r - a.i*b.i, i: a.r*b.i + a.i*b.r }; }
     function cabs(c) { return Math.sqrt(c.r*c.r + c.i*c.i); }
 
-    function runSim() {
-        if (gates.length === 0) {
+    function runCircuit() {
+        if (circuitGates.length === 0) {
             showStatus('Add gates first!', 'info');
             return;
         }
-        showStatus('Running simulation...', 'info');
 
-        try {
-            const dim = Math.pow(2, nQubits);
-            let state = new Array(dim).fill(null).map(() => ({r:0, i:0}));
-            state[0] = { r: 1, i: 0 };
+        showStatus('Simulating...', 'info');
 
-            // Execute gates in order
-            for (let i = 0; i < gates.length; i++) {
-                const g = gates[i];
-                if (g.type === 'CNOT') {
-                    state = applyCNOT(state, 0, 1);
-                } else if (g.type === 'CZ') {
-                    state = applyCZ(state, 0, 1);
-                } else if (g.type === 'SWAP') {
-                    state = applySWAP(state, 0, 1);
-                } else if (MAT[g.type]) {
-                    state = applyGate(state, MAT[g.type], g.qubit);
-                }
+        const dim = Math.pow(2, circuitQubits);
+        let state = new Array(dim).fill(null).map(() => ({r:0, i:0}));
+        state[0] = { r: 1, i: 0 }; // |00...0⟩
+
+        for (const g of circuitGates) {
+            if (g.type === 'CNOT') {
+                state = applyCNOT(state, 0, 1);
+            } else if (g.type === 'CZ') {
+                state = applyCZ(state, 0, 1);
+            } else {
+                const mat = getGateMatrix(g.type);
+                if (mat) state = applyGate(state, mat, g.qubit);
             }
-
-            showResults(state);
-            showBloch(state);
-            showStatus('Done! See results below.', 'success');
-        } catch(e) {
-            showStatus('Error: ' + e.message, 'info');
-            console.error(e);
         }
+
+        showResults(state);
+        showBloch(state);
+        showStatus('Done! See results.', 'success');
     }
 
     function applyGate(state, mat, qubit) {
-        const dim = Math.pow(2, nQubits);
+        const n = circuitQubits;
+        const dim = Math.pow(2, n);
         const out = new Array(dim).fill(null).map(() => ({r:0, i:0}));
         for (let i = 0; i < dim; i++) {
             const bit = (i >> qubit) & 1;
@@ -570,7 +912,7 @@
     }
 
     function applyCNOT(state, ctrl, tgt) {
-        const dim = Math.pow(2, nQubits);
+        const dim = Math.pow(2, circuitQubits);
         const out = state.map(s => ({...s}));
         for (let i = 0; i < dim; i++) {
             if ((i >> ctrl) & 1) {
@@ -584,7 +926,7 @@
     }
 
     function applyCZ(state, ctrl, tgt) {
-        const dim = Math.pow(2, nQubits);
+        const dim = Math.pow(2, circuitQubits);
         const out = state.map(s => ({...s}));
         for (let i = 0; i < dim; i++) {
             if (((i >> ctrl) & 1) && ((i >> tgt) & 1)) {
@@ -595,22 +937,6 @@
         return out;
     }
 
-    function applySWAP(state, a, b) {
-        const dim = Math.pow(2, nQubits);
-        const out = [];
-        for (let i = 0; i < dim; i++) {
-            const ia = (i >> a) & 1;
-            const ib = (i >> b) & 1;
-            let j = (i & ~(1 << a)) & ~(1 << b);
-            j |= (ia << b) | (ib << a);
-            out[j] = {...state[i]};
-        }
-        return out;
-    }
-
-    // =============================================
-    // RESULTS
-    // =============================================
     function showResults(state) {
         const grid = document.getElementById('probGrid');
         grid.innerHTML = '';
@@ -618,13 +944,8 @@
         for (let i = 0; i < dim; i++) {
             const p = cabs(state[i]) ** 2;
             if (p < 0.005) continue;
-            const label = '|' + i.toString(2).padStart(nQubits, '0') + '⟩';
-            const bar = document.createElement('div');
-            bar.className = 'prob-bar';
-            bar.innerHTML = '<div class="state">' + label + '</div>' +
-                '<div class="bar"><div class="fill" style="width:' + Math.max(p*100, 2) + '%"></div></div>' +
-                '<div class="value">' + (p*100).toFixed(1) + '%</div>';
-            grid.appendChild(bar);
+            const label = '|' + i.toString(2).padStart(circuitQubits, '0') + '⟩';
+            grid.innerHTML += '<div class="prob-box"><div class="state">' + label + '</div><div class="val">' + (p*100).toFixed(1) + '%</div></div>';
         }
     }
 
@@ -681,7 +1002,7 @@
     }
 
     function showBloch(state) {
-        if (nQubits !== 1 || state.length < 2) return;
+        if (circuitQubits !== 1 || state.length < 2) return;
         const alpha = state[0], beta = state[1];
         let theta = 2 * Math.acos(Math.min(1, cabs(alpha)));
         let phi = Math.atan2(beta.i, beta.r) - Math.atan2(alpha.i, alpha.r);
@@ -705,38 +1026,26 @@
     // =============================================
     // EXAMPLES
     // =============================================
-    function loadEx(name) {
-        clearAll();
-        if (name === 'superposition') {
-            document.getElementById('qubitCount').value = '1';
-        } else {
-            document.getElementById('qubitCount').value = '2';
-        }
-        resetCircuit();
+    function loadExample(name) {
+        clearCircuit();
 
         if (name === 'superposition') {
-            document.getElementById('targetQubit').value = '0';
+            document.getElementById('qubitSelect').value = '1';
+            circuitQubits = 1;
             addGate('H');
         } else if (name === 'not') {
-            document.getElementById('targetQubit').value = '0';
+            document.getElementById('qubitSelect').value = '1';
+            circuitQubits = 1;
             addGate('X');
         } else if (name === 'bell') {
-            document.getElementById('targetQubit').value = '0';
+            document.getElementById('qubitSelect').value = '2';
+            circuitQubits = 2;
             addGate('H');
-            document.getElementById('targetQubit').value = '1';
-            addGate('CNOT');
-        } else if (name === 'ghz') {
-            document.getElementById('qubitCount').value = '3';
-            resetCircuit();
-            document.getElementById('targetQubit').value = '0';
-            addGate('H');
-            document.getElementById('targetQubit').value = '1';
-            addGate('CNOT');
-            document.getElementById('targetQubit').value = '2';
+            document.getElementById('targetSelect').value = '1';
             addGate('CNOT');
         }
 
-        setTimeout(runSim, 100);
+        setTimeout(runCircuit, 100);
     }
     </script>
 </body>
