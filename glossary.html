@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Computing Glossary</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --quantum-blue: #00d4ff;
+            --quantum-purple: #a855f7;
+            --quantum-pink: #ec4899;
+            --quantum-green: #10b981;
+            --dark-bg: #0a0a1a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--dark-bg);
+            color: #fff;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 3rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--quantum-blue), var(--quantum-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 2rem;
+        }
+
+        .search-box {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto 2rem;
+            display: block;
+            padding: 1rem 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 50px;
+            color: #fff;
+            font-size: 1rem;
+            font-family: 'Rajdhani', sans-serif;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus {
+            border-color: var(--quantum-blue);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .glossary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .term-card {
+            background: rgba(15, 15, 35, 0.8);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .term-card:hover {
+            border-color: var(--quantum-purple);
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.3);
+        }
+
+        .term-card h3 {
+            font-family: 'Orbitron', monospace;
+            color: var(--quantum-blue);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .term-card .symbol {
+            font-family: 'Times New Roman', serif;
+            color: var(--quantum-purple);
+        }
+
+        .term-card p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin-bottom: 0.5rem;
+        }
+
+        .term-card .formula {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.8rem;
+            border-radius: 8px;
+            font-family: 'Times New Roman', serif;
+            color: var(--quantum-green);
+            margin-top: 0.5rem;
+            text-align: center;
+        }
+
+        .category {
+            margin: 3rem 0 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--quantum-purple);
+        }
+
+        .category h2 {
+            font-family: 'Orbitron', monospace;
+            color: var(--quantum-purple);
+            font-size: 1.5rem;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(10, 10, 26, 0.95);
+            padding: 1rem;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            z-index: 100;
+        }
+
+        nav a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background: rgba(0, 212, 255, 0.2);
+            color: var(--quantum-blue);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--quantum-blue);
+            text-decoration: none;
+            font-family: 'Orbitron', monospace;
+        }
+
+        .back-link:hover {
+            text-shadow: 0 0 10px var(--quantum-blue);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to Main Tutorial</a>
+        <h1>Quantum Computing Glossary</h1>
+
+        <input type="text" class="search-box" id="search" placeholder="Search terms..." oninput="filterTerms()">
+
+        <nav>
+            <a href="#fundamentals">Fundamentals</a>
+            <a href="#gates">Gates</a>
+            <a href="#algorithms">Algorithms</a>
+            <a href="#measurements">Measurements</a>
+            <a href="#states">States</a>
+        </nav>
+
+        <div class="glossary-grid" id="glossary">
+            <!-- Fundamentals -->
+            <div class="category" id="fundamentals"><h2>Fundamental Concepts</h2></div>
+
+            <div class="term-card" data-term="qubit">
+                <h3>Qubit <span class="symbol">|ψ⟩</span></h3>
+                <p>The basic unit of quantum information. Unlike classical bits that are either 0 or 1, a qubit can exist in a superposition of both states.</p>
+                <div class="formula">|ψ⟩ = α|0⟩ + β|1⟩, where |α|² + |β|² = 1</div>
+            </div>
+
+            <div class="term-card" data-term="superposition">
+                <h3>Superposition</h3>
+                <p>A quantum principle where a qubit exists in multiple states simultaneously until measured. The probabilities of each state are given by the squared magnitudes of the amplitudes.</p>
+                <div class="formula">H|0⟩ = (|0⟩ + |1⟩)/√2</div>
+            </div>
+
+            <div class="term-card" data-term="entanglement">
+                <h3>Entanglement</h3>
+                <p>A quantum phenomenon where two or more qubits become correlated such that the state of one instantly affects the other, regardless of distance.</p>
+                <div class="formula">|Φ+⟩ = (|00⟩ + |11⟩)/√2</div>
+            </div>
+
+            <div class="term-card" data-term="measurement">
+                <h3>Measurement</h3>
+                <p>The act of observing a quantum state, which causes the wavefunction to collapse to one of the basis states with probability determined by the amplitudes.</p>
+                <div class="formula">P(|0⟩) = |α|², P(|1⟩) = |β|²</div>
+            </div>
+
+            <div class="term-card" data-term="interference">
+                <h3>Interference</h3>
+                <p>The phenomenon where quantum amplitudes combine additively. Quantum algorithms use interference to amplify correct answers and cancel wrong ones.</p>
+            </div>
+
+            <div class="term-card" data-term="decoherence">
+                <h3>Decoherence</h3>
+                <p>The loss of quantum properties due to interaction with the environment. This is one of the biggest challenges in building practical quantum computers.</p>
+            </div>
+
+            <div class="term-card" data-term="quantum-parallelism">
+                <h3>Quantum Parallelism</h3>
+                <p>The ability of quantum computers to evaluate a function on all possible inputs simultaneously through superposition.</p>
+                <div class="formula">n qubits → 2ⁿ states in parallel</div>
+            </div>
+
+            <!-- Gates -->
+            <div class="category" id="gates"><h2>Quantum Gates</h2></div>
+
+            <div class="term-card" data-term="hadamard">
+                <h3>Hadamard Gate <span class="symbol">H</span></h3>
+                <p>Creates superposition by transforming |0⟩ to an equal superposition of |0⟩ and |1⟩. Essential for initializing qubits for quantum algorithms.</p>
+                <div class="formula">H = (1/√2) [[1, 1], [1, -1]]</div>
+            </div>
+
+            <div class="term-card" data-term="pauli-x">
+                <h3>Pauli-X Gate <span class="symbol">X</span></h3>
+                <p>The quantum equivalent of the classical NOT gate. Flips |0⟩ to |1⟩ and vice versa.</p>
+                <div class="formula">X = [[0, 1], [1, 0]]</div>
+            </div>
+
+            <div class="term-card" data-term="pauli-y">
+                <h3>Pauli-Y Gate <span class="symbol">Y</span></h3>
+                <p>A single-qubit gate that applies a 180° rotation around the Y-axis of the Bloch sphere.</p>
+                <div class="formula">Y = [[0, -i], [i, 0]]</div>
+            </div>
+
+            <div class="term-card" data-term="pauli-z">
+                <h3>Pauli-Z Gate <span class="symbol">Z</span></h3>
+                <p>Applies a 180° rotation around the Z-axis. Leaves |0⟩ unchanged and flips the phase of |1⟩.</p>
+                <div class="formula">Z = [[1, 0], [0, -1]]</div>
+            </div>
+
+            <div class="term-card" data-term="cnot">
+                <h3>CNOT Gate <span class="symbol">CX</span></h3>
+                <p>A two-qubit gate where the target qubit flips if the control qubit is |1⟩. Essential for creating entanglement.</p>
+                <div class="formula">|c⟩|t⟩ → |c⟩|t ⊕ c⟩</div>
+            </div>
+
+            <div class="term-card" data-term="phase-gate">
+                <h3>Phase Gate <span class="symbol">S</span></h3>
+                <p>Applies a 90° (π/2) phase shift to the |1⟩ state. Foundation for more complex phase rotations.</p>
+                <div class="formula">S = [[1, 0], [0, i]]</div>
+            </div>
+
+            <div class="term-card" data-term="t-gate">
+                <h3>T Gate <span class="symbol">T</span></h3>
+                <p>Applies a 45° (π/8) phase shift. One of the fundamental gates in fault-tolerant quantum computation.</p>
+                <div class="formula">T = [[1, 0], [0, e^(iπ/4)]]</div>
+            </div>
+
+            <!-- Algorithms -->
+            <div class="category" id="algorithms"><h2>Quantum Algorithms</h2></div>
+
+            <div class="term-card" data-term="deutsch-jozsa">
+                <h3>Deutsch-Jozsa</h3>
+                <p>First quantum algorithm showing exponential speedup. Determines if a function is constant or balanced with one query.</p>
+                <div class="formula">Classical: O(2ⁿ), Quantum: O(1)</div>
+            </div>
+
+            <div class="term-card" data-term="grover">
+                <h3>Grover's Algorithm</h3>
+                <p>Quantum search algorithm providing quadratic speedup for unstructured search problems.</p>
+                <div class="formula">Classical: O(N), Quantum: O(√N)</div>
+            </div>
+
+            <div class="term-card" data-term="shor">
+                <h3>Shor's Algorithm</h3>
+                <p>Factoring algorithm providing exponential speedup. Poses a threat to current RSA encryption.</p>
+                <div class="formula">RSA-2048: Classical ~10²¹ ops, Quantum ~10⁷ ops</div>
+            </div>
+
+            <div class="term-card" data-term="quantum-fourier">
+                <h3>Quantum Fourier Transform</h3>
+                <p>The quantum analog of the discrete Fourier transform. Foundation for many quantum algorithms.</p>
+                <div class="formula">QFT|x⟩ = (1/√N) Σₖ e^(2πixk/N)|k⟩</div>
+            </div>
+
+            <div class="term-card" data-term="phase-estimation">
+                <h3>Quantum Phase Estimation</h3>
+                <p>Estimates the eigenvalue of a unitary operator. Fundamental to chemistry simulation and factoring.</p>
+            </div>
+
+            <!-- Measurements -->
+            <div class="category" id="measurements"><h2>Measurement & Error Correction</h2></div>
+
+            <div class="term-card" data-term="bloch-sphere">
+                <h3>Bloch Sphere</h3>
+                <p>Geometric representation of a single qubit state. Any pure state can be represented as a point on this sphere.</p>
+                <div class="formula">|ψ⟩ = cos(θ/2)|0⟩ + e^(iφ)sin(θ/2)|1⟩</div>
+            </div>
+
+            <div class="term-card" data-term="density-matrix">
+                <h3>Density Matrix <span class="symbol">ρ</span></h3>
+                <p>Mathematical representation of quantum states, including both pure and mixed states.</p>
+                <div class="formula">ρ = Σᵢ pᵢ|ψᵢ⟩⟨ψᵢ|</div>
+            </div>
+
+            <div class="term-card" data-term="quantum-error-correction">
+                <h3>Quantum Error Correction</h3>
+                <p>Techniques to protect quantum information from decoherence and errors. Uses redundancy through entanglement.</p>
+            </div>
+
+            <div class="term-card" data-term="fault-tolerant">
+                <h3>Fault Tolerance</h3>
+                <p>The ability of a quantum computer to operate reliably even with noisy qubits and imperfect gates.</p>
+            </div>
+
+            <!-- States -->
+            <div class="category" id="states"><h2>Important Quantum States</h2></div>
+
+            <div class="term-card" data-term="bell-state">
+                <h3>Bell States</h3>
+                <p>Maximal entangled two-qubit states. The four Bell states form an orthonormal basis.</p>
+                <div class="formula">|Φ±⟩ = (|00⟩ ± |11⟩)/√2, |Ψ±⟩ = (|01⟩ ± |10⟩)/√2</div>
+            </div>
+
+            <div class="term-card" data-term="ghz-state">
+                <h3>GHZ State</h3>
+                <p>Multi-qubit entangled state generalization of Bell states. Used in quantum networking and sensing.</p>
+                <div class="formula">|GHZ⟩ = (|00...0⟩ + |11...1⟩)/√2</div>
+            </div>
+
+            <div class="term-card" data-term="w-state">
+                <h3>W State</h3>
+                <p>A different type of multi-qubit entangled state with exactly one qubit in |1⟩.</p>
+                <div class="formula">|W⟩ = (|100⟩ + |010⟩ + |001⟩)/√3</div>
+            </div>
+
+            <div class="term-card" data-term="cat-state">
+                <h3>Cat State</h3>
+                <p>Named after Schrödinger's cat, this is a superposition of two coherent states with opposite phases.</p>
+                <div class="formula">|Cat⟩ = (|α⟩ + |-α⟩)/√2</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function filterTerms() {
+            const search = document.getElementById('search').value.toLowerCase();
+            const cards = document.querySelectorAll('.term-card');
+
+            cards.forEach(card => {
+                const term = card.dataset.term;
+                const text = card.textContent.toLowerCase();
+                if (term.includes(search) || text.includes(search)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

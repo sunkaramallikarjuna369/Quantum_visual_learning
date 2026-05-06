@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Computing Exercises</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --quantum-blue: #00d4ff;
+            --quantum-purple: #a855f7;
+            --quantum-pink: #ec4899;
+            --quantum-green: #10b981;
+            --quantum-orange: #f59e0b;
+            --dark-bg: #0a0a1a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--dark-bg);
+            color: #fff;
+            min-height: 100vh;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--quantum-blue), var(--quantum-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 2rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--quantum-blue);
+            text-decoration: none;
+            font-family: 'Orbitron', monospace;
+        }
+
+        .exercise-section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            color: var(--quantum-purple);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(168, 85, 247, 0.3);
+        }
+
+        .exercise-card {
+            background: rgba(15, 15, 35, 0.8);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .exercise-card:hover {
+            border-color: var(--quantum-blue);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+        }
+
+        .exercise-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .exercise-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--quantum-blue), var(--quantum-purple));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', monospace;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .exercise-card h3 {
+            color: var(--quantum-blue);
+            font-family: 'Orbitron', monospace;
+            font-size: 1.1rem;
+        }
+
+        .difficulty {
+            margin-left: auto;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-family: 'Orbitron', monospace;
+        }
+
+        .difficulty.easy {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--quantum-green);
+            border: 1px solid var(--quantum-green);
+        }
+
+        .difficulty.medium {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--quantum-orange);
+            border: 1px solid var(--quantum-orange);
+        }
+
+        .difficulty.hard {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--quantum-red);
+            border: 1px solid var(--quantum-red);
+        }
+
+        .exercise-card p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1rem;
+        }
+
+        .formula-box {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 10px;
+            font-family: 'Times New Roman', serif;
+            color: var(--quantum-green);
+            text-align: center;
+            margin: 1rem 0;
+            border-left: 3px solid var(--quantum-purple);
+        }
+
+        .interactive-area {
+            background: rgba(0, 212, 255, 0.05);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .interactive-area h4 {
+            color: var(--quantum-blue);
+            margin-bottom: 1rem;
+            font-family: 'Orbitron', monospace;
+        }
+
+        .answer-input {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .answer-input input {
+            flex: 1;
+            min-width: 200px;
+            padding: 0.8rem 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1rem;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .answer-input input:focus {
+            outline: none;
+            border-color: var(--quantum-blue);
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+        }
+
+        .check-btn {
+            padding: 0.8rem 2rem;
+            background: linear-gradient(135deg, var(--quantum-blue), var(--quantum-purple));
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-family: 'Orbitron', monospace;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .check-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+
+        .hint-btn {
+            background: transparent;
+            border: 1px solid var(--quantum-orange);
+            color: var(--quantum-orange);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Orbitron', monospace;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .hint-btn:hover {
+            background: rgba(245, 158, 11, 0.2);
+        }
+
+        .hint {
+            display: none;
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+            color: var(--quantum-orange);
+        }
+
+        .hint.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .feedback {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .feedback.correct {
+            display: block;
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid var(--quantum-green);
+            color: var(--quantum-green);
+        }
+
+        .feedback.incorrect {
+            display: block;
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid #ef4444;
+            color: #ef4444;
+        }
+
+        .solution {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 8px;
+            border-left: 3px solid var(--quantum-green);
+        }
+
+        .solution.show {
+            display: block;
+        }
+
+        .solution h4 {
+            color: var(--quantum-green);
+            margin-bottom: 0.5rem;
+            font-family: 'Orbitron', monospace;
+        }
+
+        .reveal-btn {
+            background: transparent;
+            border: 1px solid var(--quantum-green);
+            color: var(--quantum-green);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Orbitron', monospace;
+            margin-top: 0.5rem;
+        }
+
+        .reveal-btn:hover {
+            background: rgba(16, 185, 129, 0.2);
+        }
+
+        /* Circuit Builder */
+        .mini-circuit {
+            display: flex;
+            gap: 0.5rem;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            overflow-x: auto;
+        }
+
+        .mini-gate {
+            min-width: 50px;
+            height: 50px;
+            background: rgba(168, 85, 247, 0.3);
+            border: 2px solid var(--quantum-purple);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', monospace;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .mini-gate:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
+        }
+
+        .mini-gate.selected {
+            background: var(--quantum-purple);
+            box-shadow: 0 0 20px var(--quantum-purple);
+        }
+
+        .mini-wire {
+            width: 4px;
+            height: 50px;
+            background: linear-gradient(to bottom, var(--quantum-blue), var(--quantum-purple));
+            border-radius: 2px;
+        }
+
+        /* Progress Tracker */
+        .progress-tracker {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .progress-item {
+            padding: 0.5rem 1rem;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 20px;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .progress-item:hover, .progress-item.active {
+            background: rgba(0, 212, 255, 0.2);
+            border-color: var(--quantum-blue);
+        }
+
+        .progress-item.completed {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: var(--quantum-green);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Multiple Choice */
+        .mc-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .mc-option {
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .mc-option:hover {
+            border-color: var(--quantum-blue);
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .mc-option.selected {
+            border-color: var(--quantum-purple);
+            background: rgba(168, 85, 247, 0.2);
+        }
+
+        .mc-option.correct {
+            border-color: var(--quantum-green);
+            background: rgba(16, 185, 129, 0.2);
+        }
+
+        .mc-option.incorrect {
+            border-color: #ef4444;
+            background: rgba(239, 68, 68, 0.2);
+        }
+
+        .option-letter {
+            width: 30px;
+            height: 30px;
+            background: rgba(0, 212, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', monospace;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to Main Tutorial</a>
+        <h1>Quantum Computing Exercises</h1>
+
+        <div class="progress-tracker">
+            <div class="progress-item active" onclick="scrollToSection('beginner')">Beginner</div>
+            <div class="progress-item" onclick="scrollToSection('intermediate')">Intermediate</div>
+            <div class="progress-item" onclick="scrollToSection('advanced')">Advanced</div>
+        </div>
+
+        <!-- Beginner Section -->
+        <div class="exercise-section" id="beginner">
+            <h2 class="section-title">Beginner Exercises</h2>
+
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <div class="exercise-number">1</div>
+                    <h3>Superposition Creation</h3>
+                    <span class="difficulty easy">Easy</span>
+                </div>
+                <p>What is the result of applying the Hadamard (H) gate to the |0⟩ state? Express the result as a superposition.</p>
+                <div class="formula-box">H|0⟩ = ?</div>
+                <div class="interactive-area">
+                    <h4>Your Answer:</h4>
+                    <div class="mc-options">
+                        <div class="mc-option" onclick="selectOption(this, false)">
+                            <span class="option-letter">A</span>
+                            <span>|1⟩</span>
+                        </div>
+                        <div class="mc-option" onclick="selectOption(this, true)">
+                            <span class="option-letter">B</span>
+                            <span>(|0⟩ + |1⟩)/√2</span>
+                        </div>
+                        <div class="mc-option" onclick="selectOption(this, false)">
+                            <span class="option-letter">C</span>
+                            <span>|0⟩</span>
+                        </div>
+                        <div class="mc-option" onclick="selectOption(this, false)">
+                            <span class="option-letter">D</span>
+                            <span>(|0⟩ - |1⟩)/√2</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <div class="exercise-number">2</div>
+                    <h3>Pauli-X Gate (NOT Gate)</h3>
+                    <span class="difficulty easy">Easy</span>
+                </div>
+                <p>What does the Pauli-X (X) gate do? Apply it to both |0⟩ and |1⟩ states.</p>
+                <div class="formula-box">X|0⟩ = ? | X|1⟩ = ?</div>
+                <div class="interactive-area">
+                    <h4>Your Answer:</h4>
+                    <div class="answer-input">
+                        <input type="text" id="q1-answer" placeholder="Enter: X|0⟩ = ...">
+                        <button class="check-btn" onclick="checkShortAnswer('q1-answer', '|1⟩')">Check</button>
+                    </div>
+                    <button class="hint-btn" onclick="toggleHint('hint1')">Show Hint</button>
+                    <div class="hint" id="hint1">Think of the X gate as a bit flip - it swaps 0 and 1!</div>
+                    <div class="feedback" id="feedback1"></div>
+                    <button class="reveal-btn" onclick="toggleSolution('sol1')">Show Solution</button>
+                    <div class="solution" id="sol1">
+                        <h4>Solution:</h4>
+                        <p>X|0⟩ = |1⟩ (flips 0 to 1)</p>
+                        <p>X|1⟩ = |0⟩ (flips 1 to 0)</p>
+                        <p>The X gate is the quantum equivalent of the classical NOT gate.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <div class="exercise-number">3</div>
+                    <h3>Qubit State Representation</h3>
+                    <span class="difficulty easy">Easy</span>
+                </div>
+                <p>A qubit is in the state |ψ⟩ = (3/5)|0⟩ + (4/5)|1⟩. What is the probability of measuring this qubit in the |1⟩ state?</p>
+                <div class="interactive-area">
+                    <h4>Calculate:</h4>
+                    <div class="answer-input">
+                        <input type="text" id="q3-answer" placeholder="Enter probability (as decimal or %)">
+                        <button class="check-btn" onclick="checkShortAnswer('q3-answer', '64')">Check</button>
+                    </div>
+                    <div class="hint" id="hint3">Remember: P(|1⟩) = |β|² where β is the coefficient of |1⟩</div>
+                    <button class="hint-btn" onclick="toggleHint('hint3')">Show Hint</button>
+                    <div class="feedback" id="feedback3"></div>
+                </div>
+            </div>
+
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <div class="exercise-number">4</div>
+                    <h3>Build a Simple Circuit</h3>
+                    <span class="difficulty easy">Easy</span>
+                </div>
+                <p>Arrange the gates in order to create a simple superposition circuit starting from |0⟩.</p>
+                <p><strong>Goal:</strong> Create the state (|0⟩ + |1⟩)/√2</p>
+                <div class="interactive-area">
+                    <h4>Click gates in order:</h4>
+                    <div class="mini-circuit">
+                        <span style="color: var(--quantum-blue); font-family: 'Orbitron';">|0⟩</span>
+                        <div class="mini-wire"></div>
+                        <div class="mini-gate" onclick="selectMiniGate(this, 'H')">H</div>
+                        <div class="mini-wire"></div>
+                        <div class="mini-gate" onclick="selectMiniGate(this, 'X')">X</div>
+                        <div class="mini-wire"></div>
+                        <div class="mini-gate" onclick="selectMiniGate(this, 'Z')">Z</div>
+                        <div class="mini-wire"></div>
+                        <div class="mini-gate" onclick="selectMiniGate(this, 'M')">M</div>
+                    </div>
+                    <div id="circuit-builder-feedback" style="margin-top: 1rem;"></div>
+                    <button class="check-btn" onclick="checkCircuit(['H'])">Check Circuit</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Intermediate Section -->
+        <div class="exercise-section" id="intermediate">
+            <h2 class="section-title">Intermediate Exercises</h2>
+
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <div class="exercise-number">5</div>
+                    <h3>Bell State Creation</h3>
+                    <span class="difficulty medium">Medium</span>
+                </div>
+                <p>What circuit creates the Bell state |Φ+⟩ = (|00⟩ + |11⟩)/√2?</p>
+                <p><strong>Hint:</strong> Start with |00⟩ and apply the necessary gates.</p>
+                <div class="interactive-area">
+                    <h4>Circuit Diagram:</h4>
+                    <div class="mini-circuit">
+                        <span style="color: var(--quantum-blue);">q[0]: |0⟩</span>
+                        <div class="mini-wire"></div>
+                        <div class="mini-gate">?</div>
+                        <div class="mini-wire"></div>
+                        <div class="mini-gate">?</div>
+                    </div>
+                    <div class="mini-circuit">
+                        <span style="color: var(--quantum-purple);">q[1]: |0⟩</span>
+                        <div class="mini-wire"></div>
+                        <div class="mini-wire"></div>
+                        <div class="mini-gate">?</div>
+                    </div>
+                    <div class="answer-input" style="margin-top: 1rem;">
+                        <input type="text" id="q5-answer" placeholder="Enter gates for q[0] then q[1], e.g., H,X">
+                        <button class="check-btn" onclick="checkShortAnswer('q5-answer', 'h,cnot')">Check</button>
+                    </div>
+                    <div class="hint" id="hint5">First create superposition on q[0], then entangle with CNOT</div>
+                    <button class="hint-btn" onclick="toggleHint('hint5')">Show Hint</button>
+                </div>
+            </div>
+
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <div class="exercise-number">6</div>
+                    <h3>Measurement Probabilities</h3>
+                    <span class="difficulty medium">Medium</span>
+                </div>
+                <p>After applying H to |0⟩ and measuring in the computational basis, what are the probabilities of getting 0 and 1?</p>
+                <div class="formula-box">H|0⟩ = (1/√2)|0⟩ + (1/√2)|1⟩</div>
+                <div class="interactive-area">
+                    <h4>Calculate:</h4>
+                    <div class="answer-input">
+                        <span>P(0) = <input type="text" id="q6a" style="width: 80px;"></span>
+                        <span>P(1) = <input type="text" id="q6b" style="width: 80px;"></span>
+                        <button class="check-btn" onclick="checkProbabilities()">Check</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <div class="exercise-number">7</div>
+                    <h3>Phase Gate Effects</h3>
+                    <span class="difficulty medium">Medium</span>
+                </div>
+                <p>What is the result of applying the S gate followed by the T gate to |1⟩?</p>
+                <div class="formula-box">S|1⟩ = ? | T|1⟩ = e^(iπ/4)|1⟩</div>
+                <div class="interactive-area">
+                    <div class="mc-options">
+                        <div class="mc-option" onclick="selectOption(this, false)">
+                            <span class="option-letter">A</span>
+                            <span>i|1⟩</span>
+                        </div>
+                        <div class="mc-option" onclick="selectOption(this, true)">
+                            <span class="option-letter">B</span>
+                            <span>e^(i3π/4)|1⟩</span>
+                        </div>
+                        <div class="mc-option" onclick="selectOption(this, false)">
+                            <span class="option-letter">C</span>
+                            <span>-i|1⟩</span>
+                        </div>
+                        <div class="mc-option" onclick="selectOption(this, false)">
+                            <span class="option-letter">D</span>
+                            <span>|1⟩</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <div class="exercise-number">8</div>
+                    <h3>CNOT Gate Behavior</h3>
+                    <span class="difficulty medium">Medium</span>
+                </div>
+                <p>What are the outputs of a CNOT gate for each input below?</p>
+                <div class="formula-box">
+                    CNOT|00⟩ = ? | CNOT|01⟩ = ? | CNOT|10⟩ = ? | CNOT|11⟩ = ?
+                </div>
+                <div class="interactive-area">
+                    <div class="mc-options">
+                        <div class="mc-option" onclick="selectOption(this, true)">
+                            <span class="option-letter">A</span>
+                            <span>|00⟩, |01⟩, |11⟩, |10⟩</span>
+                        </div>
+                        <div class="mc-option" onclick="selectOption(this, false)">
+                            <span class="option-letter">B</span>
+                            <span>|00⟩, |10⟩, |01⟩, |11⟩</span>
+                        </div>
+                        <div class="mc-option" onclick="selectOption(this, false)">
+                            <span class="option-letter">C</span>
+                            <span>|00⟩, |01⟩, |10⟩, |11⟩</span>
+                        </div>
+                        <div class="mc-option" onclick="selectOption(this, false)">
+                            <span class="option-letter">D</span>
+                            <span>|11⟩, |10⟩, |01⟩, |00⟩</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Advanced Section -->
+        <div class="exercise-section" id="advanced">
+            <h2 class="section-title">Advanced Exercises</h2>
+
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <div class="exercise-number">9</div>
+                    <h3>Entanglement Verification</h3>
+                    <span class="difficulty hard">Hard</span>
+                </div>
+                <p>For a Bell state |Φ+⟩ = (|00⟩ + |11⟩)/√2, if we measure the first qubit and get |0⟩, what must the second qubit be?</p>
+                <p><strong>Explain:</strong> Why does measuring one qubit of an entangled pair instantly determine the other?</p>
+                <div class="interactive-area">
+                    <h4>Your Explanation:</h4>
+                    <textarea style="width: 100%; min-height: 100px; background: rgba(0,0,0,0.3); border: 1px solid rgba(0,212,255,0.3); border-radius: 8px; color: #fff; padding: 1rem; font-family: 'Rajdhani'; resize: vertical;"></textarea>
+                    <button class="check-btn" onclick="alert('Great thinking! The answer is |0⟩ - the qubits are correlated. In the Bell state, if we know one qubit, we instantly know the other due to their entangled nature.')" style="margin-top: 1rem;">Submit Answer</button>
+                </div>
+            </div>
+
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <div class="exercise-number">10</div>
+                    <h3>Grover's Algorithm Analysis</h3>
+                    <span class="difficulty hard">Hard</span>
+                </div>
+                <p>For a database of N = 16 items, how many iterations of Grover's search algorithm are needed to find a single marked item with maximum probability?</p>
+                <div class="formula-box">Optimal iterations ≈ π/(4 arcsin(1/√N))</div>
+                <div class="interactive-area">
+                    <div class="answer-input">
+                        <input type="text" id="q10-answer" placeholder="Enter number of iterations">
+                        <button class="check-btn" onclick="checkShortAnswer('q10-answer', '3')">Check</button>
+                    </div>
+                    <div class="hint" id="hint10">Calculate: arcsin(1/4) ≈ 0.2527, then π/(4 × 0.2527) ≈ 3.11</div>
+                    <button class="hint-btn" onclick="toggleHint('hint10')">Show Hint</button>
+                </div>
+            </div>
+
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <div class="exercise-number">11</div>
+                    <h3>Deutsch-Jozsa Oracle Design</h3>
+                    <span class="difficulty hard">Hard</span>
+                </div>
+                <p>Design an oracle for a balanced function f(x) for n=2 qubits that returns 0 for inputs 00 and 01, and 1 for inputs 10 and 11.</p>
+                <p><strong>Hint:</strong> The CNOT gate can serve as a simple balanced oracle.</p>
+                <div class="interactive-area">
+                    <h4>Draw your oracle circuit:</h4>
+                    <div class="mini-circuit">
+                        <span style="color: var(--quantum-blue);">Input |x⟩</span>
+                        <div class="mini-wire"></div>
+                        <div class="mini-gate" onclick="selectMiniGate(this, 'X')">?</div>
+                        <div class="mini-wire"></div>
+                        <div class="mini-gate">?</div>
+                    </div>
+                    <div class="mini-circuit">
+                        <span style="color: var(--quantum-purple);">Output |y⟩</span>
+                        <div class="mini-wire"></div>
+                        <div class="mini-wire"></div>
+                        <div class="mini-gate">?</div>
+                    </div>
+                    <button class="check-btn" onclick="alert('Correct! Use CNOT with x as control and y as target: f(x) = x for 2-bit input')" style="margin-top: 1rem;">Check Solution</button>
+                </div>
+            </div>
+
+            <div class="exercise-card">
+                <div class="exercise-header">
+                    <div class="exercise-number">12</div>
+                    <h3>Quantum Fourier Transform</h3>
+                    <span class="difficulty hard">Hard</span>
+                </div>
+                <p>What is the QFT of the state |1⟩ for a 2-qubit system? Express your answer in the computational basis.</p>
+                <div class="formula-box">QFT|x⟩ = (1/√N) Σₖ e^(2πikx/N)|k⟩</div>
+                <div class="interactive-area">
+                    <div class="mc-options">
+                        <div class="mc-option" onclick="selectOption(this, false)">
+                            <span class="option-letter">A</span>
+                            <span>|01⟩</span>
+                        </div>
+                        <div class="mc-option" onclick="selectOption(this, true)">
+                            <span class="option-letter">B</span>
+                            <span>(|00⟩ + i|01⟩ - |10⟩ - i|11⟩)/2</span>
+                        </div>
+                        <div class="mc-option" onclick="selectOption(this, false)">
+                            <span class="option-letter">C</span>
+                            <span>(|00⟩ + |01⟩ + |10⟩ + |11⟩)/2</span>
+                        </div>
+                        <div class="mc-option" onclick="selectOption(this, false)">
+                            <span class="option-letter">D</span>
+                            <span>|10⟩</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; padding: 3rem 0;">
+            <p style="color: rgba(255,255,255,0.6); margin-bottom: 1rem;">Want more challenges?</p>
+            <a href="index.html#simulator" class="check-btn" style="text-decoration: none;">Try the Interactive Simulator</a>
+        </div>
+    </div>
+
+    <script>
+        let selectedOption = null;
+
+        function selectOption(element, isCorrect) {
+            // Remove previous selection
+            document.querySelectorAll('.mc-option').forEach(opt => {
+                if (opt.closest('.exercise-card') === element.closest('.exercise-card')) {
+                    opt.classList.remove('selected');
+                }
+            });
+
+            element.classList.add('selected');
+            selectedOption = element;
+
+            if (isCorrect) {
+                element.classList.add('correct');
+            } else {
+                element.classList.add('incorrect');
+            }
+        }
+
+        function checkShortAnswer(inputId, correctAnswer) {
+            const input = document.getElementById(inputId);
+            const value = input.value.toLowerCase().replace(/\s/g, '');
+
+            const feedbackId = inputId.replace('answer', 'feedback');
+            const feedback = document.getElementById(feedbackId) || input.parentElement.parentElement.querySelector('.feedback');
+
+            if (value.includes(correctAnswer.toLowerCase()) || value === correctAnswer.toLowerCase()) {
+                if (feedback) {
+                    feedback.textContent = 'Correct! Well done!';
+                    feedback.className = 'feedback correct';
+                }
+                input.style.borderColor = 'var(--quantum-green)';
+            } else {
+                if (feedback) {
+                    feedback.textContent = 'Not quite. Try again or check the hint.';
+                    feedback.className = 'feedback incorrect';
+                }
+                input.style.borderColor = '#ef4444';
+            }
+        }
+
+        function checkProbabilities() {
+            const p0 = document.getElementById('q6a').value;
+            const p1 = document.getElementById('q6b').value;
+
+            const p0Val = parseFloat(p0);
+            const p1Val = parseFloat(p1);
+
+            if ((Math.abs(p0Val - 0.5) < 0.01 || Math.abs(p0Val - 50) < 1) &&
+                (Math.abs(p1Val - 0.5) < 0.01 || Math.abs(p1Val - 50) < 1)) {
+                alert('Correct! Both probabilities are 50% (or 0.5)');
+            } else {
+                alert('Not quite. Remember: |1/√2|² = 1/2 = 50%');
+            }
+        }
+
+        function toggleHint(hintId) {
+            const hint = document.getElementById(hintId);
+            hint.classList.toggle('show');
+        }
+
+        function toggleSolution(solId) {
+            const sol = document.getElementById(solId);
+            sol.classList.toggle('show');
+        }
+
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function selectMiniGate(element, gate) {
+            element.classList.toggle('selected');
+        }
+
+        function checkCircuit(expectedGates) {
+            const feedback = document.getElementById('circuit-builder-feedback');
+            feedback.innerHTML = '<span style="color: var(--quantum-green);">Correct! H gate creates superposition from |0⟩</span>';
+        }
+
+        // Update progress tracker based on scroll
+        window.addEventListener('scroll', () => {
+            const sections = ['beginner', 'intermediate', 'advanced'];
+            const progressItems = document.querySelectorAll('.progress-item');
+
+            sections.forEach((section, index) => {
+                const el = document.getElementById(section);
+                const rect = el.getBoundingClientRect();
+
+                if (rect.top <= 200 && rect.bottom >= 200) {
+                    progressItems.forEach(item => item.classList.remove('active'));
+                    progressItems[index].classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
