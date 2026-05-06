@@ -666,30 +666,30 @@
 
                 <div class="step-card">
                     <span class="step-number">2</span>
-                    <h4>Add Gates</h4>
-                    <p style="margin-top: 0.5rem;">Click gate buttons to add them to your circuit. Gates appear on qubit wires from left to right.</p>
+                    <h4>Choose Target Qubit</h4>
+                    <p style="margin-top: 0.5rem;">Select which qubit (q[0], q[1], etc.) to add the gate to using the dropdown.</p>
                 </div>
 
                 <div class="step-card">
                     <span class="step-number">3</span>
-                    <h4>Run Simulation</h4>
-                    <p style="margin-top: 0.5rem;">Click "Run Circuit" to simulate. Watch the Bloch sphere and probabilities update!</p>
+                    <h4>Add Gates</h4>
+                    <p style="margin-top: 0.5rem;">Click gate buttons to add them to your selected qubit. Gates appear on qubit wires from left to right.</p>
                 </div>
 
                 <div class="step-card">
                     <span class="step-number">4</span>
-                    <h4>Remove Gates</h4>
-                    <p style="margin-top: 0.5rem;">Click any gate on the wire to remove it. Or click "Clear" to reset everything.</p>
+                    <h4>Run & Remove</h4>
+                    <p style="margin-top: 0.5rem;">Click "Run Circuit" to simulate. Click any gate on wire to remove it. Or click "Clear" to reset.</p>
                 </div>
             </div>
 
             <div class="tips-box">
                 <h4>💡 Tips</h4>
                 <ul>
-                    <li>Gates are added to the first available position on qubit 0</li>
-                    <li>CNOT, CZ, and SWAP work between qubits (first qubit is control)</li>
+                    <li>Use the "Target Qubit" dropdown to choose which qubit gets the gate</li>
+                    <li>CNOT, CZ, and SWAP affect pairs of qubits</li>
                     <li>Try the example circuits to learn common patterns!</li>
-                    <li>The Bloch sphere shows your qubit's quantum state</li>
+                    <li>The Bloch sphere shows qubit q[0]'s quantum state</li>
                 </ul>
             </div>
         </section>
@@ -697,46 +697,58 @@
         <!-- Gate Reference -->
         <section id="gate-reference">
             <h2>📚 Gate Reference</h2>
-            <p>Click on any gate to add it to your circuit!</p>
+            <p>Select a target qubit, then click any gate to add it to that qubit!</p>
+
+            <div style="margin-bottom: 1rem; padding: 0.8rem; background: rgba(0, 212, 255, 0.1); border-radius: 8px; display: inline-block;">
+                <label style="font-family: 'Orbitron', monospace; color: var(--quantum-blue);">
+                    Target Qubit:
+                    <select id="ref-target-qubit" onchange="showStatus(`Gate will be added to q[${this.value}]`, 'info')" style="padding: 0.5rem 1rem; background: rgba(0, 0, 0, 0.5); border: 1px solid var(--quantum-blue); border-radius: 5px; color: #fff; font-family: 'Rajdhani', sans-serif;">
+                        <option value="0">q[0]</option>
+                        <option value="1">q[1]</option>
+                        <option value="2">q[2]</option>
+                        <option value="3">q[3]</option>
+                    </select>
+                </label>
+            </div>
 
             <h3>Single Qubit Gates</h3>
             <div class="gate-grid">
-                <div class="gate-card single" onclick="addGate('H')">
+                <div class="gate-card single" onclick="addGateToRef('H')">
                     <div class="gate-icon">H</div>
                     <div class="gate-name">Hadamard</div>
                     <div class="gate-desc">Creates superposition</div>
                     <div class="gate-formula">H|0⟩ = (|0⟩+|1⟩)/√2</div>
                 </div>
 
-                <div class="gate-card single" onclick="addGate('X')">
+                <div class="gate-card single" onclick="addGateToRef('X')">
                     <div class="gate-icon">X</div>
                     <div class="gate-name">Pauli-X (NOT)</div>
                     <div class="gate-desc">Flips |0⟩ ↔ |1⟩</div>
                     <div class="gate-formula">X|0⟩ = |1⟩</div>
                 </div>
 
-                <div class="gate-card single" onclick="addGate('Y')">
+                <div class="gate-card single" onclick="addGateToRef('Y')">
                     <div class="gate-icon">Y</div>
                     <div class="gate-name">Pauli-Y</div>
                     <div class="gate-desc">180° Y-axis rotation</div>
                     <div class="gate-formula">Rotates around Y</div>
                 </div>
 
-                <div class="gate-card single" onclick="addGate('Z')">
+                <div class="gate-card single" onclick="addGateToRef('Z')">
                     <div class="gate-icon">Z</div>
                     <div class="gate-name">Pauli-Z</div>
                     <div class="gate-desc">Phase flip</div>
                     <div class="gate-formula">Z|1⟩ = -|1⟩</div>
                 </div>
 
-                <div class="gate-card single" onclick="addGate('S')">
+                <div class="gate-card single" onclick="addGateToRef('S')">
                     <div class="gate-icon">S</div>
                     <div class="gate-name">Phase Gate</div>
                     <div class="gate-desc">90° phase shift</div>
                     <div class="gate-formula">S|1⟩ = i|1⟩</div>
                 </div>
 
-                <div class="gate-card single" onclick="addGate('T')">
+                <div class="gate-card single" onclick="addGateToRef('T')">
                     <div class="gate-icon">T</div>
                     <div class="gate-name">T Gate</div>
                     <div class="gate-desc">45° phase (π/8)</div>
@@ -746,21 +758,21 @@
 
             <h3>Multi-Qubit Gates</h3>
             <div class="gate-grid">
-                <div class="gate-card multi" onclick="addGate('CNOT')">
+                <div class="gate-card multi" onclick="addGateToRef('CNOT')">
                     <div class="gate-icon">⊕</div>
                     <div class="gate-name">CNOT</div>
                     <div class="gate-desc">Controlled-NOT</div>
                     <div class="gate-formula">Flips target if control=1</div>
                 </div>
 
-                <div class="gate-card multi" onclick="addGate('CZ')">
+                <div class="gate-card multi" onclick="addGateToRef('CZ')">
                     <div class="gate-icon">Z</div>
                     <div class="gate-name">CZ</div>
                     <div class="gate-desc">Controlled-Z</div>
                     <div class="gate-formula">Applies Z when both=1</div>
                 </div>
 
-                <div class="gate-card multi" onclick="addGate('SWAP')">
+                <div class="gate-card multi" onclick="addGateToRef('SWAP')">
                     <div class="gate-icon">⇄</div>
                     <div class="gate-name">SWAP</div>
                     <div class="gate-desc">Swap qubits</div>
@@ -770,7 +782,7 @@
 
             <h3>Measurement</h3>
             <div class="gate-grid">
-                <div class="gate-card measure" onclick="addGate('M')">
+                <div class="gate-card measure" onclick="addGateToRef('M')">
                     <div class="gate-icon">M</div>
                     <div class="gate-name">Measure</div>
                     <div class="gate-desc">Collapse state</div>
@@ -801,26 +813,35 @@
                     </label>
                     <button onclick="runCircuit()">▶ Run Circuit</button>
                     <button onclick="clearCircuit()">Clear</button>
+                    <label>
+                        Target Qubit:
+                        <select id="target-qubit" style="padding: 0.5rem 1rem; background: rgba(0, 0, 0, 0.5); border: 1px solid var(--quantum-blue); border-radius: 5px; color: #fff; font-family: 'Rajdhani', sans-serif;">
+                            <option value="0">q[0]</option>
+                            <option value="1">q[1]</option>
+                            <option value="2">q[2]</option>
+                            <option value="3">q[3]</option>
+                        </select>
+                    </label>
                 </div>
 
                 <div class="builder-workspace">
                     <!-- Gate Palette -->
                     <div class="gate-palette">
                         <h4>Single Qubit Gates</h4>
-                        <button class="gate-btn" onclick="addGate('H')"><span class="gate-symbol">H</span> Hadamard</button>
-                        <button class="gate-btn" onclick="addGate('X')"><span class="gate-symbol">X</span> Pauli-X (NOT)</button>
-                        <button class="gate-btn" onclick="addGate('Y')"><span class="gate-symbol">Y</span> Pauli-Y</button>
-                        <button class="gate-btn" onclick="addGate('Z')"><span class="gate-symbol">Z</span> Pauli-Z</button>
-                        <button class="gate-btn" onclick="addGate('S')"><span class="gate-symbol">S</span> Phase Gate</button>
-                        <button class="gate-btn" onclick="addGate('T')"><span class="gate-symbol">T</span> T Gate</button>
+                        <button class="gate-btn" onclick="addGateToQubit('H')"><span class="gate-symbol">H</span> Hadamard</button>
+                        <button class="gate-btn" onclick="addGateToQubit('X')"><span class="gate-symbol">X</span> Pauli-X (NOT)</button>
+                        <button class="gate-btn" onclick="addGateToQubit('Y')"><span class="gate-symbol">Y</span> Pauli-Y</button>
+                        <button class="gate-btn" onclick="addGateToQubit('Z')"><span class="gate-symbol">Z</span> Pauli-Z</button>
+                        <button class="gate-btn" onclick="addGateToQubit('S')"><span class="gate-symbol">S</span> Phase Gate</button>
+                        <button class="gate-btn" onclick="addGateToQubit('T')"><span class="gate-symbol">T</span> T Gate</button>
 
                         <h4>Multi-Qubit Gates</h4>
-                        <button class="gate-btn" onclick="addGate('CNOT')"><span class="gate-symbol">⊕</span> CNOT</button>
-                        <button class="gate-btn" onclick="addGate('CZ')"><span class="gate-symbol">Z</span> CZ (Control-Z)</button>
-                        <button class="gate-btn" onclick="addGate('SWAP')"><span class="gate-symbol">⇄</span> SWAP</button>
+                        <button class="gate-btn" onclick="addGateToQubit('CNOT')"><span class="gate-symbol">⊕</span> CNOT</button>
+                        <button class="gate-btn" onclick="addGateToQubit('CZ')"><span class="gate-symbol">Z</span> CZ (Control-Z)</button>
+                        <button class="gate-btn" onclick="addGateToQubit('SWAP')"><span class="gate-symbol">⇄</span> SWAP</button>
 
                         <h4>Measurement</h4>
-                        <button class="gate-btn" onclick="addGate('M')"><span class="gate-symbol">M</span> Measure</button>
+                        <button class="gate-btn" onclick="addGateToQubit('M')"><span class="gate-symbol">M</span> Measure</button>
                     </div>
 
                     <!-- Circuit Display -->
@@ -989,12 +1010,38 @@
     function addGate(gateType) {
         for (let i = 0; i < numQubits; i++) {
             if (circuit[i].length < 8) {
-                circuit[i].push(gateType);
+                circuit[i].push({type: gateType, qubit: i});
                 break;
             }
         }
         renderCircuit();
         showStatus(`Added ${gateType} gate! Click "Run Circuit" to simulate.`, 'info');
+    }
+
+    function addGateToQubit(gateType) {
+        const targetQubit = parseInt(document.getElementById('target-qubit').value);
+        if (targetQubit >= numQubits) {
+            showStatus(`Please select a valid qubit (0-${numQubits-1})!`, 'info');
+            return;
+        }
+        if (circuit[targetQubit].length >= 8) {
+            showStatus(`Qubit ${targetQubit} already has 8 gates!`, 'info');
+            return;
+        }
+        circuit[targetQubit].push({type: gateType, qubit: targetQubit});
+        renderCircuit();
+        showStatus(`Added ${gateType} to q[${targetQubit}]! Click "Run Circuit" to simulate.`, 'info');
+    }
+
+    function addGateToRef(gateType) {
+        const targetQubit = parseInt(document.getElementById('ref-target-qubit').value);
+        if (targetQubit >= numQubits) {
+            showStatus(`Please select a valid qubit (0-${numQubits-1})!`, 'info');
+            return;
+        }
+        circuit[targetQubit].push({type: gateType, qubit: targetQubit});
+        renderCircuit();
+        showStatus(`Added ${gateType} to q[${targetQubit}]!`, 'info');
     }
 
     function renderCircuit() {
@@ -1018,10 +1065,11 @@
             circuit[i].forEach((gate, idx) => {
                 const gateDiv = document.createElement('div');
                 gateDiv.className = 'gate-on-line';
-                if (gate === 'M') gateDiv.classList.add('measure');
+                if (gate.type === 'M') gateDiv.classList.add('measure');
                 gateDiv.style.left = `${70 + idx * 55}px`;
-                gateDiv.textContent = gate === 'CNOT' ? '⊕' : gate === 'CZ' ? 'Z' : gate === 'SWAP' ? '⇄' : gate;
-                gateDiv.title = `Click to remove ${gate}`;
+                const displayText = gate.type === 'CNOT' ? '⊕' : gate.type === 'CZ' ? 'Z' : gate.type === 'SWAP' ? '⇄' : gate.type;
+                gateDiv.textContent = displayText;
+                gateDiv.title = `Click to remove ${gate.type}`;
                 gateDiv.onclick = (function(q, g) { return function() { removeGate(q, g); }; })(i, idx);
                 line.appendChild(gateDiv);
             });
@@ -1081,14 +1129,21 @@
 
         for (let q = 0; q < numQubits; q++) {
             for (const gate of circuit[q]) {
-                if (gate === 'CNOT') {
-                    state = applyCNOT(state, 0, 1, numQubits);
-                } else if (gate === 'CZ') {
-                    state = applyCZ(state, 0, 1, numQubits);
-                } else if (gate === 'SWAP') {
-                    state = applySWAP(state, 0, 1, numQubits);
-                } else if (GATES[gate]) {
-                    state = applySingleGate(state, GATES[gate], q, numQubits);
+                const gateType = gate.type || gate;
+                if (gateType === 'CNOT') {
+                    const ctrl = q;
+                    const tgt = (q + 1) % numQubits;
+                    state = applyCNOT(state, ctrl, tgt, numQubits);
+                } else if (gateType === 'CZ') {
+                    const ctrl = q;
+                    const tgt = (q + 1) % numQubits;
+                    state = applyCZ(state, ctrl, tgt, numQubits);
+                } else if (gateType === 'SWAP') {
+                    const a = q;
+                    const b = (q + 1) % numQubits;
+                    state = applySWAP(state, a, b, numQubits);
+                } else if (GATES[gateType]) {
+                    state = applySingleGate(state, GATES[gateType], q, numQubits);
                 }
             }
         }
@@ -1181,12 +1236,13 @@
 
         if (circuit[0]) {
             for (const gate of circuit[0]) {
-                if (gate === 'H') { theta = Math.PI / 2; phi = 0; }
-                else if (gate === 'X') { theta = Math.PI; phi = 0; }
-                else if (gate === 'Y') { theta = Math.PI / 2; phi = Math.PI; }
-                else if (gate === 'Z') { phi += Math.PI; }
-                else if (gate === 'S') { phi += Math.PI / 2; }
-                else if (gate === 'T') { phi += Math.PI / 4; }
+                const gateType = gate.type || gate;
+                if (gateType === 'H') { theta = Math.PI / 2; phi = 0; }
+                else if (gateType === 'X') { theta = Math.PI; phi = 0; }
+                else if (gateType === 'Y') { theta = Math.PI / 2; phi = Math.PI; }
+                else if (gateType === 'Z') { phi += Math.PI; }
+                else if (gateType === 'S') { phi += Math.PI / 2; }
+                else if (gateType === 'T') { phi += Math.PI / 4; }
             }
         }
 
@@ -1294,27 +1350,27 @@
 
         switch (name) {
             case 'bell':
-                circuit[0] = ['H'];
-                circuit[1] = ['CNOT'];
+                circuit[0] = [{type: 'H'}];
+                circuit[1] = [{type: 'CNOT'}];
                 break;
             case 'ghz':
-                circuit[0] = ['H'];
-                circuit[1] = ['CNOT'];
-                circuit[2] = ['CNOT'];
+                circuit[0] = [{type: 'H'}];
+                circuit[1] = [{type: 'CNOT'}];
+                circuit[2] = [{type: 'CNOT'}];
                 break;
             case 'superposition':
-                circuit[0] = ['H'];
+                circuit[0] = [{type: 'H'}];
                 break;
             case 'not-gate':
-                circuit[0] = ['X'];
+                circuit[0] = [{type: 'X'}];
                 break;
             case ' deutsch':
-                circuit[0] = ['X', 'H'];
-                circuit[1] = ['H'];
+                circuit[0] = [{type: 'X'}, {type: 'H'}];
+                circuit[1] = [{type: 'H'}];
                 break;
             case 'phase':
-                circuit[0] = ['X', 'H'];
-                circuit[1] = ['H', 'Z'];
+                circuit[0] = [{type: 'X'}, {type: 'H'}];
+                circuit[1] = [{type: 'H'}, {type: 'Z'}];
                 break;
         }
         renderCircuit();
