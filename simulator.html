@@ -572,31 +572,32 @@
                 <div class="step-card">
                     <span class="step-number">1</span>
                     <h4>Select Qubits</h4>
-                    <p>Choose 1-4 qubits using the dropdown</p>
+                    <p>Choose 1-4 qubits (shows q[0], q[1], q[2], q[3])</p>
                 </div>
                 <div class="step-card">
                     <span class="step-number">2</span>
-                    <h4>Add Gates</h4>
-                    <p>Click gate buttons to add them</p>
+                    <h4>Choose Qubit</h4>
+                    <p>Select which qubit (q[0], q[1], q[2], q[3]) to add gate</p>
                 </div>
                 <div class="step-card">
                     <span class="step-number">3</span>
-                    <h4>Run Circuit</h4>
-                    <p>Click the blue Run button</p>
+                    <h4>Click Gate</h4>
+                    <p>Click a gate button - it adds to selected qubit</p>
                 </div>
                 <div class="step-card">
                     <span class="step-number">4</span>
-                    <h4>See Results</h4>
-                    <p>View Bloch sphere & probabilities</p>
+                    <h4>Run & See</h4>
+                    <p>Click "Run Circuit" and view results</p>
                 </div>
             </div>
             <div class="tips-box">
                 <h4>💡 How to Build Circuits</h4>
                 <ul>
-                    <li><strong>Single gates (H, X, Y, Z, S, T):</strong> Click the gate button, it adds to the next available position on q[0]</li>
-                    <li><strong>CNOT/CZ/SWAP:</strong> Click the gate button, it adds to the next position on q[0] (control is q[0], target is q[1])</li>
-                    <li><strong>To clear:</strong> Click the Clear button</li>
-                    <li><strong>To remove a gate:</strong> Click directly on it in the circuit</li>
+                    <li><strong>Step 1:</strong> Pick number of qubits (1-4)</li>
+                    <li><strong>Step 2:</strong> Choose target qubit from "Add to" dropdown</li>
+                    <li><strong>Step 3:</strong> Click any gate button to add it</li>
+                    <li><strong>Step 4:</strong> Click "▶ Run Circuit" to simulate</li>
+                    <li><strong>Example - Bell State:</strong> Set to 2 qubits, add H to q[0], change to q[1], add CNOT</li>
                 </ul>
             </div>
         </section>
@@ -683,6 +684,15 @@
                         <option value="4">4 Qubits</option>
                     </select>
                 </label>
+                <label>
+                    Add to:
+                    <select id="target-qubit" style="padding: 0.4rem 0.8rem; background: rgba(0, 0, 0, 0.5); border: 1px solid var(--quantum-purple); border-radius: 5px; color: var(--quantum-purple); font-family: 'Rajdhani', sans-serif;">
+                        <option value="0">q[0]</option>
+                        <option value="1">q[1]</option>
+                        <option value="2">q[2]</option>
+                        <option value="3">q[3]</option>
+                    </select>
+                </label>
                 <button onclick="runCircuit()">▶ Run Circuit</button>
                 <button onclick="clearCircuit()">Clear</button>
             </div>
@@ -691,7 +701,7 @@
                 <div class="gate-palette">
                     <h4>Single Qubit</h4>
                     <button class="gate-btn" onclick="addGate('H')"><span class="gate-symbol">H</span> Hadamard</button>
-                    <button class="gate-btn" onclick="addGate('X')"><span class="gate-symbol">X</span> Pauli-X</button>
+                    <button class="gate-btn" onclick="addGate('X')"><span class="gate-symbol">X</span> Pauli-X (NOT)</button>
                     <button class="gate-btn" onclick="addGate('Y')"><span class="gate-symbol">Y</span> Pauli-Y</button>
                     <button class="gate-btn" onclick="addGate('Z')"><span class="gate-symbol">Z</span> Pauli-Z</button>
                     <button class="gate-btn" onclick="addGate('S')"><span class="gate-symbol">S</span> Phase</button>
@@ -733,19 +743,19 @@
             <div class="examples-grid">
                 <div class="example-card" onclick="loadExample('superposition')">
                     <h4>Superposition</h4>
-                    <p>Hadamard on |0⟩ creates equal superposition. Result: 50% |0⟩, 50% |1⟩</p>
+                    <p>Add H to q[0]. Result: 50% |0⟩, 50% |1⟩</p>
                 </div>
                 <div class="example-card" onclick="loadExample('not-gate')">
                     <h4>NOT Gate (X)</h4>
-                    <p>Pauli-X flips |0⟩ to |1⟩. Result: 100% |1⟩</p>
+                    <p>Add X to q[0]. Result: 100% |1⟩</p>
                 </div>
                 <div class="example-card" onclick="loadExample('bell')">
                     <h4>Bell State</h4>
-                    <p>Entangled pair: H on q[0], CNOT from q[0]→q[1]. Result: 50% |00⟩, 50% |11⟩</p>
+                    <p>Add H to q[0], CNOT to q[1]. Result: 50% |00⟩, 50% |11⟩</p>
                 </div>
                 <div class="example-card" onclick="loadExample('ghz')">
                     <h4>GHZ State</h4>
-                    <p>3-qubit entanglement. Result: 50% |000⟩, 50% |111⟩</p>
+                    <p>H to q[0], CNOT to q[1] and q[2]. Result: 50% |000⟩, 50% |111⟩</p>
                 </div>
             </div>
         </section>
@@ -791,11 +801,11 @@
     }
 
     function addGate(gateType) {
-        // Add gate at the next time step (column)
+        const targetQubit = parseInt(document.getElementById('target-qubit').value);
         const timeStep = circuit.length;
-        circuit.push([{ gate: gateType, qubit: 0 }]);
+        circuit.push([{ gate: gateType, qubit: targetQubit }]);
         renderCircuit();
-        showStatus(`Added ${gateType} gate! Click "Run Circuit" to simulate.`, 'info');
+        showStatus(`Added ${gateType} to q[${targetQubit}]! Click "Run Circuit".`, 'info');
     }
 
     function renderCircuit() {
